@@ -1,0 +1,73 @@
+{
+  "section": {
+    "eyebrow": "🎉 Exclusive Offers",
+    "titleAccent": "Premium",
+    "title": "Promotions",
+    "description": "Maximize your winning potential with our exclusive VIP bonuses, cashback rewards, and daily prize drops",
+    "terms": "Terms and conditions apply. 18+ only. Please gamble responsibly.",
+    "disclaimer": "All bonuses are subject to wagering requirements. BeGambleAware.org | GamCare.org.uk",
+    "buttonLabel": "Claim Bonus Now"
+  },
+  "promotions": [
+    {
+      "id": "royal-welcome-package",
+      "title": "Royal Welcome Package",
+      "description": "300% match up to $10,000 + 500 Free Spins on premium slots",
+      "badge": "New VIP Members",
+      "color": "from-primary-500 via-primary-600 to-yellow-600",
+      "icon": "👑",
+      "code": "ROYAL300",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    },
+    {
+      "id": "weekend-high-roller",
+      "title": "Weekend High Roller",
+      "description": "75% bonus up to $5,000 every weekend + exclusive table access",
+      "badge": "Weekly Elite",
+      "color": "from-secondary-500 via-secondary-600 to-purple-600",
+      "icon": "💎",
+      "code": "WEEKEND75",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    },
+    {
+      "id": "platinum-cashback",
+      "title": "Platinum Cashback",
+      "description": "Up to 25% cashback on all losses + priority withdrawals",
+      "badge": "VIP Exclusive",
+      "color": "from-accent-pink via-pink-600 to-accent-red",
+      "icon": "⭐",
+      "code": "PLATINUM25",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    },
+    {
+      "id": "mega-jackpot-drops",
+      "title": "Mega Jackpot Drops",
+      "description": "$250,000 prize pool shared daily across all games",
+      "badge": "Daily Rewards",
+      "color": "from-accent-green via-emerald-600 to-accent-blue",
+      "icon": "💰",
+      "code": "MEGADROP",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    },
+    {
+      "id": "live-casino-bonus",
+      "title": "Live Casino Bonus",
+      "description": "50% bonus up to $3,000 exclusively for live dealer games",
+      "badge": "Live Gaming",
+      "color": "from-blue-500 via-indigo-600 to-purple-600",
+      "icon": "🎥",
+      "code": "LIVE50",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    },
+    {
+      "id": "loyalty-rewards",
+      "title": "Loyalty Rewards",
+      "description": "Earn points on every bet and exchange for cash or prizes",
+      "badge": "All Members",
+      "color": "from-orange-500 via-red-600 to-pink-600",
+      "icon": "🎁",
+      "code": "LOYALTY",
+      "image": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+    }
+  ]
+}

@@ -1,9 +1,11 @@
 ---
 import GameCard from './GameCard.astro';
 import { getFeaturedGames, gameCategories } from '../data/games';
+import { home } from '../data/site';
 
 // Get featured games from our real database
 const featuredGames = getFeaturedGames();
+const section = home.featuredGames;
 ---
 
 <section id="games" class="section-padding bg-dark-900/50">
@@ -11,13 +13,13 @@ const featuredGames = getFeaturedGames();
     <!-- Section Header -->
     <div class="text-center mb-16">
       <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
-        🎮 Premium Collection
+        {section.eyebrow}
       </span>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6">
-        <span class="text-gradient">Featured</span> Casino Games
+        <span class="text-gradient">{section.titleAccent}</span> {section.title}
       </h2>
       <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-        Discover our exclusive selection of the most thrilling and highest-paying casino games from world-class providers
+        {section.description}
       </p>
       
       <!-- Filter Tabs -->
@@ -64,7 +66,7 @@ const featuredGames = getFeaturedGames();
     <div class="text-center">
       <button class="btn-primary text-lg px-12 py-4 group relative overflow-hidden">
         <span class="relative z-10 flex items-center">
-          Explore All Games
+          {section.buttonLabel}
           <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
           </svg>

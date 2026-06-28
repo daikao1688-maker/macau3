@@ -1,0 +1,64 @@
+{
+  "seo": {
+    "title": "CasinoPro - Premium Online Casino | Slots, Live Dealers & Jackpots",
+    "description": "Experience premium slots, exclusive live dealers, and life-changing progressive jackpots."
+  },
+  "hero": {
+    "backgroundImage": "https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=1920&h=1080&fit=crop&q=80",
+    "backgroundAlt": "Casino Background",
+    "badge": "🎰 EXCLUSIVE: Welcome Bonus up to $10,000 + 500 Free Spins",
+    "headlineTop": "Experience The",
+    "headlineMain": "Ultimate Casino",
+    "headlineKicker": "LUXURY GAMING REDEFINED",
+    "subheading": "Join the elite circle of winners in the world's most prestigious online casino. Experience premium slots, exclusive live dealers, and life-changing progressive jackpots!",
+    "primaryCta": "Claim $10,000 Bonus",
+    "secondaryCta": "Watch Demo",
+    "searchTitle": "Find Your Perfect Game",
+    "searchSubtitle": "Explore our premium casino game collection",
+    "liveActivityTitle": "Live Activity",
+    "liveActivitySubtitle": "Real-time wins from our players"
+  },
+  "trustBadges": [
+    {
+      "label": "Licensed & Regulated",
+      "icon": "shield"
+    },
+    {
+      "label": "SSL Encrypted",
+      "icon": "lock"
+    },
+    {
+      "label": "Instant Withdrawals",
+      "icon": "cash"
+    },
+    {
+      "label": "Fair Play Certified",
+      "icon": "check"
+    }
+  ],
+  "stats": [
+    {
+      "value": "14+",
+      "label": "Premium Games"
+    },
+    {
+      "value": "$5M+",
+      "label": "Daily Jackpots"
+    },
+    {
+      "value": "150K+",
+      "label": "VIP Members"
+    },
+    {
+      "value": "99.8%",
+      "label": "Payout Rate"
+    }
+  ],
+  "featuredGames": {
+    "eyebrow": "🎮 Premium Collection",
+    "titleAccent": "Featured",
+    "title": "Casino Games",
+    "description": "Discover our exclusive selection of the most thrilling and highest-paying casino games from world-class providers",
+    "buttonLabel": "Explore All Games"
+  }
+}

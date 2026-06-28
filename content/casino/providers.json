@@ -1,0 +1,60 @@
+{
+  "providers": [
+    {
+      "id": "netent",
+      "name": "NetEnt",
+      "logo": "/providers/netent.png",
+      "established": 1996,
+      "description": "Leading provider of premium gaming solutions"
+    },
+    {
+      "id": "microgaming",
+      "name": "Microgaming",
+      "logo": "/providers/microgaming.png",
+      "established": 1994,
+      "description": "Pioneer in online gaming software"
+    },
+    {
+      "id": "evolution",
+      "name": "Evolution Gaming",
+      "logo": "/providers/evolution.png",
+      "established": 2006,
+      "description": "World leader in live casino solutions"
+    },
+    {
+      "id": "pragmatic",
+      "name": "Pragmatic Play",
+      "logo": "/providers/pragmatic.png",
+      "established": 2015,
+      "description": "Multi-product content provider"
+    },
+    {
+      "id": "playngo",
+      "name": "Play'n GO",
+      "logo": "/providers/playngo.png",
+      "established": 1997,
+      "description": "Mobile gaming entertainment supplier"
+    },
+    {
+      "id": "redtiger",
+      "name": "Red Tiger Gaming",
+      "logo": "/providers/redtiger.png",
+      "established": 2014,
+      "description": "Daily jackpots and innovative slots"
+    },
+    {
+      "id": "yggdrasil",
+      "name": "Yggdrasil Gaming",
+      "logo": "/providers/yggdrasil.png",
+      "established": 2013,
+      "description": "Superior gaming experiences"
+    },
+    {
+      "id": "quickspin",
+      "name": "Quickspin",
+      "logo": "/providers/quickspin.png",
+      "established": 2011,
+      "description": "Exciting slot experiences"
+    }
+  ]
+}

@@ -118,7 +118,8 @@ Output will be in `dist/` folder.
 - Update meta tags in `src/layouts/Layout.astro`
 
 **Content:**
-- Edit game data in `src/data/games.ts`
+- Use TinaCMS at `/admin/index.html` for home, promotions, games, and providers
+- Edit CMS source files in `content/casino/`
 - Modify pages in `src/pages/`
 - Update components in `src/components/`
 
@@ -164,6 +165,7 @@ Fully responsive and tested on:
 Complete documentation included:
 
 - **INSTALLATION_GUIDE.md** - Step-by-step installation
+- **CMS_SETUP.md** - TinaCMS admin and Cloudflare setup
 - **FEATURES.md** - Detailed features list
 - **GETTING_STARTED.md** - Quick start guide
 - **CHANGELOG.md** - Version history

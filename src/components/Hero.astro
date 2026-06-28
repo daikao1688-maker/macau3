@@ -1,13 +1,15 @@
 ---
-// No imports needed - using CSS animations only
+import { home } from '../data/site';
+
+const { hero, stats, trustBadges } = home;
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
   <!-- Background Image -->
   <div class="absolute inset-0">
     <img 
-      src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=1920&h=1080&fit=crop&q=80"
-      alt="Casino Background"
+      src={hero.backgroundImage}
+      alt={hero.backgroundAlt}
       class="absolute inset-0 w-full h-full object-cover opacity-20"
     />
   </div>
@@ -30,50 +32,43 @@
           <span class="relative inline-flex rounded-full h-3 w-3 bg-accent-green"></span>
         </span>
         <span class="text-sm font-semibold bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
-          🎰 EXCLUSIVE: Welcome Bonus up to $10,000 + 500 Free Spins
+          {hero.badge}
         </span>
       </div>
 
       <!-- Main Heading -->
       <h1 class="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black leading-tight">
-        <span class="block text-gradient glow-text animate-pulse-slow">Experience The</span>
-        <span class="block text-white mt-2 drop-shadow-2xl">Ultimate Casino</span>
-        <span class="block text-2xl md:text-4xl lg:text-5xl text-primary-400 mt-4 font-light tracking-widest">LUXURY GAMING REDEFINED</span>
+        <span class="block text-gradient glow-text animate-pulse-slow">{hero.headlineTop}</span>
+        <span class="block text-white mt-2 drop-shadow-2xl">{hero.headlineMain}</span>
+        <span class="block text-2xl md:text-4xl lg:text-5xl text-primary-400 mt-4 font-light tracking-widest">{hero.headlineKicker}</span>
       </h1>
 
       <!-- Subheading -->
       <p class="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-        Join the elite circle of winners in the world's most prestigious online casino. 
-        Experience premium slots, exclusive live dealers, and life-changing progressive jackpots!
+        {hero.subheading}
       </p>
       
       <!-- Trust Badges -->
       <div class="flex flex-wrap items-center justify-center gap-6 pt-4">
-        <div class="flex items-center space-x-2 text-gray-400">
-          <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium">Licensed & Regulated</span>
-        </div>
-        <div class="flex items-center space-x-2 text-gray-400">
-          <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium">SSL Encrypted</span>
-        </div>
-        <div class="flex items-center space-x-2 text-gray-400">
-          <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium">Instant Withdrawals</span>
-        </div>
-        <div class="flex items-center space-x-2 text-gray-400">
-          <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-          </svg>
-          <span class="text-sm font-medium">Fair Play Certified</span>
-        </div>
+        {trustBadges.map((badge) => (
+          <div class="flex items-center space-x-2 text-gray-400">
+            <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+              {badge.icon === 'lock' ? (
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+              ) : badge.icon === 'cash' ? (
+                <>
+                  <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+                </>
+              ) : badge.icon === 'check' ? (
+                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              ) : (
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              )}
+            </svg>
+            <span class="text-sm font-medium">{badge.label}</span>
+          </div>
+        ))}
       </div>
 
       <!-- CTA Buttons -->
@@ -83,7 +78,7 @@
             <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
             </svg>
-            Claim $10,000 Bonus
+            {hero.primaryCta}
           </span>
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
         </button>
@@ -93,7 +88,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            Watch Demo
+            {hero.secondaryCta}
           </span>
         </button>
       </div>
@@ -101,34 +96,21 @@
       <!-- Game Search -->
       <div class="pt-12 max-w-2xl mx-auto">
         <div class="text-center mb-6">
-          <h3 class="text-xl font-display font-bold text-white mb-2">Find Your Perfect Game</h3>
-          <p class="text-gray-400">Explore our premium casino game collection</p>
+          <h3 class="text-xl font-display font-bold text-white mb-2">{hero.searchTitle}</h3>
+          <p class="text-gray-400">{hero.searchSubtitle}</p>
         </div>
         <div id="hero-search-container"></div>
       </div>
 
       <!-- Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-20">
-        <div class="card-glass p-6 space-y-3 hover:scale-105 transition-all duration-300 group">
-          <div class="text-4xl md:text-5xl font-display font-black text-gradient glow-text">14+</div>
-          <div class="text-gray-300 text-sm md:text-base font-semibold">Premium Games</div>
-          <div class="h-1 w-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full group-hover:w-full transition-all duration-300"></div>
-        </div>
-        <div class="card-glass p-6 space-y-3 hover:scale-105 transition-all duration-300 group">
-          <div class="text-4xl md:text-5xl font-display font-black text-gradient glow-text">$5M+</div>
-          <div class="text-gray-300 text-sm md:text-base font-semibold">Daily Jackpots</div>
-          <div class="h-1 w-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full group-hover:w-full transition-all duration-300"></div>
-        </div>
-        <div class="card-glass p-6 space-y-3 hover:scale-105 transition-all duration-300 group">
-          <div class="text-4xl md:text-5xl font-display font-black text-gradient glow-text">150K+</div>
-          <div class="text-gray-300 text-sm md:text-base font-semibold">VIP Members</div>
-          <div class="h-1 w-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full group-hover:w-full transition-all duration-300"></div>
-        </div>
-        <div class="card-glass p-6 space-y-3 hover:scale-105 transition-all duration-300 group">
-          <div class="text-4xl md:text-5xl font-display font-black text-gradient glow-text">99.8%</div>
-          <div class="text-gray-300 text-sm md:text-base font-semibold">Payout Rate</div>
-          <div class="h-1 w-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full group-hover:w-full transition-all duration-300"></div>
-        </div>
+        {stats.map((stat) => (
+          <div class="card-glass p-6 space-y-3 hover:scale-105 transition-all duration-300 group">
+            <div class="text-4xl md:text-5xl font-display font-black text-gradient glow-text">{stat.value}</div>
+            <div class="text-gray-300 text-sm md:text-base font-semibold">{stat.label}</div>
+            <div class="h-1 w-12 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full group-hover:w-full transition-all duration-300"></div>
+          </div>
+        ))}
       </div>
 
       <!-- Live Activity Feed -->
@@ -139,9 +121,9 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-green opacity-75"></span>
               <span class="relative inline-flex rounded-full h-3 w-3 bg-accent-green"></span>
             </span>
-            Live Activity
+            {hero.liveActivityTitle}
           </h3>
-          <p class="text-gray-400 text-sm">Real-time wins from our players</p>
+          <p class="text-gray-400 text-sm">{hero.liveActivitySubtitle}</p>
         </div>
         <div id="hero-live-activity"></div>
       </div>

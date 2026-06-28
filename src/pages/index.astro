@@ -6,9 +6,10 @@ import QuickLinks from '../components/QuickLinks.astro';
 import LiveCasino from '../components/LiveCasino.astro';
 import Promotions from '../components/Promotions.astro';
 import Tournaments from '../components/Tournaments.astro';
+import { home } from '../data/site';
 ---
 
-<Layout title="CasinoPro - Premium Online Casino | Slots, Live Dealers & Jackpots">
+<Layout title={home.seo.title} description={home.seo.description}>
   <main>
     <Hero />
     <FeaturedGames />
