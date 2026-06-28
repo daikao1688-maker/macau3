@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:cloudflare": "ASTRO_SITE=https://macau3.zhuanqian388.workers.dev ASTRO_BASE=/ astro build",
+    "build:github": "ASTRO_SITE=https://daikao1688-maker.github.io ASTRO_BASE=/macau3 astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

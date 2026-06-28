@@ -308,6 +308,18 @@ npm run build
 
 **Output:** `dist/` folder with static files.
 
+For Cloudflare Workers / Pages, use:
+
+```bash
+npm run build:cloudflare
+```
+
+For GitHub Pages, use:
+
+```bash
+npm run build:github
+```
+
 ### Deployment Options
 
 #### 1. Vercel (Recommended)
@@ -355,7 +367,18 @@ This project includes `.github/workflows/deploy.yml`.
 
 Default Pages URL: `https://daikao1688-maker.github.io/macau3/`
 
-#### 4. Traditional Hosting
+#### 4. Cloudflare Workers / Pages
+
+Use root-path output for Cloudflare because the deployment URL is served from `/`, not `/macau3`.
+
+- **Build command:** `npm run build:cloudflare`
+- **Output directory:** `dist`
+- **Node version:** `22.12.0` or higher
+- **Default URL:** `https://macau3.zhuanqian388.workers.dev/`
+
+If you change the Cloudflare domain, update `ASTRO_SITE` in `package.json` or set the `ASTRO_SITE` environment variable in Cloudflare.
+
+#### 5. Traditional Hosting
 
 1. Build: `npm run build`
 2. Upload `dist/` folder contents to your server

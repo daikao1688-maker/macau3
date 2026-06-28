@@ -125,8 +125,13 @@ netlify deploy
 - Push to `main`; `.github/workflows/deploy.yml` builds and deploys automatically.
 - Default URL: `https://daikao1688-maker.github.io/macau3/`
 
+**Cloudflare Workers / Pages:**
+- **Build Command:** `npm run build:cloudflare`
+- **Output Directory:** `dist`
+- **Node Version:** `22.12.0` or higher
+- Default URL: `https://macau3.zhuanqian388.workers.dev/`
+
 **Other Options:**
-- Cloudflare Pages
 - AWS S3 + CloudFront
 - Any static hosting
 
