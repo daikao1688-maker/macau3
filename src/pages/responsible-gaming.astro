@@ -1,0 +1,702 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+
+const selfControlTools = [
+  {
+    icon: '⏰',
+    title: 'Deposit Limits',
+    description: 'Set daily, weekly, or monthly deposit limits to control your spending',
+    color: 'from-primary-500 to-yellow-600'
+  },
+  {
+    icon: '💰',
+    title: 'Loss Limits',
+    description: 'Set maximum loss limits to protect your bankroll',
+    color: 'from-secondary-500 to-purple-600'
+  },
+  {
+    icon: '🎮',
+    title: 'Session Time Limits',
+    description: 'Set time limits for your gaming sessions with automatic reminders',
+    color: 'from-accent-green to-emerald-600'
+  },
+  {
+    icon: '⏸️',
+    title: 'Take a Break',
+    description: 'Temporarily suspend your account for 24 hours to 6 months',
+    color: 'from-accent-blue to-blue-600'
+  },
+  {
+    icon: '🚫',
+    title: 'Self-Exclusion',
+    description: 'Permanently or temporarily exclude yourself from gambling',
+    color: 'from-accent-pink to-accent-red'
+  },
+  {
+    icon: '📊',
+    title: 'Reality Check',
+    description: 'Get regular notifications about your playing time and spending',
+    color: 'from-orange-500 to-red-600'
+  }
+];
+
+const warningSignsGambling = [
+  'Spending more money or time gambling than you can afford',
+  'Gambling to escape problems or relieve feelings of anxiety or depression',
+  'Lying to family or friends about your gambling activities',
+  'Chasing losses by gambling more to win back money',
+  'Borrowing money or selling possessions to fund gambling',
+  'Neglecting work, family, or personal responsibilities',
+  'Feeling guilty, anxious, or depressed about gambling',
+  'Having arguments with family or friends about gambling'
+];
+
+const warningSignsAddiction = [
+  'Unable to control or stop gambling despite wanting to',
+  'Gambling with money needed for bills or essentials',
+  'Experiencing withdrawal symptoms when not gambling',
+  'Needing to gamble with increasing amounts to feel excitement',
+  'Repeatedly unsuccessful attempts to cut down or stop',
+  'Preoccupation with gambling (constantly thinking about it)',
+  'Jeopardizing relationships, job, or education due to gambling',
+  'Relying on others to provide money for gambling debts'
+];
+
+const supportOrganizations = [
+  {
+    name: 'GamCare',
+    logo: '🛡️',
+    description: 'Free confidential advice and support for anyone affected by problem gambling',
+    phone: '0808 8020 133',
+    website: 'www.gamcare.org.uk',
+    available: '24/7 Support'
+  },
+  {
+    name: 'BeGambleAware',
+    logo: '🎯',
+    description: 'Independent charity providing information and support for problem gambling',
+    phone: '0808 8020 133',
+    website: 'www.begambleaware.org',
+    available: '24/7 Support'
+  },
+  {
+    name: 'Gamblers Anonymous',
+    logo: '👥',
+    description: 'Fellowship of men and women who share experiences and support each other',
+    phone: 'Find local meetings',
+    website: 'www.gamblersanonymous.org',
+    available: 'Meetings Available'
+  },
+  {
+    name: 'GamStop',
+    logo: '🔒',
+    description: 'Free service to self-exclude from all UK licensed gambling sites',
+    phone: 'Online registration',
+    website: 'www.gamstop.co.uk',
+    available: 'Self-Exclusion'
+  },
+  {
+    name: 'National Council on Problem Gambling',
+    logo: '📞',
+    description: 'US-based helpline and resources for problem gambling',
+    phone: '1-800-522-4700',
+    website: 'www.ncpgambling.org',
+    available: '24/7 Helpline'
+  },
+  {
+    name: 'Gambling Therapy',
+    logo: '💬',
+    description: 'Global online support service offering practical advice and emotional support',
+    phone: 'Online chat available',
+    website: 'www.gamblingtherapy.org',
+    available: 'Online Support'
+  }
+];
+
+const responsibleGamblingTips = [
+  {
+    icon: '💵',
+    title: 'Set a Budget',
+    description: 'Only gamble with money you can afford to lose. Never use money meant for bills or essentials.'
+  },
+  {
+    icon: '⏱️',
+    title: 'Set Time Limits',
+    description: 'Decide how long you want to play before you start and stick to it. Take regular breaks.'
+  },
+  {
+    icon: '🚫',
+    title: 'Never Chase Losses',
+    description: 'Accept losses as part of the game. Trying to win back losses often leads to bigger losses.'
+  },
+  {
+    icon: '🍺',
+    title: 'Avoid Gambling Under Influence',
+    description: 'Don\'t gamble when you\'re upset, depressed, or under the influence of alcohol or drugs.'
+  },
+  {
+    icon: '⚖️',
+    title: 'Balance with Other Activities',
+    description: 'Gambling should be one of many leisure activities, not your only form of entertainment.'
+  },
+  {
+    icon: '👨‍👩‍👧',
+    title: 'Keep Perspective',
+    description: 'Remember that gambling is entertainment, not a way to make money or solve financial problems.'
+  }
+];
+
+const ageVerificationSteps = [
+  {
+    step: 1,
+    title: 'Registration Check',
+    description: 'Age verification starts during account registration',
+    icon: '📝'
+  },
+  {
+    step: 2,
+    title: 'Document Upload',
+    description: 'Upload valid ID (passport, driver\'s license)',
+    icon: '📄'
+  },
+  {
+    step: 3,
+    title: 'Automated Verification',
+    description: 'Our system verifies your documents instantly',
+    icon: '🤖'
+  },
+  {
+    step: 4,
+    title: 'Manual Review',
+    description: 'If needed, our team manually reviews documents',
+    icon: '👤'
+  },
+  {
+    step: 5,
+    title: 'Account Activation',
+    description: 'Once verified, full access is granted',
+    icon: '✅'
+  }
+];
+
+const parentalControlTools = [
+  {
+    name: 'Net Nanny',
+    description: 'Comprehensive parental control software',
+    icon: '🔐'
+  },
+  {
+    name: 'Qustodio',
+    description: 'Monitor and control online activities',
+    icon: '👨‍👩‍👧‍👦'
+  },
+  {
+    name: 'Norton Family',
+    description: 'Web filtering and time supervision',
+    icon: '🛡️'
+  },
+  {
+    name: 'Kaspersky Safe Kids',
+    description: 'Block inappropriate content and apps',
+    icon: '🔒'
+  }
+];
+---
+
+<Layout title="Responsible Gaming - Play Safely | CasinoPro">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&h=600&fit=crop&q=80"
+          alt="Responsible Gaming Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+          loading="lazy"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            🛡️ Your Safety Matters
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Responsible Gaming</span>
+            <span class="block text-white mt-2">Play Safe, Stay in Control</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            We're committed to providing a safe and responsible gaming environment. Your wellbeing is our priority.
+          </p>
+          
+          <!-- Emergency Contact -->
+          <div class="card-glass p-6 max-w-2xl mx-auto mt-8">
+            <div class="flex items-center justify-center space-x-4">
+              <div class="text-4xl">📞</div>
+              <div class="text-left">
+                <div class="text-white font-bold text-lg">Need Help Now?</div>
+                <div class="text-gray-400">24/7 Helpline: <a href="tel:08088020133" class="text-secondary-500 hover:text-secondary-400 font-bold">0808 8020 133</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Self-Control Tools -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Self-Control</span> Tools
+          </h2>
+          <p class="text-gray-400">Take control of your gaming with our responsible gambling tools</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {selfControlTools.map(tool => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-4">
+              <div class={`w-20 h-20 bg-gradient-to-br ${tool.color} rounded-2xl flex items-center justify-center mx-auto text-4xl shadow-lg`}>
+                {tool.icon}
+              </div>
+              <h3 class="text-xl font-display font-bold text-white">{tool.title}</h3>
+              <p class="text-gray-400 text-sm leading-relaxed">{tool.description}</p>
+              <button class="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-2 rounded-lg transition-colors border border-white/20">
+                Set Up Now
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Warning Signs -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Warning Signs</span>
+          </h2>
+          <p class="text-gray-400">Recognize the signs of problem gambling early</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <!-- Problem Gambling Signs -->
+          <div class="card-glass p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-2xl flex items-center justify-center text-3xl">
+                ⚠️
+              </div>
+              <div>
+                <h3 class="text-2xl font-display font-bold text-white">Problem Gambling</h3>
+                <p class="text-gray-400 text-sm">Early warning signs to watch for</p>
+              </div>
+            </div>
+            
+            <ul class="space-y-3">
+              {warningSignsGambling.map(sign => (
+                <li class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-gray-300 text-sm">{sign}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Gambling Addiction Signs -->
+          <div class="card-glass p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 bg-gradient-to-br from-accent-red to-red-600 rounded-2xl flex items-center justify-center text-3xl">
+                🚨
+              </div>
+              <div>
+                <h3 class="text-2xl font-display font-bold text-white">Gambling Addiction</h3>
+                <p class="text-gray-400 text-sm">Serious signs requiring immediate help</p>
+              </div>
+            </div>
+            
+            <ul class="space-y-3">
+              {warningSignsAddiction.map(sign => (
+                <li class="flex items-start space-x-3">
+                  <svg class="w-5 h-5 text-accent-red flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                  <span class="text-gray-300 text-sm">{sign}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Responsible Gambling Tips -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Tips</span> for Safe Gambling
+          </h2>
+          <p class="text-gray-400">Follow these guidelines to keep gambling fun and safe</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {responsibleGamblingTips.map(tip => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300">
+              <div class="flex items-start space-x-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
+                  {tip.icon}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-display font-bold text-white mb-2">{tip.title}</h3>
+                  <p class="text-gray-400 text-sm leading-relaxed">{tip.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Organizations -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Get Help</span> & Support
+          </h2>
+          <p class="text-gray-400">Professional organizations ready to help you</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {supportOrganizations.map(org => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+              <div class="flex items-start space-x-4 mb-4">
+                <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0">
+                  {org.logo}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-xl font-display font-bold text-white mb-2">{org.name}</h3>
+                  <span class="inline-block px-3 py-1 bg-accent-green/20 text-accent-green text-xs font-bold rounded-full">
+                    {org.available}
+                  </span>
+                </div>
+              </div>
+              
+              <p class="text-gray-400 text-sm mb-4 leading-relaxed">{org.description}</p>
+              
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center space-x-2 text-sm">
+                  <svg class="w-4 h-4 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                  <span class="text-white font-semibold">{org.phone}</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm">
+                  <svg class="w-4 h-4 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                  </svg>
+                  <a href={`https://${org.website}`} target="_blank" class="text-secondary-500 hover:text-secondary-400">{org.website}</a>
+                </div>
+              </div>
+              
+              <button class="w-full bg-gradient-to-r from-accent-green to-emerald-600 hover:from-accent-green hover:to-emerald-700 text-white font-bold py-2 rounded-lg transition-all duration-300 mt-auto">
+                Visit Website
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Underage Gambling Prevention -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Underage Gambling</span> Prevention
+          </h2>
+          <p class="text-gray-400">Protecting minors from gambling</p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto space-y-8">
+          <!-- Age Verification Process -->
+          <div class="card-glass p-8">
+            <div class="flex items-center space-x-4 mb-8">
+              <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-2xl flex items-center justify-center text-3xl">
+                🔞
+              </div>
+              <div>
+                <h3 class="text-2xl font-display font-bold text-white">Age Verification Process</h3>
+                <p class="text-gray-400">How we ensure all players are 18+</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {ageVerificationSteps.map((step, index) => (
+                <div class="relative flex flex-col">
+                  <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300 flex flex-col h-full bg-white/5">
+                    <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-full flex items-center justify-center mx-auto text-3xl flex-shrink-0">
+                      {step.icon}
+                    </div>
+                    <div class="absolute -top-3 -right-3 w-8 h-8 bg-secondary-500 rounded-full flex items-center justify-center text-white font-display font-bold text-sm">
+                      {step.step}
+                    </div>
+                    <h3 class="text-white font-bold text-sm">{step.title}</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">{step.description}</p>
+                  </div>
+                  {index < ageVerificationSteps.length - 1 && (
+                    <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                      <svg class="w-6 h-6 text-secondary-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Parental Controls -->
+          <div class="card-glass p-8">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 bg-gradient-to-br from-accent-blue to-blue-600 rounded-2xl flex items-center justify-center text-3xl">
+                👨‍👩‍👧‍👦
+              </div>
+              <div>
+                <h3 class="text-2xl font-display font-bold text-white">Parental Control Tools</h3>
+                <p class="text-gray-400">Protect your children from accessing gambling sites</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {parentalControlTools.map(tool => (
+                <div class="card-glass p-6 text-center space-y-3 hover:scale-105 transition-all duration-300 bg-white/5">
+                  <div class="text-4xl mb-2">{tool.icon}</div>
+                  <h4 class="text-white font-bold">{tool.name}</h4>
+                  <p class="text-gray-400 text-xs">{tool.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Commitment -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Our <span class="text-gradient">Commitment</span>
+          </h2>
+          <p class="text-gray-400">How we promote responsible gambling</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+              🎓
+            </div>
+            <h3 class="text-lg font-display font-bold text-white">Education</h3>
+            <p class="text-gray-400 text-sm">Providing information about risks and responsible gambling practices</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+              🛠️
+            </div>
+            <h3 class="text-lg font-display font-bold text-white">Tools & Controls</h3>
+            <p class="text-gray-400 text-sm">Offering self-exclusion, limits, and reality checks</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+              🤝
+            </div>
+            <h3 class="text-lg font-display font-bold text-white">Support</h3>
+            <p class="text-gray-400 text-sm">Partnering with organizations to provide help and resources</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+              👁️
+            </div>
+            <h3 class="text-lg font-display font-bold text-white">Monitoring</h3>
+            <p class="text-gray-400 text-sm">Detecting and intervening in problematic gambling behavior</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Frequently</span> Asked Questions
+          </h2>
+          <p class="text-gray-400">Common questions about responsible gaming</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-4">
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  How do I set deposit limits?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Go to Account Settings > Responsible Gaming > Deposit Limits. Choose daily, weekly, or monthly limits. Changes take effect immediately for increases and after 24 hours for decreases (cooling-off period).</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  What is self-exclusion and how does it work?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Self-exclusion allows you to block access to your account for a set period (6 months, 1 year, 5 years, or permanently). During this time, you cannot access your account, make deposits, or play games. For UK players, we recommend using GamStop for multi-operator exclusion.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Can I take a temporary break from gambling?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Yes! Use our "Take a Break" feature to suspend your account for 24 hours, 7 days, 30 days, or up to 6 months. During this period, you won't be able to log in or receive marketing communications. This is perfect if you need a short break.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  How do reality checks work?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Reality checks are pop-up notifications that appear at regular intervals (every 30, 60, or 90 minutes) showing how long you've been playing and your net wins/losses. This helps you stay aware of your gambling activity and make informed decisions.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Where can I get help for gambling problems?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Contact GamCare (0808 8020 133), BeGambleAware, Gamblers Anonymous, or other support organizations listed on this page. All services are free, confidential, and available 24/7. You can also contact our support team who can help you access these resources.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  How do you prevent underage gambling?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">We use strict age verification during registration, requiring valid ID documents. We also employ automated systems to detect suspicious accounts, monitor for underage access attempts, and work with third-party verification services. Parents can use filtering software to block gambling sites.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">🛡️</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Need <span class="text-gradient">Help</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              If you or someone you know has a gambling problem, help is available 24/7
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="tel:08088020133" class="btn-primary text-lg px-12 py-4">
+                Call Helpline: 0808 8020 133
+              </a>
+              <a href={withBase('/contact-us')} class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                Contact Support
+              </a>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-white/10">
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🛡️</span>
+                <span class="text-sm">GamCare Certified</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">✓</span>
+                <span class="text-sm">BeGambleAware Partner</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🔞</span>
+                <span class="text-sm">18+ Only</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🔒</span>
+                <span class="text-sm">GamStop Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>

@@ -1,0 +1,659 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+
+const faqCategories = [
+  {
+    id: 'getting-started',
+    name: 'Getting Started',
+    icon: '🚀',
+    color: 'from-primary-500 to-yellow-600',
+    count: 8
+  },
+  {
+    id: 'account',
+    name: 'Account & Security',
+    icon: '🔒',
+    color: 'from-secondary-500 to-purple-600',
+    count: 10
+  },
+  {
+    id: 'payments',
+    name: 'Payments',
+    icon: '💳',
+    color: 'from-accent-green to-emerald-600',
+    count: 12
+  },
+  {
+    id: 'games',
+    name: 'Games',
+    icon: '🎮',
+    color: 'from-accent-blue to-blue-600',
+    count: 9
+  },
+  {
+    id: 'bonuses',
+    name: 'Bonuses',
+    icon: '🎁',
+    color: 'from-accent-pink to-accent-red',
+    count: 11
+  },
+  {
+    id: 'technical',
+    name: 'Technical',
+    icon: '⚙️',
+    color: 'from-orange-500 to-red-600',
+    count: 7
+  }
+];
+
+const faqs = {
+  'getting-started': [
+    {
+      question: 'How do I create an account?',
+      answer: 'Creating an account is simple! Click the "Sign Up" button in the top right corner, fill in your details (email, password, personal information), verify your email address, and you\'re ready to play. The entire process takes less than 2 minutes.'
+    },
+    {
+      question: 'Is CasinoPro licensed and regulated?',
+      answer: 'Yes, CasinoPro is fully licensed and regulated by the Malta Gaming Authority (MGA) and the UK Gambling Commission. We operate under strict regulatory standards to ensure fair play, player protection, and responsible gaming practices.'
+    },
+    {
+      question: 'What is the minimum age to play?',
+      answer: 'You must be at least 18 years old to create an account and play at CasinoPro. We take age verification seriously and may request identification documents to verify your age during the account verification process.'
+    },
+    {
+      question: 'Can I play for free?',
+      answer: 'Yes! Many of our games offer a "Demo Mode" that allows you to play for free without risking real money. This is a great way to learn game rules and practice strategies before playing with real money.'
+    },
+    {
+      question: 'What countries are restricted?',
+      answer: 'Due to licensing restrictions, we cannot accept players from certain countries including the United States, France, Netherlands, and several others. Please check our Terms & Conditions for the complete list of restricted territories.'
+    },
+    {
+      question: 'How do I navigate the casino?',
+      answer: 'Our casino is designed for easy navigation. Use the main menu to access different game categories (Slots, Live Casino, Table Games, etc.), the search function to find specific games, and filters to sort by provider, popularity, or features.'
+    },
+    {
+      question: 'Is my personal information safe?',
+      answer: 'Absolutely! We use industry-standard SSL encryption to protect all data transmitted between your device and our servers. Your personal and financial information is stored securely and never shared with third parties without your consent.'
+    },
+    {
+      question: 'Can I play on mobile devices?',
+      answer: 'Yes! Our platform is fully optimized for mobile devices. You can play all games on your smartphone or tablet through your mobile browser without downloading any app. Simply visit our website and log in to start playing.'
+    }
+  ],
+  'account': [
+    {
+      question: 'How do I verify my account?',
+      answer: 'Account verification (KYC) requires you to submit proof of identity (passport or ID card), proof of address (utility bill or bank statement dated within 3 months), and proof of payment method. Upload these documents in your account settings under "Verification".'
+    },
+    {
+      question: 'Why do I need to verify my account?',
+      answer: 'Account verification is a regulatory requirement that helps prevent fraud, money laundering, and underage gambling. It also protects your account and ensures smooth withdrawals. Verified accounts have higher withdrawal limits and faster processing times.'
+    },
+    {
+      question: 'How long does verification take?',
+      answer: 'Most verifications are completed within 24-48 hours. During peak times, it may take up to 72 hours. You\'ll receive an email notification once your account is verified. You can continue playing while your verification is being processed.'
+    },
+    {
+      question: 'How do I change my password?',
+      answer: 'Go to Account Settings > Security > Change Password. Enter your current password, then your new password twice to confirm. For security, we recommend using a strong password with at least 8 characters, including uppercase, lowercase, numbers, and symbols.'
+    },
+    {
+      question: 'I forgot my password. What should I do?',
+      answer: 'Click "Forgot Password" on the login page, enter your registered email address, and we\'ll send you a password reset link. Follow the instructions in the email to create a new password. The link expires after 24 hours for security.'
+    },
+    {
+      question: 'Can I have multiple accounts?',
+      answer: 'No, each player is allowed only one account. Creating multiple accounts is against our Terms & Conditions and may result in account closure and forfeiture of funds. If you have issues with your account, please contact support.'
+    },
+    {
+      question: 'How do I enable two-factor authentication?',
+      answer: 'Go to Account Settings > Security > Two-Factor Authentication. Download an authenticator app (Google Authenticator or Authy), scan the QR code, and enter the 6-digit code to activate. This adds an extra layer of security to your account.'
+    },
+    {
+      question: 'Can I change my registered email address?',
+      answer: 'Yes, go to Account Settings > Personal Information > Email Address. Enter your new email and verify it by clicking the link sent to the new address. For security, you may need to re-verify your account after changing your email.'
+    },
+    {
+      question: 'How do I close my account?',
+      answer: 'If you wish to close your account, contact our support team via live chat or email. We\'ll process your request within 24 hours. Please note that you must withdraw any remaining balance before closing your account.'
+    },
+    {
+      question: 'What is self-exclusion?',
+      answer: 'Self-exclusion allows you to temporarily or permanently block access to your account if you need a break from gambling. Go to Account Settings > Responsible Gaming > Self-Exclusion to set a period from 24 hours to 6 months or permanently.'
+    }
+  ],
+  'payments': [
+    {
+      question: 'What payment methods do you accept?',
+      answer: 'We accept a wide range of payment methods including Visa, Mastercard, PayPal, Skrill, Neteller, bank transfers, and cryptocurrencies (Bitcoin, Ethereum, Litecoin, USDT). Available methods may vary depending on your country.'
+    },
+    {
+      question: 'How do I make a deposit?',
+      answer: 'Go to the Cashier section, click "Deposit", select your preferred payment method, enter the amount (minimum $10), and follow the instructions. Most deposits are instant, and funds appear in your account immediately.'
+    },
+    {
+      question: 'What is the minimum deposit amount?',
+      answer: 'The minimum deposit amount is $10 for most payment methods. Some methods like bank transfers may have higher minimums ($20-$50). The minimum amount will be displayed when you select your payment method.'
+    },
+    {
+      question: 'Are there any deposit fees?',
+      answer: 'CasinoPro does not charge any fees for deposits. However, your payment provider (bank, e-wallet, etc.) may charge their own processing fees. Check with your payment provider for their fee structure.'
+    },
+    {
+      question: 'How do I withdraw my winnings?',
+      answer: 'Go to Cashier > Withdrawal, select your preferred method, enter the amount, and submit. Withdrawals are processed within 24-48 hours after account verification. You must use the same method you used for deposits when possible.'
+    },
+    {
+      question: 'What is the minimum withdrawal amount?',
+      answer: 'The minimum withdrawal amount is $20 for most methods. Cryptocurrency withdrawals may have different minimums. There is no maximum withdrawal limit, but large withdrawals may be processed in installments for security.'
+    },
+    {
+      question: 'How long do withdrawals take?',
+      answer: 'E-wallets (PayPal, Skrill, Neteller): 24-48 hours. Credit/Debit cards: 3-5 business days. Bank transfers: 5-7 business days. Cryptocurrencies: 1-24 hours. Processing times start after your account is verified.'
+    },
+    {
+      question: 'Why was my withdrawal declined?',
+      answer: 'Common reasons include: unverified account, wagering requirements not met, incorrect payment details, or using a different withdrawal method than deposit. Check your email for specific reasons and contact support if you need help.'
+    },
+    {
+      question: 'Can I cancel a pending withdrawal?',
+      answer: 'Yes, you can cancel a pending withdrawal before it\'s processed. Go to Cashier > Withdrawal History and click "Cancel" next to the pending withdrawal. Once processing begins, cancellation is no longer possible.'
+    },
+    {
+      question: 'Are my transactions secure?',
+      answer: 'Yes, all transactions are protected with 256-bit SSL encryption, the same security used by banks. We never store your full credit card details, and all payment processing is handled by certified payment providers.'
+    },
+    {
+      question: 'What currencies do you support?',
+      answer: 'We support USD, EUR, GBP, CAD, AUD, NOK, SEK, and major cryptocurrencies (BTC, ETH, LTC, USDT). Your account currency is set during registration and cannot be changed later, so choose carefully.'
+    },
+    {
+      question: 'Do you have withdrawal limits?',
+      answer: 'Standard accounts: $5,000 per day, $20,000 per month. VIP accounts have higher limits based on VIP level. There are no limits on cryptocurrency withdrawals. Contact VIP support for custom limits.'
+    }
+  ],
+  'games': [
+    {
+      question: 'How many games do you offer?',
+      answer: 'We offer over 3,000 games including slots, table games, live casino, jackpots, and more. Our game library is constantly updated with new releases from top providers like NetEnt, Microgaming, Evolution Gaming, and Pragmatic Play.'
+    },
+    {
+      question: 'Are the games fair?',
+      answer: 'Absolutely! All our games use certified Random Number Generators (RNG) and are regularly audited by independent testing agencies like eCOGRA, iTech Labs, and GLI to ensure fairness, randomness, and compliance with industry standards.'
+    },
+    {
+      question: 'Can I play games in demo mode?',
+      answer: 'Yes, most slots and table games offer a demo mode that lets you play for free without risking real money. Simply click "Demo" or "Play for Fun" on any game. Note that live casino games and some jackpot slots require real money play.'
+    },
+    {
+      question: 'What is RTP (Return to Player)?',
+      answer: 'RTP is the percentage of wagered money a game returns to players over time. For example, a 96% RTP means the game returns $96 for every $100 wagered on average. Higher RTP generally means better odds, but results vary in the short term.'
+    },
+    {
+      question: 'How do progressive jackpots work?',
+      answer: 'Progressive jackpots grow with every bet placed on the game across our network. A small percentage of each bet contributes to the jackpot pool. When won, the jackpot resets to a base amount and starts growing again.'
+    },
+    {
+      question: 'Can I play live casino games?',
+      answer: 'Yes! Our live casino features real dealers streaming in HD from professional studios. Play live blackjack, roulette, baccarat, poker, and game shows with real-time interaction. Minimum bets start from $1.'
+    },
+    {
+      question: 'What are the betting limits?',
+      answer: 'Betting limits vary by game. Slots: $0.10 - $500 per spin. Table games: $1 - $10,000 per hand. Live casino: $1 - $50,000 per hand. VIP tables offer higher limits. Check each game for specific limits.'
+    },
+    {
+      question: 'Why won\'t a game load?',
+      answer: 'Common issues: slow internet connection, outdated browser, browser cache needs clearing, or the game is temporarily unavailable. Try refreshing the page, clearing your cache, updating your browser, or trying a different game.'
+    },
+    {
+      question: 'Can I play multiple games at once?',
+      answer: 'Yes, you can open multiple game windows and play simultaneously. However, we recommend focusing on one game at a time for the best experience and to avoid confusion with your bets and balance.'
+    }
+  ],
+  'bonuses': [
+    {
+      question: 'What is the welcome bonus?',
+      answer: 'New players receive a 100% match bonus up to $500 on their first deposit, plus 200 free spins on selected slots. Minimum deposit $20. The bonus has 35x wagering requirements and must be used within 30 days.'
+    },
+    {
+      question: 'What are wagering requirements?',
+      answer: 'Wagering requirements specify how many times you must bet the bonus amount before you can withdraw winnings. For example, a $100 bonus with 35x wagering requires $3,500 in total bets ($100 × 35) before withdrawal.'
+    },
+    {
+      question: 'How do I claim a bonus?',
+      answer: 'Most bonuses are automatically credited when you make a qualifying deposit. Some require a bonus code entered during deposit. Check the promotion details for specific instructions. Bonuses appear in your bonus balance.'
+    },
+    {
+      question: 'Can I withdraw my bonus?',
+      answer: 'No, the bonus amount itself cannot be withdrawn. However, once you meet the wagering requirements, any winnings from the bonus become withdrawable. The bonus amount is typically removed when you request a withdrawal.'
+    },
+    {
+      question: 'What games contribute to wagering?',
+      answer: 'Slots: 100%, Scratch cards: 100%, Table games: 10-20%, Live casino: 10%, Video poker: 10%. Some games may be excluded entirely. Check the bonus terms for the complete list of game contributions.'
+    },
+    {
+      question: 'Can I have multiple bonuses active?',
+      answer: 'No, you can only have one bonus active at a time. Complete the wagering requirements or forfeit your current bonus before claiming a new one. Your real money balance is always used before bonus funds.'
+    },
+    {
+      question: 'What is a no-deposit bonus?',
+      answer: 'A no-deposit bonus is free bonus money or free spins given without requiring a deposit. These are typically smaller amounts ($10-$20) with higher wagering requirements (50-60x) and maximum withdrawal limits ($100-$200).'
+    },
+    {
+      question: 'How do free spins work?',
+      answer: 'Free spins let you spin slot reels without using your own money. Winnings from free spins are added to your bonus balance and subject to wagering requirements (usually 35x). Free spins are valid for specific games and expire after 7 days.'
+    },
+    {
+      question: 'What is a cashback bonus?',
+      answer: 'Cashback bonuses return a percentage of your losses over a specific period (usually 10-20%). For example, 10% cashback on $1,000 in losses gives you $100 back. Cashback may be bonus money with wagering or real money with no wagering.'
+    },
+    {
+      question: 'Can I opt out of bonuses?',
+      answer: 'Yes, you can opt out of bonuses in your account settings or by contacting support. You can also decline individual bonuses during deposit by unchecking the bonus option. Opting out means you won\'t receive promotional offers.'
+    },
+    {
+      question: 'What happens if I break bonus terms?',
+      answer: 'Breaking bonus terms (betting over max bet, playing restricted games, etc.) may result in bonus forfeiture and removal of associated winnings. Always read the full terms and conditions before claiming any bonus.'
+    }
+  ],
+  'technical': [
+    {
+      question: 'What browsers are supported?',
+      answer: 'We support the latest versions of Chrome, Firefox, Safari, and Edge. For the best experience, keep your browser updated. Internet Explorer is not supported. Mobile browsers on iOS and Android are fully supported.'
+    },
+    {
+      question: 'Why is the website running slowly?',
+      answer: 'Slow performance can be caused by: slow internet connection, too many browser tabs open, outdated browser, or browser cache needs clearing. Try closing other tabs, clearing your cache, or switching to a faster internet connection.'
+    },
+    {
+      question: 'What internet speed do I need?',
+      answer: 'Minimum: 2 Mbps for standard games. Recommended: 5+ Mbps for smooth gameplay. Live casino: 10+ Mbps for HD streaming. Test your speed at speedtest.net. Use a wired connection for the most stable experience.'
+    },
+    {
+      question: 'Can I use a VPN?',
+      answer: 'Using a VPN is against our Terms & Conditions as it can mask your true location. We must verify you\'re playing from an allowed jurisdiction. Using a VPN may result in account suspension and forfeiture of funds.'
+    },
+    {
+      question: 'Why can\'t I access certain games?',
+      answer: 'Some games may be restricted in your country due to licensing agreements. If a game won\'t load, it may be temporarily unavailable for maintenance or your browser may need updating. Contact support if issues persist.'
+    },
+    {
+      question: 'How do I clear my browser cache?',
+      answer: 'Chrome: Settings > Privacy > Clear browsing data. Firefox: Options > Privacy > Clear Data. Safari: Preferences > Privacy > Manage Website Data > Remove All. This often fixes loading and display issues.'
+    },
+    {
+      question: 'Is there a mobile app?',
+      answer: 'We don\'t have a downloadable app, but our website is fully optimized for mobile browsers. Simply visit casinopro.com on your mobile device and log in. You can add a shortcut to your home screen for quick access.'
+    }
+  ]
+};
+
+const popularQuestions = [
+  { question: 'How do I create an account?', category: 'Getting Started', views: '15.2K' },
+  { question: 'How do I make a deposit?', category: 'Payments', views: '12.8K' },
+  { question: 'What are wagering requirements?', category: 'Bonuses', views: '11.5K' },
+  { question: 'How do I verify my account?', category: 'Account & Security', views: '10.3K' },
+  { question: 'How long do withdrawals take?', category: 'Payments', views: '9.7K' },
+  { question: 'Are the games fair?', category: 'Games', views: '8.9K' }
+];
+---
+
+<Layout title="FAQ - Frequently Asked Questions | CasinoPro">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&h=600&fit=crop&q=80"
+          alt="FAQ Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+          loading="lazy"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            ❓ Frequently Asked Questions
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">FAQ</span>
+            <span class="block text-white mt-2">Find Your Answers</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Quick answers to the most common questions about CasinoPro
+          </p>
+          
+          <!-- Search Bar -->
+          <div class="max-w-2xl mx-auto pt-8">
+            <div class="relative">
+              <input 
+                type="text" 
+                id="faq-search"
+                placeholder="Search for questions..."
+                class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-5 pl-14 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors text-lg"
+              />
+              <svg class="w-6 h-6 text-gray-400 absolute left-5 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="card-glass p-6 text-center space-y-2">
+            <div class="text-4xl mb-2">📚</div>
+            <div class="text-3xl md:text-4xl font-display font-black text-gradient">57</div>
+            <div class="text-sm text-gray-400">Total Questions</div>
+          </div>
+          <div class="card-glass p-6 text-center space-y-2">
+            <div class="text-4xl mb-2">📂</div>
+            <div class="text-3xl md:text-4xl font-display font-black text-gradient">6</div>
+            <div class="text-sm text-gray-400">Categories</div>
+          </div>
+          <div class="card-glass p-6 text-center space-y-2">
+            <div class="text-4xl mb-2">👥</div>
+            <div class="text-3xl md:text-4xl font-display font-black text-gradient">50K+</div>
+            <div class="text-sm text-gray-400">Helped Users</div>
+          </div>
+          <div class="card-glass p-6 text-center space-y-2">
+            <div class="text-4xl mb-2">⭐</div>
+            <div class="text-3xl md:text-4xl font-display font-black text-gradient">98%</div>
+            <div class="text-sm text-gray-400">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Browse by <span class="text-gradient">Category</span>
+          </h2>
+          <p class="text-gray-400">Select a category to view related questions</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+          {faqCategories.map(category => (
+            <button 
+              class="category-btn card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-2 cursor-pointer group"
+              data-category={category.id}
+            >
+              <div class={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform`}>
+                {category.icon}
+              </div>
+              <h3 class="text-sm font-display font-bold text-white group-hover:text-secondary-500 transition-colors">
+                {category.name}
+              </h3>
+              <p class="text-xs text-gray-400">{category.count} questions</p>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Questions -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Most</span> Popular Questions
+          </h2>
+          <p class="text-gray-400">The questions our players ask most often</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="card-glass overflow-hidden">
+            <div class="divide-y divide-white/10">
+              {popularQuestions.map((item, index) => (
+                <div class="p-6 hover:bg-white/5 transition-colors cursor-pointer group">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-lg flex items-center justify-center text-white font-display font-bold">
+                      {index + 1}
+                    </div>
+                    
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-white mb-2 group-hover:text-secondary-500 transition-colors">
+                        {item.question}
+                      </h3>
+                      <div class="flex items-center gap-4 text-sm text-gray-400">
+                        <span class="px-2 py-1 bg-white/5 rounded-full text-xs">{item.category}</span>
+                        <div class="flex items-center gap-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                          </svg>
+                          <span>{item.views} views</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-secondary-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All FAQs by Category -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="max-w-5xl mx-auto space-y-12">
+          {faqCategories.map(category => (
+            <div class="faq-category" data-category={category.id}>
+              <div class="flex items-center space-x-4 mb-6">
+                <div class={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center text-2xl`}>
+                  {category.icon}
+                </div>
+                <div>
+                  <h2 class="text-2xl md:text-3xl font-display font-black text-white">
+                    {category.name}
+                  </h2>
+                  <p class="text-gray-400 text-sm">{category.count} questions answered</p>
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                {faqs[category.id].map((faq, index) => (
+                  <div class="card-glass overflow-hidden">
+                    <details class="group">
+                      <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                        <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                          {faq.question}
+                        </h3>
+                        <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                      </summary>
+                      <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                        <p class="text-gray-400 leading-relaxed">{faq.answer}</p>
+                      </div>
+                    </details>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Still Have Questions -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">💬</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Still Have <span class="text-gradient">Questions</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Can't find what you're looking for? Our support team is available 24/7 to help you
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href={withBase('/contact-us')} class="btn-primary text-lg px-12 py-4">
+                Contact Support
+              </a>
+              <a href={withBase('/help-center')} class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                Visit Help Center
+              </a>
+            </div>
+            
+            <!-- Quick Contact Methods -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 pt-8 border-t border-white/10">
+              <div class="space-y-2">
+                <div class="text-3xl">💬</div>
+                <h3 class="text-white font-bold">Live Chat</h3>
+                <p class="text-gray-400 text-sm">Instant response 24/7</p>
+              </div>
+              <div class="space-y-2">
+                <div class="text-3xl">📧</div>
+                <h3 class="text-white font-bold">Email Support</h3>
+                <p class="text-gray-400 text-sm">support@casinopro.com</p>
+              </div>
+              <div class="space-y-2">
+                <div class="text-3xl">📞</div>
+                <h3 class="text-white font-bold">Phone Support</h3>
+                <p class="text-gray-400 text-sm">+1 (800) 123-4567</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Helpful Resources -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Helpful</span> Resources
+          </h2>
+          <p class="text-gray-400">Additional resources to help you get started</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <a href={withBase('/help-center')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center space-y-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform">
+              📖
+            </div>
+            <h3 class="text-white font-bold group-hover:text-primary-500 transition-colors">Help Center</h3>
+            <p class="text-gray-400 text-sm">Comprehensive guides and tutorials</p>
+          </a>
+
+          <a href={withBase('/help-center#tutorials')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center space-y-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform">
+              🎥
+            </div>
+            <h3 class="text-white font-bold group-hover:text-secondary-500 transition-colors">Video Tutorials</h3>
+            <p class="text-gray-400 text-sm">Watch step-by-step video guides</p>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center space-y-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform">
+              📋
+            </div>
+            <h3 class="text-white font-bold group-hover:text-accent-green transition-colors">Terms & Conditions</h3>
+            <p class="text-gray-400 text-sm">Read our complete terms</p>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center space-y-4">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform">
+              🛡️
+            </div>
+            <h3 class="text-white font-bold group-hover:text-accent-blue transition-colors">Responsible Gaming</h3>
+            <p class="text-gray-400 text-sm">Learn about safe gambling</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Search functionality
+  const searchInput = document.getElementById('faq-search') as HTMLInputElement;
+  const faqCategories = document.querySelectorAll('.faq-category');
+  
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    faqCategories.forEach(category => {
+      const questions = category.querySelectorAll('details');
+      let hasVisibleQuestion = false;
+      
+      questions.forEach(question => {
+        const questionText = question.querySelector('summary')?.textContent?.toLowerCase() || '';
+        const answerText = question.querySelector('p')?.textContent?.toLowerCase() || '';
+        
+        if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
+          (question as HTMLElement).style.display = 'block';
+          hasVisibleQuestion = true;
+        } else {
+          (question as HTMLElement).style.display = 'none';
+        }
+      });
+      
+      // Hide category if no questions match
+      (category as HTMLElement).style.display = hasVisibleQuestion ? 'block' : 'none';
+    });
+  });
+  
+  // Category filter buttons
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const categoryId = button.getAttribute('data-category');
+      const targetCategory = document.querySelector(`.faq-category[data-category="${categoryId}"]`);
+      
+      if (targetCategory) {
+        targetCategory.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Highlight the category briefly
+        targetCategory.classList.add('ring-2', 'ring-secondary-500', 'rounded-lg');
+        setTimeout(() => {
+          targetCategory.classList.remove('ring-2', 'ring-secondary-500', 'rounded-lg');
+        }, 2000);
+      }
+    });
+  });
+  
+  // Track which FAQs are opened (analytics placeholder)
+  const allDetails = document.querySelectorAll('details');
+  allDetails.forEach(detail => {
+    detail.addEventListener('toggle', () => {
+      if (detail.open) {
+        const question = detail.querySelector('summary')?.textContent;
+        console.log('FAQ opened:', question);
+        // In production, send to analytics
+      }
+    });
+  });
+</script>

@@ -1,0 +1,388 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+import { games } from '../data/games';
+
+const liveCasinoGames = games.filter(game => game.category === 'live-casino' || game.category === 'game-shows');
+const pageTitle = 'Live Casino';
+const pageDescription = 'Experience authentic casino action with professional live dealers streaming in HD. Play live roulette, blackjack, baccarat, and exclusive game shows 24/7.';
+
+// Live dealers data
+const liveDealers = [
+  { name: 'Sophia Martinez', specialty: 'Roulette', language: 'EN, ES', rating: 4.9, tables: 3, image: 'SM' },
+  { name: 'James Chen', specialty: 'Blackjack', language: 'EN, ZH', rating: 4.8, tables: 2, image: 'JC' },
+  { name: 'Isabella Romano', specialty: 'Baccarat', language: 'EN, IT', rating: 4.9, tables: 2, image: 'IR' },
+  { name: 'Alexander Petrov', specialty: 'Game Shows', language: 'EN, RU', rating: 5.0, tables: 1, image: 'AP' },
+  { name: 'Emma Thompson', specialty: 'Roulette', language: 'EN, FR', rating: 4.8, tables: 3, image: 'ET' },
+  { name: 'Lucas Silva', specialty: 'Blackjack', language: 'EN, PT', rating: 4.7, tables: 2, image: 'LS' }
+];
+
+// Live tables status
+const liveTables = [
+  { id: 1, game: 'Lightning Roulette', dealer: 'Sophia M.', players: 247, minBet: 0.20, maxBet: 25000, status: 'active', hot: true },
+  { id: 2, game: 'VIP Blackjack', dealer: 'James C.', players: 89, minBet: 50, maxBet: 50000, status: 'active', hot: false },
+  { id: 3, game: 'Speed Baccarat', dealer: 'Isabella R.', players: 156, minBet: 1, maxBet: 10000, status: 'active', hot: true },
+  { id: 4, game: 'Crazy Time', dealer: 'Alexander P.', players: 523, minBet: 0.10, maxBet: 2500, status: 'active', hot: true },
+  { id: 5, game: 'Immersive Roulette', dealer: 'Emma T.', players: 198, minBet: 0.50, maxBet: 15000, status: 'active', hot: false },
+  { id: 6, game: 'Infinite Blackjack', dealer: 'Lucas S.', players: 312, minBet: 1, maxBet: 5000, status: 'active', hot: true }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 via-gray-900 to-amber-900/20"></div>
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=1920&h=1080&fit=crop&q=80')] opacity-10 bg-cover bg-center"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-4xl mx-auto animate-fade-in-up">
+        <div class="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-full">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </span>
+          <span class="text-red-400 font-semibold">🎥 LIVE NOW - 24/7</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="text-gradient-animate">Live Casino Experience</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Join professional dealers in real-time at our exclusive tables. 
+          Authentic luxury casino atmosphere streamed in stunning 4K quality.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">4K HD Streaming</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Professional Dealers</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Multiple Camera Angles</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Live Chat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Tables Status -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-bold mb-2">🎲 Live Tables</h2>
+          <p class="text-gray-400">Join active tables with real dealers right now</p>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          <span class="text-green-400 text-sm font-semibold">{liveTables.length} Tables Active</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {liveTables.map((table, index) => (
+          <div 
+            class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            {/* Table Header */}
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-white mb-1">{table.game}</h3>
+                <p class="text-sm text-gray-400">Dealer: {table.dealer}</p>
+              </div>
+              {table.hot && (
+                <span class="px-2 py-1 bg-red-500/20 border border-red-500/50 rounded-full text-xs text-red-400 font-semibold animate-pulse">
+                  🔥 HOT
+                </span>
+              )}
+            </div>
+
+            {/* Live Indicator */}
+            <div class="mb-4 p-4 bg-black/30 rounded-xl border border-red-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                  </span>
+                  <span class="text-red-400 text-sm font-semibold">LIVE</span>
+                </div>
+                <span class="text-gray-400 text-sm">{table.players} players</span>
+              </div>
+              <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  class="h-full bg-gradient-to-r from-amber-500 to-red-500 animate-shimmer"
+                  style={`width: ${Math.min((table.players / 600) * 100, 100)}%`}
+                ></div>
+              </div>
+            </div>
+
+            {/* Betting Limits */}
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="bg-gray-700/30 rounded-lg p-3">
+                <div class="text-xs text-gray-400 mb-1">Min Bet</div>
+                <div class="text-lg font-bold text-green-400">${table.minBet}</div>
+              </div>
+              <div class="bg-gray-700/30 rounded-lg p-3">
+                <div class="text-xs text-gray-400 mb-1">Max Bet</div>
+                <div class="text-lg font-bold text-amber-400">${table.maxBet.toLocaleString()}</div>
+              </div>
+            </div>
+
+            {/* Join Button */}
+            <button class="w-full py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold rounded-xl transition-all duration-300 hover-scale btn-ripple">
+              Join Table
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Live Games -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-4xl font-bold mb-4">🎰 Featured Live Games</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Experience the thrill of real casino action from the comfort of your home
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {liveCasinoGames.map((game, index) => (
+          <div 
+            class="group bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            {/* Game Image */}
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src={game.image} 
+                alt={game.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+              
+              {/* Live Badge */}
+              <div class="absolute top-4 left-4 flex items-center gap-2 px-3 py-1 bg-red-500/90 backdrop-blur-sm rounded-full">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                <span class="text-white text-xs font-bold">LIVE</span>
+              </div>
+
+              {/* Hot Badge */}
+              {game.hot && (
+                <div class="absolute top-4 right-4 px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full">
+                  <span class="text-white text-xs font-bold">🔥 HOT</span>
+                </div>
+              )}
+
+              {/* Play Button Overlay */}
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button class="px-6 py-3 bg-white/90 hover:bg-white text-gray-900 font-bold rounded-xl transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                  Join Now
+                </button>
+              </div>
+            </div>
+
+            {/* Game Info */}
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                {game.title}
+              </h3>
+              <p class="text-sm text-gray-400 mb-4 line-clamp-2">
+                {game.description}
+              </p>
+
+              {/* Stats */}
+              <div class="flex items-center justify-between text-sm mb-4">
+                <div class="flex items-center gap-1">
+                  <span class="text-amber-400">⭐</span>
+                  <span class="text-white font-semibold">{game.rating}</span>
+                </div>
+                <div class="text-gray-400">
+                  {game.players.toLocaleString()} playing
+                </div>
+              </div>
+
+              {/* Features */}
+              <div class="flex flex-wrap gap-2">
+                {game.features.slice(0, 2).map(feature => (
+                  <span class="px-2 py-1 bg-gray-700/50 rounded text-xs text-gray-300">
+                    {feature}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Dealers -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">👥 Our Professional Dealers</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Meet our team of experienced and friendly dealers available 24/7
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {liveDealers.map((dealer, index) => (
+          <div 
+            class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            {/* Dealer Avatar */}
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center text-2xl font-bold text-white">
+                {dealer.image}
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">{dealer.name}</h3>
+                <p class="text-sm text-gray-400">{dealer.specialty} Specialist</p>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-amber-400">⭐</span>
+                <span class="text-white font-semibold">{dealer.rating}</span>
+              </div>
+            </div>
+
+            {/* Dealer Info */}
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-400">Languages:</span>
+                <span class="text-white">{dealer.language}</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-400">Active Tables:</span>
+                <span class="text-amber-400 font-semibold">{dealer.tables}</span>
+              </div>
+            </div>
+
+            {/* Status */}
+            <div class="flex items-center gap-2 px-3 py-2 bg-green-500/10 border border-green-500/30 rounded-lg">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span class="text-green-400 text-sm font-semibold">Available Now</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Why Choose Our Live Casino</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Experience the ultimate in live casino gaming with cutting-edge technology
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gradient-to-br from-purple-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/30 hover-lift text-center">
+          <div class="text-5xl mb-4">🎥</div>
+          <h3 class="text-xl font-bold mb-2">4K HD Streaming</h3>
+          <p class="text-gray-400 text-sm">
+            Crystal clear video quality with multiple camera angles and slow-motion replays
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/30 hover-lift text-center">
+          <div class="text-5xl mb-4">💬</div>
+          <h3 class="text-xl font-bold mb-2">Live Chat</h3>
+          <p class="text-gray-400 text-sm">
+            Interact with dealers and players in real-time multilingual chat
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-green-500/30 hover-lift text-center">
+          <div class="text-5xl mb-4">🕐</div>
+          <h3 class="text-xl font-bold mb-2">24/7 Available</h3>
+          <p class="text-gray-400 text-sm">
+            Play anytime with round-the-clock professional dealers from studios worldwide
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-amber-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-amber-500/30 hover-lift text-center">
+          <div class="text-5xl mb-4">👑</div>
+          <h3 class="text-xl font-bold mb-2">VIP Tables</h3>
+          <p class="text-gray-400 text-sm">
+            Exclusive high-limit tables with dedicated dealers for premium members only
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-red-900/20 via-amber-900/20 to-red-900/20"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">
+          Ready to Join the Action?
+        </h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Experience authentic casino gaming with professional dealers streaming live 24/7
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button class="px-8 py-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold rounded-xl transition-all duration-300 hover-lift btn-ripple">
+            Join Live Tables
+          </button>
+          <a 
+            href={withBase('/games')} 
+            class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl border border-gray-700 transition-all duration-300 hover-lift"
+          >
+            Browse All Games
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-gradient-animate {
+    background: linear-gradient(90deg, #ef4444, #f59e0b, #ec4899, #ef4444);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideRight 3s linear infinite;
+  }
+
+  @keyframes slideRight {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

@@ -1,0 +1,299 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+import { gameProviders, getGamesByProvider } from '../data/games';
+
+const pageTitle = 'Game Providers';
+const pageDescription = 'Discover premium casino games from the world\'s leading game providers. NetEnt, Microgaming, Evolution Gaming, Pragmatic Play, and more.';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-gray-900 to-amber-900/20"></div>
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920&h=1080&fit=crop&q=80')] opacity-5 bg-cover bg-center"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-4xl mx-auto animate-fade-in-up">
+        <div class="inline-block mb-4 px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full">
+          <span class="text-amber-400 font-semibold">🎮 Premium Game Providers</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 text-gradient-animate">
+          World-Class Game Providers
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Experience the finest casino games from industry-leading software providers. 
+          Each provider brings unique innovation, stunning graphics, and massive winning potential.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Licensed & Certified</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Provably Fair</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Regular Audits</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Industry Awards</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Providers Grid -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {gameProviders.map((provider, index) => {
+          const providerGames = getGamesByProvider(provider.id);
+          const totalGames = providerGames.length;
+          
+          // Skip providers with no games
+          if (totalGames === 0) return null;
+          
+          const avgRating = totalGames > 0 
+            ? (providerGames.reduce((sum, game) => sum + game.rating, 0) / totalGames).toFixed(1)
+            : '4.5';
+          const totalPlayers = providerGames.reduce((sum, game) => sum + game.players, 0);
+          
+          return (
+            <div 
+              class="group bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              <!-- Provider Logo -->
+              <div class="mb-6 h-20 flex items-center justify-center bg-white/5 rounded-xl p-4 group-hover:bg-white/10 transition-colors">
+                <div class="text-4xl font-bold text-amber-400">{provider.name.charAt(0)}</div>
+              </div>
+
+              <!-- Provider Info -->
+              <div class="mb-4">
+                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                  {provider.name}
+                </h3>
+                <p class="text-sm text-gray-400 mb-3">
+                  {provider.description}
+                </p>
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                  <span class="px-2 py-1 bg-gray-700/50 rounded">Est. {provider.established}</span>
+                </div>
+              </div>
+
+              <!-- Stats -->
+              <div class="grid grid-cols-3 gap-3 mb-4 pt-4 border-t border-gray-700/50">
+                <div class="text-center">
+                  <div class="text-lg font-bold text-amber-400">{totalGames}</div>
+                  <div class="text-xs text-gray-500">Games</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-amber-400">{avgRating}</div>
+                  <div class="text-xs text-gray-500">Rating</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-lg font-bold text-amber-400">{(totalPlayers / 1000).toFixed(0)}K</div>
+                  <div class="text-xs text-gray-500">Players</div>
+                </div>
+              </div>
+
+              <!-- View Games Button -->
+              <button 
+                class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold rounded-xl transition-all duration-300 hover-scale btn-ripple"
+                onclick={`window.location.href='${withBase(`/games?provider=${provider.id}`)}'`}
+              >
+                View Games
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Our Providers -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-4xl font-bold mb-4">Why Our Providers Stand Out</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          We partner only with the most reputable and innovative game providers in the industry
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gradient-to-br from-purple-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-purple-500/30 hover-lift">
+          <div class="text-4xl mb-4">🏆</div>
+          <h3 class="text-xl font-bold mb-2">Award-Winning</h3>
+          <p class="text-gray-400 text-sm">
+            Multiple industry awards and recognition for innovation and quality
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-blue-500/30 hover-lift">
+          <div class="text-4xl mb-4">🔒</div>
+          <h3 class="text-xl font-bold mb-2">Licensed & Secure</h3>
+          <p class="text-gray-400 text-sm">
+            Fully licensed and regularly audited by independent testing agencies
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-green-500/30 hover-lift">
+          <div class="text-4xl mb-4">🎨</div>
+          <h3 class="text-xl font-bold mb-2">Cutting-Edge Graphics</h3>
+          <p class="text-gray-400 text-sm">
+            Stunning visuals, smooth animations, and immersive sound design
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-amber-900/20 to-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-amber-500/30 hover-lift">
+          <div class="text-4xl mb-4">📱</div>
+          <h3 class="text-xl font-bold mb-2">Mobile Optimized</h3>
+          <p class="text-gray-400 text-sm">
+            Perfect performance on all devices with responsive design
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Provider Highlights -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Provider Highlights</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Discover what makes each provider unique and special
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- NetEnt Highlight -->
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover-lift">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 bg-amber-500/10 rounded-xl flex items-center justify-center text-2xl font-bold text-amber-400">N</div>
+            <div>
+              <h3 class="text-2xl font-bold mb-2">NetEnt</h3>
+              <p class="text-sm text-gray-400">Industry Pioneer Since 1996</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">
+            NetEnt is renowned for creating some of the most iconic slots in online casino history, including Starburst and Gonzo's Quest. Their games feature innovative mechanics, stunning graphics, and industry-leading RTP rates.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs text-amber-400">Premium Slots</span>
+            <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs text-amber-400">Progressive Jackpots</span>
+            <span class="px-3 py-1 bg-amber-500/10 border border-amber-500/30 rounded-full text-xs text-amber-400">Table Games</span>
+          </div>
+        </div>
+
+        <!-- Evolution Gaming Highlight -->
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover-lift">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 bg-purple-500/10 rounded-xl flex items-center justify-center text-2xl font-bold text-purple-400">E</div>
+            <div>
+              <h3 class="text-2xl font-bold mb-2">Evolution Gaming</h3>
+              <p class="text-sm text-gray-400">Live Casino Leaders</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">
+            Evolution Gaming is the undisputed leader in live casino gaming. Their innovative game shows like Crazy Time and Lightning Roulette have revolutionized the live casino experience with professional dealers and cutting-edge technology.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full text-xs text-purple-400">Live Dealers</span>
+            <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full text-xs text-purple-400">Game Shows</span>
+            <span class="px-3 py-1 bg-purple-500/10 border border-purple-500/30 rounded-full text-xs text-purple-400">4K Streaming</span>
+          </div>
+        </div>
+
+        <!-- Pragmatic Play Highlight -->
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover-lift">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 bg-blue-500/10 rounded-xl flex items-center justify-center text-2xl font-bold text-blue-400">P</div>
+            <div>
+              <h3 class="text-2xl font-bold mb-2">Pragmatic Play</h3>
+              <p class="text-sm text-gray-400">Multi-Product Innovation</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">
+            Pragmatic Play delivers a diverse portfolio of high-quality games including slots, live casino, and bingo. Known for their engaging gameplay mechanics and frequent releases, they consistently produce player favorites like Gates of Olympus.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs text-blue-400">Video Slots</span>
+            <span class="px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs text-blue-400">Live Casino</span>
+            <span class="px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs text-blue-400">Bingo</span>
+          </div>
+        </div>
+
+        <!-- Microgaming Highlight -->
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 hover-lift">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 bg-green-500/10 rounded-xl flex items-center justify-center text-2xl font-bold text-green-400">M</div>
+            <div>
+              <h3 class="text-2xl font-bold mb-2">Microgaming</h3>
+              <p class="text-sm text-gray-400">Jackpot Specialists</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">
+            Microgaming created the legendary Mega Moolah progressive jackpot network, which has paid out over $1 billion to players. As one of the oldest providers, they continue to innovate with new releases and massive jackpot opportunities.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full text-xs text-green-400">Progressive Jackpots</span>
+            <span class="px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full text-xs text-green-400">Classic Slots</span>
+            <span class="px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full text-xs text-green-400">Poker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-amber-900/20 via-purple-900/20 to-amber-900/20"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up">
+          Ready to Play Premium Games?
+        </h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Explore thousands of games from the world's best providers. Your next big win awaits!
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a 
+            href={withBase('/games')} 
+            class="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl transition-all duration-300 hover-lift btn-ripple"
+          >
+            Browse All Games
+          </a>
+          <a 
+            href={withBase('/slots')} 
+            class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl border border-gray-700 transition-all duration-300 hover-lift"
+          >
+            View Slots
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .text-gradient-animate {
+    background: linear-gradient(90deg, #f59e0b, #6366f1, #ec4899, #f59e0b);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideRight 3s linear infinite;
+  }
+
+  @keyframes slideRight {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+  }
+</style>

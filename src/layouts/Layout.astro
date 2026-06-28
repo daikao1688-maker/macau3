@@ -1,0 +1,172 @@
+---
+import { withBase } from '../utils/paths';
+import '../styles/global.css';
+import '../styles/responsive-fixes.css';
+import '../styles/animations.css';
+import '../styles/game-card-fix.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const { 
+  title, 
+  description = 'Premium Casino - Your Ultimate Gaming Destination with 3000+ games, live dealers, and exclusive bonuses. Licensed and regulated for safe gaming.',
+  keywords = 'online casino, casino games, slots, live casino, jackpots, casino bonuses, online gambling',
+  ogImage = '/favicon.svg',
+  noIndex = false
+} = Astro.props;
+
+// Fix for canonical URL - use site from config or fallback to current URL
+const siteUrl = Astro.site?.toString() || `http://localhost:4321`;
+const canonicalURL = Astro.url.toString();
+const ogImageURL = new URL(withBase(ogImage), siteUrl).toString();
+const serviceWorkerUrl = withBase('/sw.js');
+const organizationUrl = new URL(withBase('/'), siteUrl).toString();
+const organizationLogo = new URL(withBase('/favicon.svg'), siteUrl).toString();
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Premium Casino',
+  url: organizationUrl,
+  logo: organizationLogo,
+  description: 'Premium online casino with 3000+ games, live dealers, and exclusive bonuses',
+  foundingDate: '2026',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-800-CASINO',
+    contactType: 'Customer Service',
+    availableLanguage: ['English'],
+    areaServed: 'Worldwide'
+  },
+  sameAs: [
+    'https://facebook.com/premiumcasino',
+    'https://twitter.com/premiumcasino',
+    'https://instagram.com/premiumcasino'
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Premium Casino" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Robots -->
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="Premium Casino" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageURL} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="icon" type="image/x-icon" href={withBase('/favicon.ico')} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase('/favicon.svg')} />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#f59e0b" />
+    <meta name="msapplication-TileColor" content="#f59e0b" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href={withBase('/manifest.json')} />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CasinoPro" />
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+  </head>
+  <body class="bg-dark-950 text-white antialiased">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg">
+      Skip to main content
+    </a>
+    
+    <Header />
+    
+    <main id="main-content" class="min-h-screen">
+      <slot />
+    </main>
+    
+    <Footer />
+    
+    <!-- PWA Service Worker Registration -->
+    <script define:vars={{ serviceWorkerUrl }}>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register(serviceWorkerUrl)
+            .then((registration) => {
+              console.log('SW registered:', registration);
+              
+              // Check for updates periodically
+              setInterval(() => {
+                registration.update();
+              }, 60000); // Check every minute
+            })
+            .catch((error) => {
+              console.log('SW registration failed:', error);
+            });
+        });
+      }
+
+      // Install prompt for PWA
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install button/banner (can be customized)
+        const installBanner = document.getElementById('install-banner');
+        if (installBanner) {
+          installBanner.style.display = 'block';
+        }
+      });
+
+      // Handle install button click
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA installed successfully');
+        deferredPrompt = null;
+      });
+    </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
+  </body>
+</html>

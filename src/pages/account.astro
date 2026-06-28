@@ -1,0 +1,413 @@
+---
+import Layout from '../layouts/Layout.astro';
+import UserProfile from '../components/UserProfile';
+import UserWallet from '../components/UserWallet';
+import VipLoyalty from '../components/VipLoyalty';
+import BonusTracker from '../components/BonusTracker';
+---
+
+<Layout title="My Account - CasinoPro | Profile & Wallet Management">  
+  <main class="min-h-screen pt-20">
+    <!-- Account Header -->
+    <section class="relative py-12 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&h=400&fit=crop&q=80"
+          alt="Account Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-primary-900/20"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-4">
+          <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+            👤 Account Management
+          </span>
+          
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">My Account</span>
+          </h1>
+          
+          <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            Manage your profile, wallet, bonuses, and account settings
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account Content -->
+    <section class="py-8 sm:py-12 md:py-16">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Account Navigation -->
+        <div class="mb-6 sm:mb-8">
+          <div class="flex flex-wrap justify-center gap-2 p-2 bg-dark-800/50 backdrop-blur-lg border border-white/10 rounded-xl overflow-x-auto">
+            <button 
+              data-tab="profile" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 bg-primary-500 text-white whitespace-nowrap"
+            >
+              👤 Profile
+            </button>
+            <button 
+              data-tab="wallet" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            >
+              💰 Wallet
+            </button>
+            <button 
+              data-tab="bonuses" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            >
+              🎁 Bonuses
+            </button>
+            <button 
+              data-tab="vip" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            >
+              👑 VIP
+            </button>
+            <button 
+              data-tab="history" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            >
+              📊 History
+            </button>
+            <button 
+              data-tab="settings" 
+              class="account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap"
+            >
+              ⚙️ Settings
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="account-content">
+          <!-- Profile Tab -->
+          <div id="profile-tab" class="tab-content">
+            <UserProfile client:load className="w-full" />
+          </div>
+
+          <!-- Wallet Tab -->
+          <div id="wallet-tab" class="tab-content hidden">
+            <UserWallet client:load className="w-full" />
+          </div>
+
+          <!-- Bonuses Tab -->
+          <div id="bonuses-tab" class="tab-content hidden">
+            <BonusTracker client:load className="w-full" />
+          </div>
+
+          <!-- VIP Tab -->
+          <div id="vip-tab" class="tab-content hidden">
+            <VipLoyalty client:load className="w-full" />
+          </div>
+
+          <!-- History Tab -->
+          <div id="history-tab" class="tab-content hidden">
+            <div id="user-history-container"></div>
+          </div>
+
+          <!-- Settings Tab -->
+          <div id="settings-tab" class="tab-content hidden">
+            <div id="user-settings-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Initialize account page functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    let activeTab = 'profile';
+
+    // Tab switching functionality
+    const switchTab = (tabName: string) => {
+      // Update active tab
+      activeTab = tabName;
+
+      // Update tab buttons
+      const tabButtons = document.querySelectorAll('.account-tab');
+      tabButtons.forEach(button => {
+        const tab = button.getAttribute('data-tab');
+        if (tab === tabName) {
+          button.className = 'account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 bg-primary-500 text-white whitespace-nowrap';
+        } else {
+          button.className = 'account-tab px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-semibold text-xs sm:text-sm transition-all duration-300 text-gray-400 hover:text-white hover:bg-white/10 whitespace-nowrap';
+        }
+      });
+
+      // Hide all tab content
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(tab => tab.classList.add('hidden'));
+
+      // Show selected tab content
+      const selectedTab = document.getElementById(`${tabName}-tab`);
+      selectedTab?.classList.remove('hidden');
+
+      // Handle other tabs
+      if (tabName === 'history') {
+        handleHistoryTab();
+      } else if (tabName === 'settings') {
+        handleSettingsTab();
+      }
+
+      // Add animation to content
+      const activeContent = document.getElementById(`${tabName}-tab`);
+      if (activeContent) {
+        activeContent.style.animation = 'fadeInUp 0.5s ease-out';
+      }
+    };
+
+    // Handle history tab
+    const handleHistoryTab = () => {
+      const container = document.getElementById('user-history-container');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-display font-bold text-white mb-2">Gaming History</h3>
+            <p class="text-gray-400">Your gaming activity and achievements</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card-glass p-6 text-center">
+              <div class="text-3xl mb-2">🎮</div>
+              <h4 class="text-white font-bold text-lg mb-1">Games Played</h4>
+              <p class="text-primary-500 font-bold text-2xl">1,247</p>
+            </div>
+
+            <div class="card-glass p-6 text-center">
+              <div class="text-3xl mb-2">💰</div>
+              <h4 class="text-white font-bold text-lg mb-1">Total Wagered</h4>
+              <p class="text-secondary-500 font-bold text-2xl">$125,000</p>
+            </div>
+
+            <div class="card-glass p-6 text-center">
+              <div class="text-3xl mb-2">⭐</div>
+              <h4 class="text-white font-bold text-lg mb-1">Achievements</h4>
+              <p class="text-accent-green font-bold text-2xl">24</p>
+            </div>
+          </div>
+
+          <div class="card-glass p-6">
+            <h4 class="text-xl font-bold text-white mb-6">Recent Activity</h4>
+            
+            <div class="space-y-4">
+              <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center text-xl">
+                  🎰
+                </div>
+                
+                <div class="flex-1">
+                  <h5 class="text-white font-semibold">Big Win on Mega Fortune</h5>
+                  <p class="text-gray-400 text-sm">Won $2,500 on progressive jackpot</p>
+                  <p class="text-gray-500 text-xs mt-1">2 hours ago</p>
+                </div>
+
+                <div class="text-right">
+                  <div class="text-accent-green font-bold">+$2,500</div>
+                </div>
+              </div>
+
+              <div class="flex items-center space-x-4 p-4 bg-white/5 rounded-lg border border-white/10">
+                <div class="w-12 h-12 bg-gradient-to-br from-accent-green to-emerald-600 rounded-full flex items-center justify-center text-xl">
+                  🏆
+                </div>
+                
+                <div class="flex-1">
+                  <h5 class="text-white font-semibold">Tournament Victory</h5>
+                  <p class="text-gray-400 text-sm">1st place in Weekly Slots Tournament</p>
+                  <p class="text-gray-500 text-xs mt-1">1 day ago</p>
+                </div>
+
+                <div class="text-right">
+                  <div class="text-accent-green font-bold">+$5,000</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    // Handle settings tab
+    const handleSettingsTab = () => {
+      const container = document.getElementById('user-settings-container');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="text-center mb-8">
+            <h3 class="text-2xl font-display font-bold text-white mb-2">Account Settings</h3>
+            <p class="text-gray-400">Manage your preferences and security settings</p>
+          </div>
+
+          <!-- Preferences -->
+          <div class="card-glass p-6">
+            <h4 class="text-xl font-bold text-white mb-6">Preferences</h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-gray-300 text-sm font-semibold mb-2">Language</label>
+                <select class="w-full bg-dark-900/50 border border-white/10 rounded-lg px-3 py-2 text-white">
+                  <option value="en" selected>English</option>
+                  <option value="es">Español</option>
+                  <option value="fr">Français</option>
+                  <option value="de">Deutsch</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-gray-300 text-sm font-semibold mb-2">Currency</label>
+                <select class="w-full bg-dark-900/50 border border-white/10 rounded-lg px-3 py-2 text-white">
+                  <option value="USD" selected>USD - US Dollar</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="GBP">GBP - British Pound</option>
+                  <option value="BTC">BTC - Bitcoin</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="card-glass p-6">
+            <h4 class="text-xl font-bold text-white mb-6">Notifications</h4>
+            
+            <div class="space-y-4">
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Email Notifications</span>
+                  <p class="text-gray-400 text-sm">Receive updates via email</p>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+              
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Promotional Offers</span>
+                  <p class="text-gray-400 text-sm">Get notified about bonuses and promotions</p>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+              
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Game Updates</span>
+                  <p class="text-gray-400 text-sm">New games and features</p>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+            </div>
+          </div>
+
+          <!-- Gaming Preferences -->
+          <div class="card-glass p-6">
+            <h4 class="text-xl font-bold text-white mb-6">Gaming Preferences</h4>
+            
+            <div class="space-y-4">
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Sound Effects</span>
+                  <p class="text-gray-400 text-sm">Enable game sound effects</p>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+              
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Animations</span>
+                  <p class="text-gray-400 text-sm">Enable game animations</p>
+                </div>
+                <input type="checkbox" checked class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+              
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span class="text-white font-medium">Quick Spin</span>
+                  <p class="text-gray-400 text-sm">Faster game rounds</p>
+                </div>
+                <input type="checkbox" class="w-5 h-5 bg-dark-900 border-white/20 rounded text-primary-500 focus:ring-primary-500">
+              </label>
+            </div>
+          </div>
+
+          <!-- Security -->
+          <div class="card-glass p-6">
+            <h4 class="text-xl font-bold text-white mb-6">Security</h4>
+            
+            <div class="space-y-4">
+              <button class="w-full text-left p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-white font-medium">Change Password</span>
+                    <p class="text-gray-400 text-sm">Update your account password</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </button>
+              
+              <button class="w-full text-left p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-white font-medium">Two-Factor Authentication</span>
+                    <p class="text-gray-400 text-sm">Add extra security to your account</p>
+                  </div>
+                  <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-bold rounded-full">RECOMMENDED</span>
+                </div>
+              </button>
+              
+              <button class="w-full text-left p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-white font-medium">Login History</span>
+                    <p class="text-gray-400 text-sm">View recent account access</p>
+                  </div>
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Save Button -->
+          <div class="text-center">
+            <button class="btn-primary px-12 py-4">
+              Save Settings
+            </button>
+          </div>
+        </div>
+      `;
+    };
+
+    // Add event listeners for tab buttons
+    const tabButtons = document.querySelectorAll('.account-tab');
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tab = button.getAttribute('data-tab');
+        if (tab) {
+          switchTab(tab);
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,222 @@
+---
+import { withBase } from '../utils/paths';
+const liveTables = [
+  { id: 1, game: 'VIP Roulette', dealer: 'Sophia Laurent', players: 287, minBet: '$25', maxBet: '$25,000', language: 'EN/FR', featured: true },
+  { id: 2, game: 'Platinum Blackjack', dealer: 'Michael Chen', players: 412, minBet: '$50', maxBet: '$50,000', language: 'EN/CN', featured: true },
+  { id: 3, game: 'Diamond Baccarat', dealer: 'Isabella Romano', players: 356, minBet: '$100', maxBet: '$100,000', language: 'EN/IT', featured: true },
+  { id: 4, game: 'Elite Poker', dealer: 'James Anderson', players: 523, minBet: '$50', maxBet: '$75,000', language: 'EN', featured: false },
+  { id: 5, game: 'Speed Roulette', dealer: 'Emma Wilson', players: 198, minBet: '$10', maxBet: '$10,000', language: 'EN', featured: false },
+  { id: 6, game: 'Immersive Roulette', dealer: 'Lucas Martinez', players: 445, minBet: '$20', maxBet: '$20,000', language: 'EN/ES', featured: true },
+];
+---
+
+<section id="live-casino" class="section-padding relative overflow-hidden">
+  <!-- Background Effects -->
+  <div class="absolute inset-0 bg-gradient-to-b from-dark-950 via-secondary-900/10 to-dark-950"></div>
+  <div class="absolute top-0 left-1/4 w-96 h-96 bg-secondary-500/5 rounded-full blur-3xl"></div>
+  
+  <div class="container mx-auto relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+        🎥 Premium Live Gaming
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6">
+        <span class="text-gradient">Live Casino</span> Experience
+      </h2>
+      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+        Join professional dealers in real-time at our exclusive VIP tables. Authentic luxury casino atmosphere streamed in stunning 4K quality
+      </p>
+    </div>
+
+    <!-- Live Tables Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {liveTables.map(table => (
+        <div class={`card-glass p-6 hover:scale-105 transition-all duration-300 cursor-pointer group relative overflow-hidden ${table.featured ? 'ring-2 ring-primary-500/50' : ''}`}>
+          {table.featured && (
+            <div class="absolute top-0 right-0 bg-gradient-to-l from-primary-500 to-transparent px-6 py-1 text-xs font-bold text-white">
+              ⭐ FEATURED
+            </div>
+          )}
+          
+          <!-- Visual Header with Real Image -->
+          <div class="relative -mx-6 -mt-6 mb-6 h-40 overflow-hidden">
+            <!-- Fallback gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/30 via-purple-600/30 to-pink-600/30"></div>
+            
+            <img 
+              src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+              alt={table.game}
+              class="absolute inset-0 w-full h-full object-cover z-10"
+              loading="lazy"
+            />
+            
+            <!-- Gradient overlays -->
+            <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/40 via-purple-600/30 to-pink-600/40 z-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent z-20"></div>
+            
+            <!-- Pattern overlay -->
+            <div class="absolute inset-0 opacity-10 z-20">
+              <div class="absolute top-0 left-0 w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);"></div>
+            </div>
+          </div>
+          
+          <!-- Live Indicator -->
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center space-x-2">
+              <span class="relative flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-red opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-accent-red"></span>
+              </span>
+              <span class="text-xs font-bold text-accent-red uppercase tracking-wider">Live Now</span>
+            </div>
+            <div class="flex items-center space-x-1 text-gray-400 text-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+              <span class="font-semibold text-white">{table.players}</span>
+            </div>
+          </div>
+
+          <!-- Game Info -->
+          <div class="mb-4">
+            <h3 class="text-xl font-display font-bold text-white mb-2 group-hover:text-secondary-500 transition-colors">
+              {table.game}
+            </h3>
+            <div class="flex items-center space-x-2 text-sm">
+              <div class="w-10 h-10 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-lg">
+                {table.dealer.split(' ').map(n => n[0]).join('')}
+              </div>
+              <div>
+                <p class="text-gray-300 font-medium">{table.dealer}</p>
+                <p class="text-gray-500 text-xs">{table.language}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Betting Limits -->
+          <div class="bg-white/5 rounded-lg p-3 mb-4 space-y-2 border border-white/10">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">Min Bet:</span>
+              <span class="text-white font-bold">{table.minBet}</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-400">Max Bet:</span>
+              <span class="text-primary-500 font-bold">{table.maxBet}</span>
+            </div>
+          </div>
+
+          <!-- Join Button -->
+          <button class="w-full bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-bold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-secondary-500/50 relative overflow-hidden group/btn">
+            <span class="relative z-10">Join Table</span>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+          </button>
+        </div>
+      ))}
+    </div>
+
+    <!-- Features -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+      <div class="text-center space-y-4 group">
+        <div class="relative w-20 h-20 mx-auto rounded-2xl overflow-hidden shadow-lg group-hover:shadow-secondary-500/50 transition-all duration-300 group-hover:scale-110">
+          <!-- Fallback gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500 to-secondary-600"></div>
+          
+          <img 
+            src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=200&h=200&fit=crop&q=80"
+            alt="4K HD Streaming"
+            class="absolute inset-0 w-full h-full object-cover z-10"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/80 to-secondary-600/80 z-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-30">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-display font-bold text-white">4K HD Streaming</h3>
+        <p class="text-gray-400 leading-relaxed">Ultra-high definition video with multiple camera angles and slow-motion replays</p>
+      </div>
+
+      <div class="text-center space-y-4 group">
+        <div class="relative w-20 h-20 mx-auto rounded-2xl overflow-hidden shadow-lg group-hover:shadow-primary-500/50 transition-all duration-300 group-hover:scale-110">
+          <!-- Fallback gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600"></div>
+          
+          <img 
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=200&h=200&fit=crop&q=80"
+            alt="Live Chat"
+            class="absolute inset-0 w-full h-full object-cover z-10"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500/80 to-primary-600/80 z-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-30">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-display font-bold text-white">Live Chat</h3>
+        <p class="text-gray-400 leading-relaxed">Interact with professional dealers and players in real-time multilingual chat</p>
+      </div>
+
+      <div class="text-center space-y-4 group">
+        <div class="relative w-20 h-20 mx-auto rounded-2xl overflow-hidden shadow-lg group-hover:shadow-accent-green/50 transition-all duration-300 group-hover:scale-110">
+          <!-- Fallback gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-accent-green to-accent-blue"></div>
+          
+          <img 
+            src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=200&h=200&fit=crop&q=80"
+            alt="24/7 Available"
+            class="absolute inset-0 w-full h-full object-cover z-10"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-accent-green/80 to-accent-blue/80 z-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-30">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-display font-bold text-white">24/7 Available</h3>
+        <p class="text-gray-400 leading-relaxed">Play anytime with our round-the-clock professional live dealers from studios worldwide</p>
+      </div>
+
+      <div class="text-center space-y-4 group">
+        <div class="relative w-20 h-20 mx-auto rounded-2xl overflow-hidden shadow-lg group-hover:shadow-accent-pink/50 transition-all duration-300 group-hover:scale-110">
+          <!-- Fallback gradient -->
+          <div class="absolute inset-0 bg-gradient-to-br from-accent-pink to-accent-red"></div>
+          
+          <img 
+            src="https://images.unsplash.com/photo-1511882150382-421056c89033?w=200&h=200&fit=crop&q=80"
+            alt="VIP Tables"
+            class="absolute inset-0 w-full h-full object-cover z-10"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-accent-pink/80 to-accent-red/80 z-20"></div>
+          <div class="absolute inset-0 flex items-center justify-center z-30">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-display font-bold text-white">VIP Tables</h3>
+        <p class="text-gray-400 leading-relaxed">Exclusive high-limit tables with dedicated dealers for premium members only</p>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="text-center mt-12">
+      <a 
+        href={withBase('/live-casino')} 
+        class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-secondary-500/50"
+      >
+        <span>Explore All Live Tables</span>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

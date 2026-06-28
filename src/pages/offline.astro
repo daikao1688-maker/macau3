@@ -1,0 +1,115 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Offline - CasinoPro">
+  <main class="min-h-screen flex items-center justify-center bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto text-center space-y-8">
+        <!-- Offline Icon -->
+        <div class="relative">
+          <div class="w-32 h-32 mx-auto bg-gradient-to-br from-primary-500/20 to-secondary-500/20 rounded-full flex items-center justify-center backdrop-blur-lg border border-white/10">
+            <svg class="w-16 h-16 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414"/>
+            </svg>
+          </div>
+          
+          <!-- Animated rings -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-32 h-32 border-2 border-primary-500/30 rounded-full animate-ping"></div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="space-y-4">
+          <h1 class="text-4xl md:text-5xl font-display font-black text-white">
+            You're <span class="text-gradient">Offline</span>
+          </h1>
+          
+          <p class="text-xl text-gray-300 max-w-lg mx-auto">
+            It looks like you've lost your internet connection. Don't worry, we'll be here when you're back online!
+          </p>
+        </div>
+
+        <!-- Features available offline -->
+        <div class="card-glass p-6 max-w-md mx-auto">
+          <h2 class="text-lg font-bold text-white mb-4">Available Offline</h2>
+          
+          <div class="space-y-3 text-left">
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-300 text-sm">Browse cached games</span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-300 text-sm">View promotions</span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <svg class="w-5 h-5 text-accent-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-gray-300 text-sm">Access your account</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Retry button -->
+        <div class="space-y-4">
+          <button 
+            onclick="window.location.reload()"
+            class="btn-primary text-lg px-12 py-4 group relative overflow-hidden"
+          >
+            <span class="relative z-10 flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+              Try Again
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </button>
+
+          <p class="text-sm text-gray-500">
+            Or wait for your connection to restore automatically
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Auto-reload when back online
+  window.addEventListener('online', () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  });
+
+  // Show connection status
+  window.addEventListener('offline', () => {
+    console.log('Connection lost');
+  });
+
+  window.addEventListener('online', () => {
+    console.log('Connection restored');
+  });
+</script>
+
+<style>
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  .animate-ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+</style>

@@ -1,0 +1,593 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BonusTracker from '../components/BonusTracker';
+import VipLoyalty from '../components/VipLoyalty';
+
+const promotions = [
+  {
+    id: 1,
+    title: 'Royal Welcome Package',
+    description: '300% match up to $10,000 + 500 Free Spins on premium slots',
+    badge: 'New VIP Members',
+    color: 'from-primary-500 via-primary-600 to-yellow-600',
+    icon: '👑',
+    code: 'ROYAL300',
+    category: 'Welcome Bonus',
+    validUntil: 'Ongoing',
+    minDeposit: '$50',
+    wagering: '35x',
+    image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80',
+    featured: true
+  },
+  {
+    id: 2,
+    title: 'Weekend High Roller',
+    description: '75% bonus up to $5,000 every weekend + exclusive table access',
+    badge: 'Weekly Elite',
+    color: 'from-secondary-500 via-secondary-600 to-purple-600',
+    icon: '💎',
+    code: 'WEEKEND75',
+    category: 'Reload Bonus',
+    validUntil: 'Every Weekend',
+    minDeposit: '$500',
+    wagering: '30x',
+    image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=800&h=400&fit=crop&q=80',
+    featured: true
+  },
+  {
+    id: 3,
+    title: 'Platinum Cashback',
+    description: 'Up to 25% cashback on all losses + priority withdrawals',
+    badge: 'VIP Exclusive',
+    color: 'from-accent-pink via-pink-600 to-accent-red',
+    icon: '⭐',
+    code: 'PLATINUM25',
+    category: 'Cashback',
+    validUntil: 'Ongoing',
+    minDeposit: '$100',
+    wagering: 'No wagering',
+    image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=400&fit=crop&q=80',
+    featured: true
+  },
+  {
+    id: 4,
+    title: 'Mega Jackpot Drops',
+    description: '$250,000 prize pool shared daily across all games',
+    badge: 'Daily Rewards',
+    color: 'from-accent-green via-emerald-600 to-accent-blue',
+    icon: '💰',
+    code: 'MEGADROP',
+    category: 'Daily Bonus',
+    validUntil: 'Daily',
+    minDeposit: '$20',
+    wagering: '25x',
+    image: 'https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=800&h=400&fit=crop&q=80',
+    featured: false
+  },
+  {
+    id: 5,
+    title: 'Live Casino Bonus',
+    description: '50% bonus up to $3,000 exclusively for live dealer games',
+    badge: 'Live Gaming',
+    color: 'from-blue-500 via-indigo-600 to-purple-600',
+    icon: '🎥',
+    code: 'LIVE50',
+    category: 'Live Casino',
+    validUntil: 'Ongoing',
+    minDeposit: '$100',
+    wagering: '40x',
+    image: 'https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80',
+    featured: false
+  },
+  {
+    id: 6,
+    title: 'Loyalty Rewards',
+    description: 'Earn points on every bet and exchange for cash or prizes',
+    badge: 'All Members',
+    color: 'from-orange-500 via-red-600 to-pink-600',
+    icon: '🎁',
+    code: 'LOYALTY',
+    category: 'Loyalty Program',
+    validUntil: 'Ongoing',
+    minDeposit: 'No minimum',
+    wagering: 'Varies',
+    image: 'https://images.unsplash.com/photo-1541278107931-e006523892df?w=800&h=400&fit=crop&q=80',
+    featured: false
+  },
+  {
+    id: 7,
+    title: 'Birthday Bonus',
+    description: '100% match up to $1,000 + 100 Free Spins on your special day',
+    badge: 'Special Occasion',
+    color: 'from-pink-500 via-rose-600 to-red-600',
+    icon: '🎂',
+    code: 'BIRTHDAY100',
+    category: 'Special Bonus',
+    validUntil: 'Your Birthday',
+    minDeposit: '$25',
+    wagering: '30x',
+    image: 'https://images.unsplash.com/photo-1464618663641-bbdd760ae84a?w=800&h=400&fit=crop&q=80',
+    featured: false
+  },
+  {
+    id: 8,
+    title: 'Refer a Friend',
+    description: 'Get $500 for each friend you refer + they get $200 bonus',
+    badge: 'Referral Program',
+    color: 'from-cyan-500 via-blue-600 to-indigo-600',
+    icon: '👥',
+    code: 'REFER500',
+    category: 'Referral',
+    validUntil: 'Ongoing',
+    minDeposit: 'Friend deposits $100',
+    wagering: '20x',
+    image: 'https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=800&h=400&fit=crop&q=80',
+    featured: false
+  },
+  {
+    id: 9,
+    title: 'Slot Tournament Prize',
+    description: 'Compete for $100,000 prize pool in weekly slot tournaments',
+    badge: 'Tournament',
+    color: 'from-yellow-500 via-orange-600 to-red-600',
+    icon: '🏆',
+    code: 'SLOTTOURNEY',
+    category: 'Tournament',
+    validUntil: 'Weekly',
+    minDeposit: '$50 entry',
+    wagering: 'No wagering',
+    image: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&h=400&fit=crop&q=80',
+    featured: true
+  }
+];
+
+const categories = [
+  { name: 'All Promotions', count: '15+', icon: '🎁' },
+  { name: 'Welcome Bonus', count: '3', icon: '👋' },
+  { name: 'Reload Bonus', count: '5', icon: '🔄' },
+  { name: 'Cashback', count: '2', icon: '💸' },
+  { name: 'Free Spins', count: '4', icon: '🎰' },
+  { name: 'VIP Exclusive', count: '6', icon: '⭐' }
+];
+
+const vipLevels = [
+  {
+    level: 'Bronze',
+    minPoints: '0',
+    cashback: '5%',
+    bonusBoost: '10%',
+    withdrawalTime: '24h',
+    color: 'from-orange-700 to-orange-900',
+    benefits: ['Weekly cashback', 'Birthday bonus', 'Priority support']
+  },
+  {
+    level: 'Silver',
+    minPoints: '10,000',
+    cashback: '10%',
+    bonusBoost: '15%',
+    withdrawalTime: '12h',
+    color: 'from-gray-400 to-gray-600',
+    benefits: ['All Bronze benefits', 'Exclusive tournaments', 'Personal account manager']
+  },
+  {
+    level: 'Gold',
+    minPoints: '50,000',
+    cashback: '15%',
+    bonusBoost: '25%',
+    withdrawalTime: '6h',
+    color: 'from-primary-500 to-primary-700',
+    benefits: ['All Silver benefits', 'Higher table limits', 'Monthly reload bonus']
+  },
+  {
+    level: 'Platinum',
+    minPoints: '100,000',
+    cashback: '20%',
+    bonusBoost: '35%',
+    withdrawalTime: '2h',
+    color: 'from-secondary-500 to-secondary-700',
+    benefits: ['All Gold benefits', 'Luxury gifts', 'Exclusive events invitations']
+  },
+  {
+    level: 'Diamond',
+    minPoints: '500,000',
+    cashback: '25%',
+    bonusBoost: '50%',
+    withdrawalTime: 'Instant',
+    color: 'from-cyan-400 to-blue-600',
+    benefits: ['All Platinum benefits', 'Custom bonuses', 'VIP concierge service']
+  }
+];
+---
+
+<Layout title="Promotions & Bonuses - CasinoPro | Exclusive VIP Offers">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?w=1920&h=600&fit=crop&q=80"
+          alt="Promotions Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-primary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+            🎉 Exclusive VIP Offers
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Premium Promotions</span>
+            <span class="block text-white mt-2">Maximize Your Winnings</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Unlock exclusive bonuses, cashback rewards, and VIP perks designed to boost your gaming experience
+          </p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-primary-500">$10K</div>
+              <div class="text-sm text-gray-400">Welcome Bonus</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-primary-500">25%</div>
+              <div class="text-sm text-gray-400">Max Cashback</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-primary-500">500</div>
+              <div class="text-sm text-gray-400">Free Spins</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-primary-500">Daily</div>
+              <div class="text-sm text-gray-400">New Offers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Browse by <span class="text-gradient">Category</span>
+          </h2>
+          <p class="text-gray-400">Find the perfect bonus for your gaming style</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {categories.map(cat => (
+            <button class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center">
+              <div class="text-4xl mb-3">{cat.icon}</div>
+              <h3 class="text-white font-bold text-sm mb-1 group-hover:text-primary-500 transition-colors">{cat.name}</h3>
+              <p class="text-gray-400 text-xs">{cat.count} offers</p>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Promotions -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Featured</span> Promotions
+          </h2>
+          <p class="text-gray-400">Our most popular and exclusive offers</p>
+        </div>
+
+        <!-- Promotions Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {promotions.map(promo => (
+            <div class={`card-glass group hover:scale-105 transition-all duration-300 overflow-hidden relative ${promo.featured ? 'ring-2 ring-primary-500/50' : ''}`}>
+              {promo.featured && (
+                <div class="absolute top-0 right-0 bg-gradient-to-l from-primary-500 to-transparent px-6 py-1 text-xs font-bold text-white z-40">
+                  ⭐ FEATURED
+                </div>
+              )}
+              
+              <!-- Header with gradient and real image -->
+              <div class="relative p-8 overflow-hidden min-h-[200px] flex items-center justify-center">
+                <!-- Fallback Gradient Background -->
+                <div class={`absolute inset-0 bg-gradient-to-r ${promo.color}`}></div>
+                
+                <!-- Background Image -->
+                <img 
+                  src={promo.image}
+                  alt={promo.title}
+                  class="absolute inset-0 w-full h-full object-cover z-10"
+                  loading="lazy"
+                />
+                
+                <!-- Gradient overlay matching promo color -->
+                <div class={`absolute inset-0 bg-gradient-to-r ${promo.color} opacity-90 z-20`}></div>
+                
+                <!-- Animated gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20"></div>
+                
+                <!-- Decorative circles -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl z-20"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-2xl z-20"></div>
+                
+                <!-- Large icon overlay -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-20 z-20">
+                  <div class="text-9xl transform group-hover:scale-110 transition-transform duration-500">{promo.icon}</div>
+                </div>
+                
+                <div class="relative z-30 text-center">
+                  <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-white/30 shadow-lg">
+                    {promo.badge}
+                  </span>
+                  <h3 class="text-2xl md:text-3xl font-display font-black text-white drop-shadow-2xl">
+                    {promo.title}
+                  </h3>
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="p-6 space-y-4">
+                <p class="text-gray-300 text-sm leading-relaxed min-h-[3rem]">
+                  {promo.description}
+                </p>
+
+                <!-- Promo Details -->
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                  <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="text-gray-400 mb-1">Min Deposit</div>
+                    <div class="text-white font-bold">{promo.minDeposit}</div>
+                  </div>
+                  <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="text-gray-400 mb-1">Wagering</div>
+                    <div class="text-white font-bold">{promo.wagering}</div>
+                  </div>
+                  <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="text-gray-400 mb-1">Valid Until</div>
+                    <div class="text-white font-bold">{promo.validUntil}</div>
+                  </div>
+                  <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="text-gray-400 mb-1">Category</div>
+                    <div class="text-white font-bold text-xs">{promo.category}</div>
+                  </div>
+                </div>
+
+                {promo.code && (
+                  <div class="bg-gradient-to-r from-white/5 to-white/10 border border-white/20 rounded-lg p-4 flex items-center justify-between group/code hover:border-primary-500/50 transition-all">
+                    <span class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Promo Code:</span>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-mono font-bold text-primary-500 text-base">{promo.code}</span>
+                      <button class="copy-code-btn text-gray-400 hover:text-primary-500 transition-colors" data-code={promo.code}>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <button class="w-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white font-bold py-3 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40 group/btn relative overflow-hidden shadow-lg">
+                  <span class="relative z-10 flex items-center justify-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Claim Bonus Now
+                  </span>
+                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Bonus Calculator & VIP Program -->
+    <section class="section-padding">
+      <div class="container mx-auto space-y-16">
+        <!-- Bonus Calculator -->
+        <BonusTracker client:load className="w-full" />
+        
+        <!-- VIP Program -->
+        <VipLoyalty client:load className="w-full" />
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            How to <span class="text-gradient">Claim Bonuses</span>
+          </h2>
+          <p class="text-gray-400">Simple steps to unlock your rewards</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto text-2xl font-display font-black text-white">
+              1
+            </div>
+            <h3 class="text-xl font-display font-bold text-white">Choose Bonus</h3>
+            <p class="text-gray-400 text-sm">Select the promotion that suits your gaming style</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center mx-auto text-2xl font-display font-black text-white">
+              2
+            </div>
+            <h3 class="text-xl font-display font-bold text-white">Enter Code</h3>
+            <p class="text-gray-400 text-sm">Copy the promo code and enter it during deposit</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl font-display font-black text-white">
+              3
+            </div>
+            <h3 class="text-xl font-display font-bold text-white">Make Deposit</h3>
+            <p class="text-gray-400 text-sm">Deposit the minimum required amount</p>
+          </div>
+
+          <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-pink to-accent-red rounded-full flex items-center justify-center mx-auto text-2xl font-display font-black text-white">
+              4
+            </div>
+            <h3 class="text-xl font-display font-bold text-white">Start Playing</h3>
+            <p class="text-gray-400 text-sm">Your bonus is instantly credited to your account</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bonus Terms -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-8">
+          <h2 class="text-2xl md:text-3xl font-display font-black text-white mb-6 text-center">
+            <span class="text-gradient">Bonus Terms</span> & Conditions
+          </h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">Wagering Requirements</h3>
+                  <p class="text-gray-400 text-sm">All bonuses come with wagering requirements ranging from 20x to 40x the bonus amount</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">Game Contributions</h3>
+                  <p class="text-gray-400 text-sm">Slots contribute 100%, table games 10%, and live casino games vary by type</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">Maximum Bet</h3>
+                  <p class="text-gray-400 text-sm">Maximum bet while playing with bonus funds is $5 per spin/hand</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">Expiry Period</h3>
+                  <p class="text-gray-400 text-sm">Bonuses must be used within 30 days of being credited to your account</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">Withdrawal Limits</h3>
+                  <p class="text-gray-400 text-sm">Complete wagering requirements before requesting withdrawals</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-primary-500 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-white font-bold mb-1">One Bonus at a Time</h3>
+                  <p class="text-gray-400 text-sm">Only one active bonus allowed per account at any given time</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center space-y-3 pt-6 border-t border-white/10">
+            <div class="inline-flex items-center space-x-2 text-gray-400 text-sm">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+              </svg>
+              <span>Full terms and conditions apply. 18+ only. Please gamble responsibly.</span>
+            </div>
+            <p class="text-gray-600 text-xs max-w-2xl mx-auto">
+              BeGambleAware.org | GamCare.org.uk | Gambling Therapy
+            </p>
+            <button class="text-primary-500 hover:text-primary-400 text-sm font-semibold transition-colors">
+              Read Full Terms & Conditions →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-secondary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Ready to <span class="text-gradient">Claim Your Bonus</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Join now and get instant access to our exclusive welcome package worth up to $10,000
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="btn-primary text-lg px-12 py-4">
+                Claim Welcome Bonus
+              </button>
+              <button class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                View All Promotions
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Add copy promo code functionality
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.copy-code-btn')) {
+      const button = e.target.closest('.copy-code-btn');
+      const code = button.dataset.code;
+      
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          // Show success feedback
+          const originalText = button.innerHTML;
+          button.innerHTML = '<svg class="w-4 h-4 text-accent-green" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>';
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+          }, 2000);
+        });
+      }
+    }
+  });
+</script>

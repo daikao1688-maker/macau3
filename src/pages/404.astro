@@ -1,0 +1,109 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Page Not Found | CasinoPro">  
+  <main class="min-h-screen pt-20 flex items-center justify-center">
+    <section class="relative py-20 overflow-hidden w-full">
+      <!-- Background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-primary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl mx-auto text-center space-y-8">
+          <!-- 404 Number -->
+          <div class="relative">
+            <h1 class="text-9xl md:text-[200px] font-display font-black text-gradient glow-text leading-none">
+              404
+            </h1>
+            <div class="absolute inset-0 flex items-center justify-center opacity-20">
+              <div class="text-9xl animate-spin-slow">🎰</div>
+            </div>
+          </div>
+          
+          <!-- Message -->
+          <div class="space-y-4">
+            <h2 class="text-3xl md:text-4xl font-display font-black text-white">
+              Oops! Page Not Found
+            </h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+              The page you're looking for doesn't exist yet. It might have been moved or is still under development.
+            </p>
+          </div>
+
+          <!-- Suggestions -->
+          <div class="card-glass p-8 space-y-6">
+            <h3 class="text-xl font-display font-bold text-white">
+              Here's what you can do:
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a href={withBase('/')} class="card-glass p-4 hover:scale-105 transition-all duration-300 group">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                  </div>
+                  <div class="text-left">
+                    <div class="text-white font-bold group-hover:text-primary-500 transition-colors">Go Home</div>
+                    <div class="text-gray-400 text-sm">Back to homepage</div>
+                  </div>
+                </div>
+              </a>
+
+              <a href={withBase('/slots')} class="card-glass p-4 hover:scale-105 transition-all duration-300 group">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-lg flex items-center justify-center">
+                    <div class="text-2xl">🎰</div>
+                  </div>
+                  <div class="text-left">
+                    <div class="text-white font-bold group-hover:text-primary-500 transition-colors">Play Slots</div>
+                    <div class="text-gray-400 text-sm">Premium games</div>
+                  </div>
+                </div>
+              </a>
+
+              <a href={withBase('/live-casino')} class="card-glass p-4 hover:scale-105 transition-all duration-300 group">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 bg-gradient-to-br from-accent-green to-emerald-600 rounded-lg flex items-center justify-center">
+                    <div class="text-2xl">🎥</div>
+                  </div>
+                  <div class="text-left">
+                    <div class="text-white font-bold group-hover:text-primary-500 transition-colors">Live Casino</div>
+                    <div class="text-gray-400 text-sm">Live dealers</div>
+                  </div>
+                </div>
+              </a>
+
+              <a href={withBase('/promotions')} class="card-glass p-4 hover:scale-105 transition-all duration-300 group">
+                <div class="flex items-center space-x-3">
+                  <div class="w-12 h-12 bg-gradient-to-br from-accent-pink to-accent-red rounded-lg flex items-center justify-center">
+                    <div class="text-2xl">🎁</div>
+                  </div>
+                  <div class="text-left">
+                    <div class="text-white font-bold group-hover:text-primary-500 transition-colors">Promotions</div>
+                    <div class="text-gray-400 text-sm">Exclusive bonuses</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <div class="pt-4">
+            <a href={withBase('/')} class="btn-primary text-lg px-12 py-4 inline-flex items-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              Return to Homepage
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>

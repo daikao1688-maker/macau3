@@ -1,0 +1,392 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+import { getJackpotGames } from '../data/games';
+
+const jackpotGames = getJackpotGames();
+const pageTitle = 'Progressive Jackpots';
+const pageDescription = 'Win life-changing amounts with our progressive jackpot slots. Mega Moolah, Mega Fortune, and more with jackpots reaching millions!';
+
+// Calculate total jackpot pool
+const totalJackpot = jackpotGames.reduce((sum, game) => sum + (game.jackpot || 0), 0);
+
+// Recent winners (demo data)
+const recentWinners = [
+  { name: 'John D.', country: 'UK', amount: 2450000, game: 'Mega Moolah', time: '2 hours ago', avatar: 'JD' },
+  { name: 'Maria S.', country: 'Spain', amount: 890000, game: 'Mega Fortune', time: '5 hours ago', avatar: 'MS' },
+  { name: 'Ahmed K.', country: 'UAE', amount: 1250000, game: 'Hall of Gods', time: '1 day ago', avatar: 'AK' },
+  { name: 'Lisa M.', country: 'Canada', amount: 675000, game: 'Mega Moolah', time: '2 days ago', avatar: 'LM' },
+  { name: 'Carlos R.', country: 'Brazil', amount: 520000, game: 'Mega Fortune', time: '3 days ago', avatar: 'CR' },
+  { name: 'Yuki T.', country: 'Japan', amount: 1100000, game: 'Hall of Gods', time: '4 days ago', avatar: 'YT' }
+];
+
+// Jackpot tiers
+const jackpotTiers = [
+  { name: 'Mega', color: 'from-amber-500 to-amber-600', min: 1000000, games: 3 },
+  { name: 'Major', color: 'from-purple-500 to-purple-600', min: 100000, games: 5 },
+  { name: 'Minor', color: 'from-blue-500 to-blue-600', min: 10000, games: 8 },
+  { name: 'Mini', color: 'from-green-500 to-green-600', min: 1000, games: 12 }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- Hero Section -->
+  <section class="relative py-20 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-gray-900 to-purple-900/20"></div>
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1920&h=1080&fit=crop&q=80')] opacity-10 bg-cover bg-center"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-4xl mx-auto animate-fade-in-up">
+        <div class="inline-block mb-4 px-4 py-2 bg-amber-500/10 border border-amber-500/30 rounded-full">
+          <span class="text-amber-400 font-semibold">💰 Progressive Jackpots</span>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          <span class="jackpot-animate">Win Life-Changing Amounts</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">
+          Chase massive progressive jackpots that grow with every spin. 
+          One lucky spin could change your life forever!
+        </p>
+
+        {/* Total Jackpot Counter */}
+        <div class="bg-gradient-to-br from-amber-900/30 to-purple-900/30 backdrop-blur-sm rounded-3xl p-8 border-2 border-amber-500/50 mb-8 animate-glow">
+          <div class="text-sm text-gray-400 mb-2">TOTAL JACKPOT POOL</div>
+          <div class="text-5xl md:text-6xl font-bold text-amber-400 mb-2 jackpot-animate">
+            ${totalJackpot.toLocaleString()}
+          </div>
+          <div class="text-sm text-gray-400">Growing every second...</div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Life-Changing Wins</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Daily Winners</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Instant Payouts</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span class="text-gray-300">Verified Fair</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jackpot Tiers -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">🎰 Jackpot Tiers</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Multiple jackpot levels mean more chances to win big
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {jackpotTiers.map((tier, index) => (
+          <div 
+            class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            <div class={`text-center mb-4 p-4 bg-gradient-to-r ${tier.color} rounded-xl`}>
+              <div class="text-3xl font-bold text-white mb-1">{tier.name}</div>
+              <div class="text-sm text-white/80">Jackpot</div>
+            </div>
+            <div class="text-center mb-4">
+              <div class="text-2xl font-bold text-amber-400 mb-1">
+                ${tier.min.toLocaleString()}+
+              </div>
+              <div class="text-sm text-gray-400">Minimum Prize</div>
+            </div>
+            <div class="text-center pt-4 border-t border-gray-700/50">
+              <div class="text-lg font-bold text-white mb-1">{tier.games}</div>
+              <div class="text-sm text-gray-400">Games Available</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Jackpot Games -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12 animate-fade-in-up">
+        <h2 class="text-4xl font-bold mb-4">💎 Featured Jackpot Games</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Play the biggest progressive jackpot slots with millions up for grabs
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {jackpotGames.map((game, index) => (
+          <div 
+            class="group bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            {/* Game Image */}
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                src={game.image} 
+                alt={game.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+              
+              {/* Jackpot Badge */}
+              <div class="absolute top-4 left-4 px-3 py-1 bg-amber-500/90 backdrop-blur-sm rounded-full animate-pulse">
+                <span class="text-white text-xs font-bold">💰 JACKPOT</span>
+              </div>
+
+              {/* Hot Badge */}
+              {game.hot && (
+                <div class="absolute top-4 right-4 px-3 py-1 bg-red-500/90 backdrop-blur-sm rounded-full">
+                  <span class="text-white text-xs font-bold">🔥 HOT</span>
+                </div>
+              )}
+
+              {/* Jackpot Amount Overlay */}
+              <div class="absolute bottom-4 left-4 right-4">
+                <div class="bg-black/80 backdrop-blur-sm rounded-xl p-3 border border-amber-500/50">
+                  <div class="text-xs text-gray-400 mb-1">Current Jackpot</div>
+                  <div class="text-2xl font-bold text-amber-400 jackpot-animate">
+                    ${game.jackpot?.toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Game Info */}
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">
+                {game.title}
+              </h3>
+              <p class="text-sm text-gray-400 mb-4 line-clamp-2">
+                {game.description}
+              </p>
+
+              {/* Stats */}
+              <div class="grid grid-cols-3 gap-3 mb-4">
+                <div class="text-center">
+                  <div class="text-xs text-gray-400 mb-1">Rating</div>
+                  <div class="flex items-center justify-center gap-1">
+                    <span class="text-amber-400">⭐</span>
+                    <span class="text-white font-semibold">{game.rating}</span>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-gray-400 mb-1">RTP</div>
+                  <div class="text-white font-semibold">{game.rtp}%</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-xs text-gray-400 mb-1">Players</div>
+                  <div class="text-white font-semibold">{(game.players / 1000).toFixed(0)}K</div>
+                </div>
+              </div>
+
+              {/* Play Button */}
+              <button class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold rounded-xl transition-all duration-300 hover-scale btn-ripple">
+                Play Now
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Winners -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">🏆 Recent Jackpot Winners</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Join our community of lucky winners who hit life-changing jackpots
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {recentWinners.map((winner, index) => (
+          <div 
+            class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-amber-500/50 transition-all duration-300 hover-lift stagger-item"
+            style={`animation-delay: ${index * 0.1}s`}
+          >
+            {/* Winner Header */}
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center text-xl font-bold text-white">
+                {winner.avatar}
+              </div>
+              <div class="flex-1">
+                <h3 class="text-lg font-bold text-white">{winner.name}</h3>
+                <p class="text-sm text-gray-400">{winner.country}</p>
+              </div>
+              <div class="text-2xl">🏆</div>
+            </div>
+
+            {/* Win Amount */}
+            <div class="bg-gradient-to-r from-amber-900/30 to-purple-900/30 rounded-xl p-4 mb-4 border border-amber-500/30">
+              <div class="text-xs text-gray-400 mb-1">Won</div>
+              <div class="text-3xl font-bold text-amber-400">
+                ${winner.amount.toLocaleString()}
+              </div>
+            </div>
+
+            {/* Game & Time */}
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-400">Game:</span>
+                <span class="text-white font-semibold">{winner.game}</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-gray-400">Time:</span>
+                <span class="text-gray-300">{winner.time}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Win -->
+  <section class="py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">How to Win the Jackpot</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Simple steps to chase your life-changing win
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4">
+            1
+          </div>
+          <h3 class="text-xl font-bold mb-2">Choose Your Game</h3>
+          <p class="text-gray-400 text-sm">
+            Select from our collection of progressive jackpot slots
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4">
+            2
+          </div>
+          <h3 class="text-xl font-bold mb-2">Place Your Bet</h3>
+          <p class="text-gray-400 text-sm">
+            Set your bet amount and start spinning the reels
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4">
+            3
+          </div>
+          <h3 class="text-xl font-bold mb-2">Trigger Bonus</h3>
+          <p class="text-gray-400 text-sm">
+            Land the special symbols to trigger the jackpot bonus
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4">
+            4
+          </div>
+          <h3 class="text-xl font-bold mb-2">Win Big!</h3>
+          <p class="text-gray-400 text-sm">
+            Hit the jackpot and claim your life-changing prize
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Jackpot Facts -->
+  <section class="py-16 bg-gray-900/50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">💡 Jackpot Facts</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          Everything you need to know about our progressive jackpots
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
+          <div class="text-3xl mb-3">📈</div>
+          <h3 class="text-xl font-bold mb-2">Always Growing</h3>
+          <p class="text-gray-400 text-sm">
+            Every bet contributes to the jackpot pool, making it grow continuously until someone wins.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
+          <div class="text-3xl mb-3">🎲</div>
+          <h3 class="text-xl font-bold mb-2">Random Trigger</h3>
+          <p class="text-gray-400 text-sm">
+            Jackpots can be triggered randomly on any spin, giving everyone a fair chance to win.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
+          <div class="text-3xl mb-3">⚡</div>
+          <h3 class="text-xl font-bold mb-2">Instant Payout</h3>
+          <p class="text-gray-400 text-sm">
+            Winners receive their full jackpot amount instantly with no delays or restrictions.
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
+          <div class="text-3xl mb-3">🔒</div>
+          <h3 class="text-xl font-bold mb-2">Verified Fair</h3>
+          <p class="text-gray-400 text-sm">
+            All jackpot games are regularly audited and certified for fairness by independent agencies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-amber-900/20 via-purple-900/20 to-amber-900/20"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center max-w-3xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-fade-in-up jackpot-animate">
+          Your Fortune Awaits
+        </h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Join thousands of players chasing life-changing jackpots. Your lucky spin could be next!
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button class="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold rounded-xl transition-all duration-300 hover-lift btn-ripple">
+            Play Jackpot Games
+          </button>
+          <a 
+            href={withBase('/games')} 
+            class="px-8 py-4 bg-gray-800 hover:bg-gray-700 text-white font-bold rounded-xl border border-gray-700 transition-all duration-300 hover-lift"
+          >
+            Browse All Games
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

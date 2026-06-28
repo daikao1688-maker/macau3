@@ -1,0 +1,164 @@
+---
+const promotions = [
+  {
+    id: 1,
+    title: 'Royal Welcome Package',
+    description: '300% match up to $10,000 + 500 Free Spins on premium slots',
+    badge: 'New VIP Members',
+    color: 'from-primary-500 via-primary-600 to-yellow-600',
+    icon: '👑',
+    code: 'ROYAL300'
+  },
+  {
+    id: 2,
+    title: 'Weekend High Roller',
+    description: '75% bonus up to $5,000 every weekend + exclusive table access',
+    badge: 'Weekly Elite',
+    color: 'from-secondary-500 via-secondary-600 to-purple-600',
+    icon: '💎',
+    code: 'WEEKEND75'
+  },
+  {
+    id: 3,
+    title: 'Platinum Cashback',
+    description: 'Up to 25% cashback on all losses + priority withdrawals',
+    badge: 'VIP Exclusive',
+    color: 'from-accent-pink via-pink-600 to-accent-red',
+    icon: '⭐',
+    code: 'PLATINUM25'
+  },
+  {
+    id: 4,
+    title: 'Mega Jackpot Drops',
+    description: '$250,000 prize pool shared daily across all games',
+    badge: 'Daily Rewards',
+    color: 'from-accent-green via-emerald-600 to-accent-blue',
+    icon: '💰',
+    code: 'MEGADROP'
+  },
+  {
+    id: 5,
+    title: 'Live Casino Bonus',
+    description: '50% bonus up to $3,000 exclusively for live dealer games',
+    badge: 'Live Gaming',
+    color: 'from-blue-500 via-indigo-600 to-purple-600',
+    icon: '🎥',
+    code: 'LIVE50'
+  },
+  {
+    id: 6,
+    title: 'Loyalty Rewards',
+    description: 'Earn points on every bet and exchange for cash or prizes',
+    badge: 'All Members',
+    color: 'from-orange-500 via-red-600 to-pink-600',
+    icon: '🎁',
+    code: 'LOYALTY'
+  }
+];
+---
+
+<section id="promotions" class="section-padding bg-dark-900/50">
+  <div class="container mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+        🎉 Exclusive Offers
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6">
+        <span class="text-gradient">Premium</span> Promotions
+      </h2>
+      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+        Maximize your winning potential with our exclusive VIP bonuses, cashback rewards, and daily prize drops
+      </p>
+    </div>
+
+    <!-- Promotions Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {promotions.map(promo => (
+        <div class="card-glass group hover:scale-105 transition-all duration-300 overflow-hidden relative">
+          <!-- Header with gradient and real image -->
+          <div class={`relative p-8 overflow-hidden min-h-[200px] flex items-center justify-center`}>
+            <!-- Fallback Gradient Background -->
+            <div class={`absolute inset-0 bg-gradient-to-r ${promo.color}`}></div>
+            
+            <!-- Background Image -->
+            <img 
+              src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=800&h=400&fit=crop&q=80"
+              alt={promo.title}
+              class="absolute inset-0 w-full h-full object-cover z-10"
+              loading="lazy"
+            />
+            
+            <!-- Gradient overlay matching promo color -->
+            <div class={`absolute inset-0 bg-gradient-to-r ${promo.color} opacity-90 z-20`}></div>
+            
+            <!-- Animated gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-20"></div>
+            
+            <!-- Decorative circles -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl z-20"></div>
+            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-2xl z-20"></div>
+            
+            <!-- Large icon overlay -->
+            <div class="absolute inset-0 flex items-center justify-center opacity-20 z-20">
+              <div class="text-9xl transform group-hover:scale-110 transition-transform duration-500">{promo.icon}</div>
+            </div>
+            
+            <div class="relative z-30 text-center">
+              <span class="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-4 py-1.5 rounded-full mb-3 border border-white/30 shadow-lg">
+                {promo.badge}
+              </span>
+              <h3 class="text-2xl md:text-3xl font-display font-black text-white drop-shadow-2xl">
+                {promo.title}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-6 space-y-4">
+            <p class="text-gray-300 text-sm leading-relaxed min-h-[3rem]">
+              {promo.description}
+            </p>
+
+            {promo.code && (
+              <div class="bg-gradient-to-r from-white/5 to-white/10 border border-white/20 rounded-lg p-4 flex items-center justify-between group/code hover:border-primary-500/50 transition-all">
+                <span class="text-gray-400 text-xs font-semibold uppercase tracking-wider">Promo Code:</span>
+                <div class="flex items-center space-x-2">
+                  <span class="font-mono font-bold text-primary-500 text-base">{promo.code}</span>
+                  <button class="text-gray-400 hover:text-primary-500 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <button class="w-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 text-white font-bold py-3 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40 group/btn relative overflow-hidden shadow-lg">
+              <span class="relative z-10 flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Claim Bonus Now
+              </span>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Terms -->
+    <div class="text-center mt-12 space-y-3">
+      <div class="inline-flex items-center space-x-2 text-gray-400 text-sm">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+        </svg>
+        <span>Terms and conditions apply. 18+ only. Please gamble responsibly.</span>
+      </div>
+      <p class="text-gray-600 text-xs max-w-2xl mx-auto">
+        All bonuses are subject to wagering requirements. BeGambleAware.org | GamCare.org.uk
+      </p>
+    </div>
+  </div>
+</section>

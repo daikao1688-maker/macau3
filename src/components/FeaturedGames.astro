@@ -1,0 +1,141 @@
+---
+import GameCard from './GameCard.astro';
+import { getFeaturedGames, gameCategories } from '../data/games';
+
+// Get featured games from our real database
+const featuredGames = getFeaturedGames();
+---
+
+<section id="games" class="section-padding bg-dark-900/50">
+  <div class="container mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+        🎮 Premium Collection
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6">
+        <span class="text-gradient">Featured</span> Casino Games
+      </h2>
+      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+        Discover our exclusive selection of the most thrilling and highest-paying casino games from world-class providers
+      </p>
+      
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-8" id="game-filters">
+        {gameCategories.map(category => (
+          <button 
+            data-category={category.id}
+            class={`
+              px-6 py-2 rounded-full font-semibold text-sm transition-all duration-300 border
+              ${category.id === 'all' 
+                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white border-primary-500 shadow-lg' 
+                : 'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10 hover:border-primary-500/50'
+              }
+            `}
+          >
+            {category.icon} {category.name}
+            <span class="ml-1 text-xs opacity-75">({category.count})</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Games Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 items-stretch" id="games-grid">
+      {featuredGames.map(game => (
+        <GameCard 
+          id={game.id}
+          title={game.title}
+          category={game.subcategory || game.category}
+          image={game.image}
+          jackpot={game.jackpot}
+          rating={game.rating}
+          players={game.players}
+          hot={game.hot}
+          new={game.new}
+          provider={game.provider}
+          rtp={game.rtp}
+          slug={game.slug}
+        />
+      ))}
+    </div>
+
+    <!-- View All Button -->
+    <div class="text-center">
+      <button class="btn-primary text-lg px-12 py-4 group relative overflow-hidden">
+        <span class="relative z-10 flex items-center">
+          Explore All Games
+          <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </span>
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { getGamesByCategory, gameCategories } from '../data/games';
+  
+  // Game filtering functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('#game-filters button[data-category]');
+    const gamesGrid = document.getElementById('games-grid');
+    
+    if (!gamesGrid) return;
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const category = button.getAttribute('data-category');
+        if (!category) return;
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.className = btn.className.replace(
+            'bg-gradient-to-r from-primary-500 to-primary-600 text-white border-primary-500 shadow-lg',
+            'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10 hover:border-primary-500/50'
+          );
+        });
+        
+        button.className = button.className.replace(
+          'bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border-white/10 hover:border-primary-500/50',
+          'bg-gradient-to-r from-primary-500 to-primary-600 text-white border-primary-500 shadow-lg'
+        );
+        
+        // Add loading state
+        gamesGrid.style.opacity = '0.5';
+        gamesGrid.style.pointerEvents = 'none';
+        
+        // Simulate loading delay for better UX
+        setTimeout(() => {
+          // Filter games would happen here
+          // For now, we'll just restore the grid
+          gamesGrid.style.opacity = '1';
+          gamesGrid.style.pointerEvents = 'auto';
+          
+          // Add subtle animation to cards
+          const cards = gamesGrid.querySelectorAll('.card-glass');
+          cards.forEach((card, index) => {
+            card.style.animation = 'none';
+            card.offsetHeight; // Trigger reflow
+            card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s both`;
+          });
+        }, 300);
+      });
+    });
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,573 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+
+const contactMethods = [
+  {
+    method: 'Live Chat',
+    icon: '💬',
+    availability: '24/7 Available',
+    responseTime: 'Instant Response',
+    description: 'Get immediate help from our support team',
+    color: 'from-primary-500 to-yellow-600',
+    action: 'Start Chat'
+  },
+  {
+    method: 'Email Support',
+    icon: '📧',
+    availability: '24/7 Available',
+    responseTime: 'Within 2 Hours',
+    description: 'support@casinopro.com',
+    color: 'from-secondary-500 to-purple-600',
+    action: 'Send Email'
+  },
+  {
+    method: 'Phone Support',
+    icon: '📞',
+    availability: '24/7 Available',
+    responseTime: 'Immediate',
+    description: '+1 (800) 123-4567',
+    color: 'from-accent-green to-emerald-600',
+    action: 'Call Now'
+  },
+  {
+    method: 'WhatsApp',
+    icon: '💚',
+    availability: '24/7 Available',
+    responseTime: 'Within 5 Minutes',
+    description: '+1 (800) 123-4568',
+    color: 'from-accent-blue to-blue-600',
+    action: 'Message Us'
+  }
+];
+
+const departments = [
+  {
+    name: 'General Support',
+    icon: '🎧',
+    email: 'support@casinopro.com',
+    description: 'Account issues, game questions, general inquiries'
+  },
+  {
+    name: 'VIP Services',
+    icon: '👑',
+    email: 'vip@casinopro.com',
+    description: 'Exclusive support for VIP members'
+  },
+  {
+    name: 'Payment Support',
+    icon: '💳',
+    email: 'payments@casinopro.com',
+    description: 'Deposits, withdrawals, payment methods'
+  },
+  {
+    name: 'Technical Support',
+    icon: '⚙️',
+    email: 'technical@casinopro.com',
+    description: 'Technical issues, bugs, platform problems'
+  },
+  {
+    name: 'Compliance',
+    icon: '📋',
+    email: 'compliance@casinopro.com',
+    description: 'Verification, KYC, regulatory matters'
+  },
+  {
+    name: 'Marketing',
+    icon: '📢',
+    email: 'marketing@casinopro.com',
+    description: 'Partnerships, affiliates, promotions'
+  }
+];
+
+const officeLocations = [
+  {
+    country: 'Malta',
+    flag: '🇲🇹',
+    address: 'Level 3, Portomaso Business Tower, St. Julians STJ 4011',
+    phone: '+356 2010 1234',
+    type: 'Headquarters'
+  },
+  {
+    country: 'United Kingdom',
+    flag: '🇬🇧',
+    address: '123 Gaming Street, London, EC1A 1BB',
+    phone: '+44 20 1234 5678',
+    type: 'European Office'
+  },
+  {
+    country: 'Gibraltar',
+    flag: '🇬🇮',
+    address: 'Suite 6, Atlantic Suites, Europort Avenue',
+    phone: '+350 200 12345',
+    type: 'Operations Center'
+  }
+];
+
+const socialMedia = [
+  { name: 'Facebook', icon: 'facebook', url: '#', followers: '125K' },
+  { name: 'Twitter', icon: 'twitter', url: '#', followers: '89K' },
+  { name: 'Instagram', icon: 'instagram', url: '#', followers: '156K' },
+  { name: 'YouTube', icon: 'youtube', url: '#', followers: '67K' },
+  { name: 'Telegram', icon: 'telegram', url: '#', followers: '45K' },
+  { name: 'Discord', icon: 'discord', url: '#', followers: '38K' }
+];
+---
+
+<Layout title="Contact Us - CasinoPro | 24/7 Support">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=600&fit=crop&q=80"
+          alt="Contact Us Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+          loading="lazy"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            💬 We're Here to Help
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Contact Us</span>
+            <span class="block text-white mt-2">Get in Touch 24/7</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Our dedicated support team is available around the clock to assist you with any questions or concerns
+          </p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto">
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">< 2min</div>
+              <div class="text-sm text-gray-400">Avg Response</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">98.5%</div>
+              <div class="text-sm text-gray-400">Satisfaction</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">24/7</div>
+              <div class="text-sm text-gray-400">Availability</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">15+</div>
+              <div class="text-sm text-gray-400">Languages</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Choose Your <span class="text-gradient">Contact Method</span>
+          </h2>
+          <p class="text-gray-400">Select the best way to reach us</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {contactMethods.map(method => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-4 cursor-pointer group">
+              <div class={`w-20 h-20 bg-gradient-to-br ${method.color} rounded-2xl flex items-center justify-center mx-auto text-4xl group-hover:scale-110 transition-transform shadow-lg`}>
+                {method.icon}
+              </div>
+              
+              <h3 class="text-xl font-display font-bold text-white">{method.method}</h3>
+              
+              <div class="space-y-2 text-sm">
+                <div class="flex items-center justify-center space-x-2 text-accent-green">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="font-semibold">{method.availability}</span>
+                </div>
+                
+                <div class="flex items-center justify-center space-x-2 text-gray-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>{method.responseTime}</span>
+                </div>
+                
+                <p class="text-gray-400 text-xs pt-2">{method.description}</p>
+              </div>
+              
+              <button class="w-full bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold py-3 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl">
+                {method.action}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+              Send Us a <span class="text-gradient">Message</span>
+            </h2>
+            <p class="text-gray-400">Fill out the form below and we'll get back to you shortly</p>
+          </div>
+          
+          <div class="card-glass p-8 md:p-12">
+            <form class="space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-white font-semibold mb-2">First Name *</label>
+                  <input 
+                    type="text" 
+                    required
+                    class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors"
+                    placeholder="John"
+                  />
+                </div>
+                
+                <div>
+                  <label class="block text-white font-semibold mb-2">Last Name *</label>
+                  <input 
+                    type="text" 
+                    required
+                    class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors"
+                    placeholder="Doe"
+                  />
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-white font-semibold mb-2">Email Address *</label>
+                  <input 
+                    type="email" 
+                    required
+                    class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label class="block text-white font-semibold mb-2">Phone Number</label>
+                  <input 
+                    type="tel" 
+                    class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors"
+                    placeholder="+1 (555) 000-0000"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-white font-semibold mb-2">Subject *</label>
+                <select 
+                  required
+                  class="w-full bg-dark-800 border border-white/20 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-secondary-500 transition-colors"
+                >
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="account">Account Support</option>
+                  <option value="payment">Payment Issue</option>
+                  <option value="technical">Technical Problem</option>
+                  <option value="complaint">Complaint</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="vip">VIP Services</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-white font-semibold mb-2">Message *</label>
+                <textarea 
+                  required
+                  rows="6"
+                  class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors resize-none"
+                  placeholder="Please describe your inquiry in detail..."
+                ></textarea>
+              </div>
+              
+              <div class="flex items-start space-x-3">
+                <input 
+                  type="checkbox" 
+                  id="privacy"
+                  required
+                  class="mt-1 w-4 h-4 rounded border-white/20 bg-white/10 text-secondary-500 focus:ring-secondary-500"
+                />
+                <label for="privacy" class="text-sm text-gray-400">
+                  I agree to the <a href="#" class="text-secondary-500 hover:text-secondary-400">Privacy Policy</a> and consent to being contacted regarding my inquiry
+                </label>
+              </div>
+              
+              <button type="submit" class="w-full btn-primary text-lg py-4">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Departments -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Departments</span> & Teams
+          </h2>
+          <p class="text-gray-400">Reach out to the right department for faster assistance</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {departments.map(dept => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+              <div class="flex items-start space-x-4">
+                <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">
+                  {dept.icon}
+                </div>
+                
+                <div class="flex-1">
+                  <h3 class="text-lg font-display font-bold text-white mb-2 group-hover:text-secondary-500 transition-colors">
+                    {dept.name}
+                  </h3>
+                  <p class="text-sm text-gray-400 mb-3">{dept.description}</p>
+                  <a href={`mailto:${dept.email}`} class="text-secondary-500 hover:text-secondary-400 text-sm font-semibold flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>{dept.email}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Office Locations -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Our <span class="text-gradient">Global</span> Offices
+          </h2>
+          <p class="text-gray-400">Visit us at our worldwide locations</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {officeLocations.map(office => (
+            <div class="card-glass p-8 hover:scale-105 transition-all duration-300 text-center space-y-4">
+              <div class="text-6xl mb-4">{office.flag}</div>
+              
+              <div class="inline-block px-4 py-1 bg-primary-500/20 rounded-full text-primary-500 text-xs font-bold mb-2">
+                {office.type}
+              </div>
+              
+              <h3 class="text-2xl font-display font-bold text-white">{office.country}</h3>
+              
+              <div class="space-y-3 text-gray-400">
+                <div class="flex items-start justify-center space-x-2">
+                  <svg class="w-5 h-5 text-secondary-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span class="text-sm">{office.address}</span>
+                </div>
+                
+                <div class="flex items-center justify-center space-x-2">
+                  <svg class="w-5 h-5 text-secondary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                  <span class="text-sm font-semibold">{office.phone}</span>
+                </div>
+              </div>
+              
+              <button class="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-2 rounded-lg transition-colors border border-white/20 mt-4">
+                Get Directions
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Social Media -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Connect on <span class="text-gradient">Social Media</span>
+          </h2>
+          <p class="text-gray-400">Follow us for updates, promotions, and community news</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          {socialMedia.map(social => (
+            <a href={social.url} class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-3 group">
+              <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  {social.icon === 'facebook' && (
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  )}
+                  {social.icon === 'twitter' && (
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                  )}
+                  {social.icon === 'instagram' && (
+                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                  )}
+                  {social.icon === 'youtube' && (
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  )}
+                  {social.icon === 'telegram' && (
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                  )}
+                  {social.icon === 'discord' && (
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                  )}
+                </svg>
+              </div>
+              
+              <h3 class="text-white font-bold group-hover:text-primary-500 transition-colors">{social.name}</h3>
+              <p class="text-sm text-gray-400">{social.followers} followers</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Quick Links -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Before You <span class="text-gradient">Contact Us</span>
+          </h2>
+          <p class="text-gray-400">You might find your answer in our help resources</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <a href={withBase('/help-center')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl group-hover:scale-110 transition-transform">
+              📚
+            </div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-primary-500 transition-colors">Help Center</h3>
+            <p class="text-gray-400 text-sm">Browse articles & guides</p>
+          </a>
+
+          <a href={withBase('/help-center#faq')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl group-hover:scale-110 transition-transform">
+              ❓
+            </div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-secondary-500 transition-colors">FAQ</h3>
+            <p class="text-gray-400 text-sm">Common questions answered</p>
+          </a>
+
+          <a href={withBase('/help-center#tutorials')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl group-hover:scale-110 transition-transform">
+              🎥
+            </div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-accent-green transition-colors">Video Tutorials</h3>
+            <p class="text-gray-400 text-sm">Watch step-by-step guides</p>
+          </a>
+
+          <a href={withBase('/help-center#community')} class="card-glass p-6 hover:scale-105 transition-all duration-300 group text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-accent-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl group-hover:scale-110 transition-transform">
+              👥
+            </div>
+            <h3 class="text-white font-bold mb-2 group-hover:text-accent-blue transition-colors">Community</h3>
+            <p class="text-gray-400 text-sm">Join our player community</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">🎧</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Need <span class="text-gradient">Immediate</span> Help?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Our live chat support is available 24/7 for instant assistance with any questions or concerns
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="btn-primary text-lg px-12 py-4">
+                Start Live Chat Now
+              </button>
+              <button class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                Call Us: +1 (800) 123-4567
+              </button>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-white/10">
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">Licensed & Regulated</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">SSL Encrypted</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">24/7 Support</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">98.5% Satisfaction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Form validation and submission
+  const contactForm = document.querySelector('form');
+  contactForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(e.target as HTMLFormElement);
+    
+    // Show success message (in production, this would send to backend)
+    alert('Thank you for contacting us! We will get back to you within 2 hours.');
+    
+    // Reset form
+    (e.target as HTMLFormElement).reset();
+  });
+</script>

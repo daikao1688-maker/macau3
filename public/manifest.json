@@ -1,0 +1,42 @@
+{
+  "name": "CasinoPro - Premium Online Casino",
+  "short_name": "CasinoPro",
+  "description": "Experience premium slots, live dealers, and progressive jackpots at the world's most prestigious online casino",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "games"],
+  "shortcuts": [
+    {
+      "name": "Play Games",
+      "short_name": "Games",
+      "description": "Browse all casino games",
+      "url": "games"
+    },
+    {
+      "name": "Promotions",
+      "short_name": "Bonuses",
+      "description": "View exclusive bonuses",
+      "url": "promotions"
+    },
+    {
+      "name": "My Account",
+      "short_name": "Account",
+      "description": "Manage your account",
+      "url": "account"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

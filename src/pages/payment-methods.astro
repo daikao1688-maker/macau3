@@ -1,0 +1,929 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+
+const paymentCategories = [
+  {
+    id: 'cards',
+    name: 'Credit & Debit Cards',
+    icon: '💳',
+    color: 'from-primary-500 to-yellow-600',
+    description: 'Instant deposits with major cards'
+  },
+  {
+    id: 'ewallets',
+    name: 'E-Wallets',
+    icon: '👛',
+    color: 'from-secondary-500 to-purple-600',
+    description: 'Fast and secure digital wallets'
+  },
+  {
+    id: 'crypto',
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    color: 'from-accent-green to-emerald-600',
+    description: 'Anonymous and instant crypto payments'
+  },
+  {
+    id: 'bank',
+    name: 'Bank Transfers',
+    icon: '🏦',
+    color: 'from-accent-blue to-blue-600',
+    description: 'Direct bank transfers and wire'
+  },
+  {
+    id: 'prepaid',
+    name: 'Prepaid Cards',
+    icon: '🎫',
+    color: 'from-accent-pink to-accent-red',
+    description: 'Prepaid vouchers and cards'
+  },
+  {
+    id: 'mobile',
+    name: 'Mobile Payments',
+    icon: '📱',
+    color: 'from-orange-500 to-red-600',
+    description: 'Pay with your mobile device'
+  }
+];
+
+const paymentMethods = {
+  cards: [
+    {
+      name: 'Visa',
+      logo: '💳',
+      depositTime: 'Instant',
+      withdrawalTime: '3-5 business days',
+      minDeposit: '$10',
+      maxDeposit: '$10,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$5,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'Mastercard',
+      logo: '💳',
+      depositTime: 'Instant',
+      withdrawalTime: '3-5 business days',
+      minDeposit: '$10',
+      maxDeposit: '$10,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$5,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'American Express',
+      logo: '💳',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$5,000',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: false
+    },
+    {
+      name: 'Maestro',
+      logo: '💳',
+      depositTime: 'Instant',
+      withdrawalTime: '3-5 business days',
+      minDeposit: '$10',
+      maxDeposit: '$8,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$4,000',
+      fees: 'No fees',
+      currencies: ['EUR', 'GBP'],
+      popular: false
+    }
+  ],
+  ewallets: [
+    {
+      name: 'PayPal',
+      logo: '🅿️',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$10',
+      maxDeposit: '$15,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$10,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'Skrill',
+      logo: '💼',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$10',
+      maxDeposit: '$20,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$15,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'Neteller',
+      logo: '💼',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$10',
+      maxDeposit: '$20,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$15,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'ecoPayz',
+      logo: '💼',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$10',
+      maxDeposit: '$10,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$8,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: false
+    },
+    {
+      name: 'MuchBetter',
+      logo: '💼',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$10',
+      maxDeposit: '$8,000',
+      minWithdrawal: '$20',
+      maxWithdrawal: '$5,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: false
+    }
+  ],
+  crypto: [
+    {
+      name: 'Bitcoin (BTC)',
+      logo: '₿',
+      depositTime: '15-30 minutes',
+      withdrawalTime: '1-24 hours',
+      minDeposit: '$20',
+      maxDeposit: 'Unlimited',
+      minWithdrawal: '$50',
+      maxWithdrawal: 'Unlimited',
+      fees: 'Network fees apply',
+      currencies: ['BTC'],
+      popular: true
+    },
+    {
+      name: 'Ethereum (ETH)',
+      logo: 'Ξ',
+      depositTime: '5-15 minutes',
+      withdrawalTime: '1-24 hours',
+      minDeposit: '$20',
+      maxDeposit: 'Unlimited',
+      minWithdrawal: '$50',
+      maxWithdrawal: 'Unlimited',
+      fees: 'Network fees apply',
+      currencies: ['ETH'],
+      popular: true
+    },
+    {
+      name: 'Litecoin (LTC)',
+      logo: 'Ł',
+      depositTime: '5-15 minutes',
+      withdrawalTime: '1-24 hours',
+      minDeposit: '$20',
+      maxDeposit: 'Unlimited',
+      minWithdrawal: '$50',
+      maxWithdrawal: 'Unlimited',
+      fees: 'Network fees apply',
+      currencies: ['LTC'],
+      popular: false
+    },
+    {
+      name: 'Tether (USDT)',
+      logo: '₮',
+      depositTime: '5-15 minutes',
+      withdrawalTime: '1-24 hours',
+      minDeposit: '$20',
+      maxDeposit: 'Unlimited',
+      minWithdrawal: '$50',
+      maxWithdrawal: 'Unlimited',
+      fees: 'Network fees apply',
+      currencies: ['USDT'],
+      popular: true
+    },
+    {
+      name: 'Ripple (XRP)',
+      logo: '✕',
+      depositTime: '5-10 minutes',
+      withdrawalTime: '1-24 hours',
+      minDeposit: '$20',
+      maxDeposit: 'Unlimited',
+      minWithdrawal: '$50',
+      maxWithdrawal: 'Unlimited',
+      fees: 'Network fees apply',
+      currencies: ['XRP'],
+      popular: false
+    }
+  ],
+  bank: [
+    {
+      name: 'Bank Transfer',
+      logo: '🏦',
+      depositTime: '1-3 business days',
+      withdrawalTime: '3-7 business days',
+      minDeposit: '$50',
+      maxDeposit: '$50,000',
+      minWithdrawal: '$100',
+      maxWithdrawal: '$50,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: false
+    },
+    {
+      name: 'Wire Transfer',
+      logo: '🏦',
+      depositTime: '1-3 business days',
+      withdrawalTime: '3-7 business days',
+      minDeposit: '$100',
+      maxDeposit: '$100,000',
+      minWithdrawal: '$500',
+      maxWithdrawal: '$100,000',
+      fees: 'Bank fees may apply',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: false
+    },
+    {
+      name: 'Instant Bank Transfer',
+      logo: '⚡',
+      depositTime: 'Instant',
+      withdrawalTime: '24-48 hours',
+      minDeposit: '$20',
+      maxDeposit: '$25,000',
+      minWithdrawal: '$50',
+      maxWithdrawal: '$20,000',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: true
+    }
+  ],
+  prepaid: [
+    {
+      name: 'Paysafecard',
+      logo: '🎫',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$1,000',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: true
+    },
+    {
+      name: 'Neosurf',
+      logo: '🎫',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$500',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: false
+    },
+    {
+      name: 'Flexepin',
+      logo: '🎫',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$500',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'CAD', 'AUD'],
+      popular: false
+    }
+  ],
+  mobile: [
+    {
+      name: 'Apple Pay',
+      logo: '🍎',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$5,000',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'Google Pay',
+      logo: '🔷',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$5,000',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      popular: true
+    },
+    {
+      name: 'Samsung Pay',
+      logo: '📱',
+      depositTime: 'Instant',
+      withdrawalTime: 'Not available',
+      minDeposit: '$10',
+      maxDeposit: '$5,000',
+      minWithdrawal: 'N/A',
+      maxWithdrawal: 'N/A',
+      fees: 'No fees',
+      currencies: ['USD', 'EUR', 'GBP'],
+      popular: false
+    }
+  ]
+};
+
+const securityFeatures = [
+  {
+    icon: '🔒',
+    title: 'SSL Encryption',
+    description: '256-bit SSL encryption protects all transactions'
+  },
+  {
+    icon: '🛡️',
+    title: 'PCI DSS Compliant',
+    description: 'Certified payment card industry security standards'
+  },
+  {
+    icon: '✓',
+    title: 'Verified Processors',
+    description: 'All payment processors are certified and regulated'
+  },
+  {
+    icon: '🔐',
+    title: '3D Secure',
+    description: 'Additional authentication layer for card payments'
+  },
+  {
+    icon: '👁️',
+    title: 'Fraud Detection',
+    description: 'Advanced AI-powered fraud prevention system'
+  },
+  {
+    icon: '💼',
+    title: 'Segregated Funds',
+    description: 'Player funds kept separate from operational funds'
+  }
+];
+
+const depositSteps = [
+  {
+    step: 1,
+    title: 'Login to Your Account',
+    description: 'Sign in to your CasinoPro account',
+    icon: '👤'
+  },
+  {
+    step: 2,
+    title: 'Go to Cashier',
+    description: 'Click on the Cashier or Deposit button',
+    icon: '💰'
+  },
+  {
+    step: 3,
+    title: 'Choose Payment Method',
+    description: 'Select your preferred payment option',
+    icon: '💳'
+  },
+  {
+    step: 4,
+    title: 'Enter Amount',
+    description: 'Input the amount you wish to deposit',
+    icon: '💵'
+  },
+  {
+    step: 5,
+    title: 'Complete Payment',
+    description: 'Follow the instructions to complete',
+    icon: '✅'
+  }
+];
+
+const withdrawalSteps = [
+  {
+    step: 1,
+    title: 'Verify Your Account',
+    description: 'Complete KYC verification if not done',
+    icon: '📋'
+  },
+  {
+    step: 2,
+    title: 'Go to Cashier',
+    description: 'Navigate to Cashier > Withdrawal',
+    icon: '💰'
+  },
+  {
+    step: 3,
+    title: 'Select Method',
+    description: 'Choose your withdrawal method',
+    icon: '💳'
+  },
+  {
+    step: 4,
+    title: 'Enter Amount',
+    description: 'Input withdrawal amount (min $20)',
+    icon: '💵'
+  },
+  {
+    step: 5,
+    title: 'Confirm Request',
+    description: 'Review and confirm your withdrawal',
+    icon: '✅'
+  }
+];
+---
+
+<Layout title="Payment Methods - Deposits & Withdrawals | CasinoPro">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1920&h=600&fit=crop&q=80"
+          alt="Payment Methods Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+          loading="lazy"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            💳 Secure & Fast Payments
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Payment Methods</span>
+            <span class="block text-white mt-2">Deposit & Withdraw</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Choose from 30+ secure payment methods for instant deposits and fast withdrawals
+          </p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 max-w-3xl mx-auto">
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">30+</div>
+              <div class="text-sm text-gray-400">Payment Methods</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">Instant</div>
+              <div class="text-sm text-gray-400">Deposits</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">24-48h</div>
+              <div class="text-sm text-gray-400">Withdrawals</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-3xl font-display font-black text-gradient">$10</div>
+              <div class="text-sm text-gray-400">Min Deposit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment Categories -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Choose Your <span class="text-gradient">Payment Type</span>
+          </h2>
+          <p class="text-gray-400">Select a category to view available payment methods</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {paymentCategories.map(category => (
+            <button 
+              class="category-btn card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-2 cursor-pointer group"
+              data-category={category.id}
+            >
+              <div class={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform`}>
+                {category.icon}
+              </div>
+              <h3 class="text-sm font-display font-bold text-white group-hover:text-secondary-500 transition-colors">
+                {category.name}
+              </h3>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- All Payment Methods by Category -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="space-y-16">
+          {paymentCategories.map(category => (
+            <div class="payment-category" data-category={category.id}>
+              <div class="flex items-center space-x-4 mb-8">
+                <div class={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center text-2xl`}>
+                  {category.icon}
+                </div>
+                <div>
+                  <h2 class="text-2xl md:text-3xl font-display font-black text-white">
+                    {category.name}
+                  </h2>
+                  <p class="text-gray-400 text-sm">{category.description}</p>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {paymentMethods[category.id].map(method => (
+                  <div class="card-glass p-6 hover:scale-105 transition-all duration-300 relative flex flex-col h-full">
+                    {method.popular && (
+                      <div class="absolute top-4 right-4 px-3 py-1 bg-primary-500 text-white text-xs font-bold rounded-full">
+                        POPULAR
+                      </div>
+                    )}
+                    
+                    <div class="flex items-start space-x-4 mb-6">
+                      <div class="w-16 h-16 bg-gradient-to-br from-white/10 to-white/5 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">
+                        {method.logo}
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="text-xl font-display font-bold text-white mb-2">{method.name}</h3>
+                        <div class="flex flex-wrap gap-2">
+                          {method.currencies.map(currency => (
+                            <span class="px-2 py-1 bg-white/5 rounded text-xs text-gray-400">{currency}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Deposit Time</div>
+                        <div class="text-sm font-semibold text-accent-green">{method.depositTime}</div>
+                      </div>
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Withdrawal Time</div>
+                        <div class="text-sm font-semibold text-secondary-500">{method.withdrawalTime}</div>
+                      </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Min Deposit</div>
+                        <div class="text-sm font-semibold text-white">{method.minDeposit}</div>
+                      </div>
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Max Deposit</div>
+                        <div class="text-sm font-semibold text-white">{method.maxDeposit}</div>
+                      </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Min Withdrawal</div>
+                        <div class="text-sm font-semibold text-white">{method.minWithdrawal}</div>
+                      </div>
+                      <div>
+                        <div class="text-xs text-gray-400 mb-1">Max Withdrawal</div>
+                        <div class="text-sm font-semibold text-white">{method.maxWithdrawal}</div>
+                      </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-white/10 mt-auto">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-400">Fees: <span class="text-white font-semibold">{method.fees}</span></span>
+                        <button class="bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 text-sm">
+                          Use This Method
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Deposit -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            How to <span class="text-gradient">Deposit</span>
+          </h2>
+          <p class="text-gray-400">Follow these simple steps to fund your account</p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {depositSteps.map((step, index) => (
+              <div class="relative flex flex-col">
+                <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                  <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mx-auto text-3xl flex-shrink-0">
+                    {step.icon}
+                  </div>
+                  <div class="absolute -top-3 -right-3 w-8 h-8 bg-secondary-500 rounded-full flex items-center justify-center text-white font-display font-bold text-sm">
+                    {step.step}
+                  </div>
+                  <h3 class="text-white font-bold text-sm">{step.title}</h3>
+                  <p class="text-gray-400 text-xs leading-relaxed">{step.description}</p>
+                </div>
+                {index < depositSteps.length - 1 && (
+                  <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                    <svg class="w-6 h-6 text-secondary-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How to Withdraw -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            How to <span class="text-gradient">Withdraw</span>
+          </h2>
+          <p class="text-gray-400">Quick and easy withdrawal process</p>
+        </div>
+        
+        <div class="max-w-6xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {withdrawalSteps.map((step, index) => (
+              <div class="relative flex flex-col">
+                <div class="card-glass p-6 text-center space-y-4 hover:scale-105 transition-all duration-300 flex flex-col h-full">
+                  <div class="w-16 h-16 bg-gradient-to-br from-accent-green to-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl flex-shrink-0">
+                    {step.icon}
+                  </div>
+                  <div class="absolute -top-3 -right-3 w-8 h-8 bg-accent-green rounded-full flex items-center justify-center text-white font-display font-bold text-sm">
+                    {step.step}
+                  </div>
+                  <h3 class="text-white font-bold text-sm">{step.title}</h3>
+                  <p class="text-gray-400 text-xs leading-relaxed">{step.description}</p>
+                </div>
+                {index < withdrawalSteps.length - 1 && (
+                  <div class="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                    <svg class="w-6 h-6 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security Features -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Security</span> & Protection
+          </h2>
+          <p class="text-gray-400">Your payments are protected with industry-leading security</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {securityFeatures.map(feature => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-4">
+              <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mx-auto text-3xl">
+                {feature.icon}
+              </div>
+              <h3 class="text-xl font-display font-bold text-white">{feature.title}</h3>
+              <p class="text-gray-400 text-sm">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Payment FAQs -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Payment <span class="text-gradient">FAQs</span>
+          </h2>
+          <p class="text-gray-400">Common questions about deposits and withdrawals</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-4">
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Are there any fees for deposits or withdrawals?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">CasinoPro does not charge any fees for deposits or withdrawals. However, your payment provider (bank, e-wallet, cryptocurrency network) may charge their own processing fees. Always check with your payment provider for their fee structure.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  How long do withdrawals take to process?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Withdrawal processing times vary by method: E-wallets (24-48 hours), Credit/Debit cards (3-5 business days), Bank transfers (5-7 business days), Cryptocurrencies (1-24 hours). All withdrawals are processed within 24-48 hours after account verification is complete.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  What is the minimum and maximum deposit amount?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">The minimum deposit is $10 for most payment methods. Maximum deposits vary by method: Cards ($10,000), E-wallets ($20,000), Bank transfers ($50,000), Cryptocurrencies (Unlimited). VIP players may have higher limits.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Do I need to verify my account before withdrawing?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Yes, account verification (KYC) is required before your first withdrawal. You'll need to submit proof of identity, proof of address, and proof of payment method. This is a regulatory requirement to prevent fraud and ensure player protection. Verification typically takes 24-48 hours.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Can I use different methods for deposits and withdrawals?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">For security and anti-money laundering purposes, you must withdraw using the same method you used for deposits when possible. If your deposit method doesn't support withdrawals (e.g., prepaid cards), you can choose an alternative withdrawal method after verification.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <details class="group">
+              <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                  Why was my deposit declined?
+                </h3>
+                <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </summary>
+              <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                <p class="text-gray-400 leading-relaxed">Common reasons for declined deposits include: insufficient funds, incorrect payment details, card restrictions by your bank, daily/monthly limits reached, or security checks. Contact your payment provider or our support team for assistance.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">💰</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Ready to <span class="text-gradient">Get Started</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Make your first deposit now and claim your welcome bonus up to $500 + 200 free spins
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="btn-primary text-lg px-12 py-4">
+                Make a Deposit
+              </button>
+              <a href={withBase('/contact-us')} class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                Contact Support
+              </a>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-white/10">
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">SSL Encrypted</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">PCI DSS Compliant</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">Instant Deposits</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <svg class="w-5 h-5 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-sm">Fast Withdrawals</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Category filter buttons
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const categoryId = button.getAttribute('data-category');
+      const targetCategory = document.querySelector(`.payment-category[data-category="${categoryId}"]`);
+      
+      if (targetCategory) {
+        targetCategory.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Highlight the category briefly
+        targetCategory.classList.add('ring-2', 'ring-secondary-500', 'rounded-lg');
+        setTimeout(() => {
+          targetCategory.classList.remove('ring-2', 'ring-secondary-500', 'rounded-lg');
+        }, 2000);
+      }
+    });
+  });
+</script>

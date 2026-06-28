@@ -1,0 +1,477 @@
+---
+import { withBase } from '../utils/paths';
+import Layout from '../layouts/Layout.astro';
+
+const licenses = [
+  {
+    authority: 'Malta Gaming Authority',
+    logo: '🇲🇹',
+    licenseNumber: 'MGA/B2C/123/2020',
+    issueDate: 'January 15, 2020',
+    expiryDate: 'January 14, 2030',
+    status: 'Active',
+    color: 'from-primary-500 to-yellow-600',
+    description: 'The Malta Gaming Authority is one of the most respected gaming regulators in the world, ensuring fair play and player protection.',
+    website: 'https://www.mga.org.mt'
+  },
+  {
+    authority: 'UK Gambling Commission',
+    logo: '🇬🇧',
+    licenseNumber: 'UKGC/39876',
+    issueDate: 'March 10, 2020',
+    expiryDate: 'March 9, 2025',
+    status: 'Active',
+    color: 'from-secondary-500 to-purple-600',
+    description: 'The UK Gambling Commission regulates gambling in Great Britain, ensuring operators meet strict standards for fairness and security.',
+    website: 'https://www.gamblingcommission.gov.uk'
+  }
+];
+
+const certifications = [
+  {
+    name: 'eCOGRA Certified',
+    logo: '✓',
+    color: 'from-accent-green to-emerald-600',
+    description: 'Independent testing and certification for fair gaming',
+    details: 'All our games are tested monthly for fairness and randomness'
+  },
+  {
+    name: 'iTech Labs Approved',
+    logo: '🔬',
+    color: 'from-accent-blue to-blue-600',
+    description: 'ISO/IEC 17025 accredited testing laboratory',
+    details: 'RNG and game logic independently verified'
+  },
+  {
+    name: 'GLI Certified',
+    logo: '🏆',
+    color: 'from-accent-pink to-accent-red',
+    description: 'Gaming Laboratories International certification',
+    details: 'Compliance with international gaming standards'
+  },
+  {
+    name: 'ISO 27001',
+    logo: '🔒',
+    color: 'from-orange-500 to-red-600',
+    description: 'Information security management certification',
+    details: 'Highest standards for data security and privacy'
+  }
+];
+
+const gameProviders = [
+  { name: 'NetEnt', certified: true },
+  { name: 'Microgaming', certified: true },
+  { name: 'Evolution Gaming', certified: true },
+  { name: 'Pragmatic Play', certified: true },
+  { name: 'Play\'n GO', certified: true },
+  { name: 'Yggdrasil', certified: true },
+  { name: 'Red Tiger', certified: true },
+  { name: 'Quickspin', certified: true }
+];
+
+const complianceAreas = [
+  {
+    area: 'Anti-Money Laundering (AML)',
+    icon: '💰',
+    description: 'Strict KYC procedures and transaction monitoring',
+    measures: [
+      'Identity verification for all players',
+      'Source of funds checks',
+      'Transaction monitoring systems',
+      'Suspicious activity reporting'
+    ]
+  },
+  {
+    area: 'Responsible Gaming',
+    icon: '🛡️',
+    description: 'Tools and support for safe gambling',
+    measures: [
+      'Deposit and loss limits',
+      'Self-exclusion options',
+      'Reality checks and time limits',
+      'Links to support organizations'
+    ]
+  },
+  {
+    area: 'Player Protection',
+    icon: '👥',
+    description: 'Safeguarding player funds and data',
+    measures: [
+      'Segregated player accounts',
+      'SSL encryption for all data',
+      'Regular security audits',
+      'Dispute resolution procedures'
+    ]
+  },
+  {
+    area: 'Fair Gaming',
+    icon: '🎲',
+    description: 'Certified random number generators',
+    measures: [
+      'RNG certification by independent labs',
+      'Regular game testing',
+      'Published RTP percentages',
+      'Game fairness audits'
+    ]
+  }
+];
+---
+
+<Layout title="Licenses & Certifications - CasinoPro">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1920&h=600&fit=crop&q=80"
+          alt="Licenses Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+          loading="lazy"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            🏛️ Licensed & Regulated
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Licenses</span>
+            <span class="block text-white mt-2">& Certifications</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Fully licensed and certified by leading gaming authorities worldwide
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Licenses -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Our <span class="text-gradient">Gaming Licenses</span>
+          </h2>
+          <p class="text-gray-400">Regulated by the world's most respected gaming authorities</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {licenses.map(license => (
+            <div class="card-glass p-8 hover:scale-105 transition-all duration-300">
+              <div class="flex items-start space-x-6 mb-6">
+                <div class={`w-20 h-20 bg-gradient-to-br ${license.color} rounded-2xl flex items-center justify-center text-4xl flex-shrink-0 shadow-lg`}>
+                  {license.logo}
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-2xl font-display font-bold text-white mb-2">{license.authority}</h3>
+                  <span class="inline-block px-3 py-1 bg-accent-green/20 text-accent-green text-xs font-bold rounded-full">
+                    {license.status}
+                  </span>
+                </div>
+              </div>
+              
+              <p class="text-gray-400 text-sm mb-6 leading-relaxed">{license.description}</p>
+              
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="card-glass p-4 bg-white/5">
+                  <div class="text-xs text-gray-400 mb-1">License Number</div>
+                  <div class="text-sm font-bold text-white font-mono">{license.licenseNumber}</div>
+                </div>
+                <div class="card-glass p-4 bg-white/5">
+                  <div class="text-xs text-gray-400 mb-1">Issue Date</div>
+                  <div class="text-sm font-bold text-white">{license.issueDate}</div>
+                </div>
+                <div class="card-glass p-4 bg-white/5">
+                  <div class="text-xs text-gray-400 mb-1">Expiry Date</div>
+                  <div class="text-sm font-bold text-white">{license.expiryDate}</div>
+                </div>
+                <div class="card-glass p-4 bg-white/5">
+                  <div class="text-xs text-gray-400 mb-1">Status</div>
+                  <div class="text-sm font-bold text-accent-green">{license.status}</div>
+                </div>
+              </div>
+              
+              <a href={license.website} target="_blank" class="flex items-center justify-center space-x-2 w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-lg transition-colors border border-white/20">
+                <span>Verify License</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Certifications</span> & Approvals
+          </h2>
+          <p class="text-gray-400">Independently tested and certified for fairness and security</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {certifications.map(cert => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-4">
+              <div class={`w-20 h-20 bg-gradient-to-br ${cert.color} rounded-2xl flex items-center justify-center mx-auto text-4xl shadow-lg`}>
+                {cert.logo}
+              </div>
+              <h3 class="text-xl font-display font-bold text-white">{cert.name}</h3>
+              <p class="text-gray-400 text-sm">{cert.description}</p>
+              <div class="pt-4 border-t border-white/10">
+                <p class="text-xs text-gray-500">{cert.details}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Compliance Areas -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Compliance</span> & Regulations
+          </h2>
+          <p class="text-gray-400">Our commitment to regulatory compliance and player protection</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {complianceAreas.map(area => (
+            <div class="card-glass p-8 hover:scale-105 transition-all duration-300">
+              <div class="flex items-center space-x-4 mb-6">
+                <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-2xl flex items-center justify-center text-3xl">
+                  {area.icon}
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold text-white">{area.area}</h3>
+                  <p class="text-gray-400 text-sm">{area.description}</p>
+                </div>
+              </div>
+              
+              <ul class="space-y-3">
+                {area.measures.map(measure => (
+                  <li class="flex items-start space-x-3">
+                    <svg class="w-5 h-5 text-accent-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="text-gray-300 text-sm">{measure}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Providers -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Certified</span> Game Providers
+          </h2>
+          <p class="text-gray-400">All our game providers are licensed and certified</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="card-glass p-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {gameProviders.map(provider => (
+                <div class="text-center space-y-2">
+                  <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center mx-auto text-2xl">
+                    🎮
+                  </div>
+                  <div class="text-white font-bold text-sm">{provider.name}</div>
+                  {provider.certified && (
+                    <div class="flex items-center justify-center space-x-1">
+                      <svg class="w-4 h-4 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="text-accent-green text-xs">Certified</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fair Gaming -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+          <div class="card-glass p-12 text-center space-y-6">
+            <div class="text-6xl mb-4">🎲</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              <span class="text-gradient">Fair Gaming</span> Guarantee
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              All our games use certified Random Number Generators (RNG) to ensure completely fair and random outcomes
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div class="card-glass p-6 bg-white/5">
+                <div class="text-4xl mb-3">🔬</div>
+                <h3 class="text-white font-bold mb-2">Independent Testing</h3>
+                <p class="text-gray-400 text-sm">Games tested monthly by accredited laboratories</p>
+              </div>
+
+              <div class="card-glass p-6 bg-white/5">
+                <div class="text-4xl mb-3">📊</div>
+                <h3 class="text-white font-bold mb-2">Published RTP</h3>
+                <p class="text-gray-400 text-sm">Return to Player percentages publicly available</p>
+              </div>
+
+              <div class="card-glass p-6 bg-white/5">
+                <div class="text-4xl mb-3">✓</div>
+                <h3 class="text-white font-bold mb-2">Certified RNG</h3>
+                <p class="text-gray-400 text-sm">Random Number Generators independently verified</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Regulatory Information -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+          <div class="card-glass p-8">
+            <h2 class="text-3xl font-display font-black text-white mb-6">
+              <span class="text-gradient">Regulatory</span> Information
+            </h2>
+            
+            <div class="space-y-6 text-gray-300 leading-relaxed">
+              <div>
+                <h3 class="text-xl font-bold text-white mb-3">Company Details</h3>
+                <div class="space-y-2 text-sm">
+                  <p><strong class="text-white">Company Name:</strong> CasinoPro Limited</p>
+                  <p><strong class="text-white">Registration Number:</strong> C12345</p>
+                  <p><strong class="text-white">Registered Address:</strong> Level 3, Portomaso Business Tower, St. Julians STJ 4011, Malta</p>
+                  <p><strong class="text-white">VAT Number:</strong> MT12345678</p>
+                </div>
+              </div>
+
+              <div class="border-t border-white/10 pt-6">
+                <h3 class="text-xl font-bold text-white mb-3">Licensing Authorities</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="card-glass p-4 bg-white/5">
+                    <p class="font-bold text-white mb-1">Malta Gaming Authority (MGA)</p>
+                    <p class="text-xs text-gray-400 mb-2">License Number: MGA/B2C/123/2020</p>
+                    <p>The MGA is a world-class regulator for the gaming industry, ensuring the highest standards of player protection and fair gaming.</p>
+                  </div>
+
+                  <div class="card-glass p-4 bg-white/5">
+                    <p class="font-bold text-white mb-1">UK Gambling Commission (UKGC)</p>
+                    <p class="text-xs text-gray-400 mb-2">License Number: UKGC/39876</p>
+                    <p>The UKGC regulates commercial gambling in Great Britain in partnership with licensing authorities.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-white/10 pt-6">
+                <h3 class="text-xl font-bold text-white mb-3">Dispute Resolution</h3>
+                <p class="text-sm mb-4">
+                  If you have a complaint that cannot be resolved with our customer support team, you may refer your dispute to:
+                </p>
+                <div class="space-y-3">
+                  <div class="card-glass p-4 bg-white/5">
+                    <p class="font-bold text-white mb-1">eCOGRA</p>
+                    <p class="text-xs">Independent Alternative Dispute Resolution (ADR) service</p>
+                    <a href="https://ecogra.org" target="_blank" class="text-secondary-500 hover:text-secondary-400 text-xs underline">ecogra.org</a>
+                  </div>
+
+                  <div class="card-glass p-4 bg-white/5">
+                    <p class="font-bold text-white mb-1">Malta Gaming Authority</p>
+                    <p class="text-xs">Player Support Unit for unresolved complaints</p>
+                    <a href="https://www.mga.org.mt" target="_blank" class="text-secondary-500 hover:text-secondary-400 text-xs underline">mga.org.mt</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-white/10 pt-6">
+                <h3 class="text-xl font-bold text-white mb-3">Restricted Territories</h3>
+                <p class="text-sm mb-3">
+                  Due to licensing restrictions, we cannot accept players from the following countries:
+                </p>
+                <div class="card-glass p-4 bg-white/5">
+                  <p class="text-xs">
+                    United States, France, Netherlands, Spain (except licensed regions), Italy (except licensed regions), Belgium, Denmark, Czech Republic, and other restricted jurisdictions as per our Terms and Conditions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">🏛️</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Questions About Our <span class="text-gradient">Licenses</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Our compliance team is here to answer any questions about our licensing and regulatory status
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href={withBase('/contact-us')} class="btn-primary text-lg px-12 py-4">
+                Contact Compliance Team
+              </a>
+              <a href={withBase('/terms-and-conditions')} class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                View Terms & Conditions
+              </a>
+            </div>
+            
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center items-center gap-6 mt-8 pt-8 border-t border-white/10">
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🇲🇹</span>
+                <span class="text-sm">MGA Licensed</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🇬🇧</span>
+                <span class="text-sm">UKGC Licensed</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">✓</span>
+                <span class="text-sm">eCOGRA Certified</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🔒</span>
+                <span class="text-sm">SSL Encrypted</span>
+              </div>
+              <div class="flex items-center space-x-2 text-gray-400">
+                <span class="text-2xl">🔞</span>
+                <span class="text-sm">18+ Only</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>

@@ -1,0 +1,442 @@
+---
+import Layout from '../layouts/Layout.astro';
+import GameSearch from '../components/GameSearch';
+import GameFilters from '../components/GameFilters';
+import { games, gameCategories } from '../data/games';
+---
+
+<Layout title="All Games - CasinoPro | Premium Casino Game Collection">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-16 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=1920&h=600&fit=crop&q=80"
+          alt="Games Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-primary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-10 left-10 w-64 h-64 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+            🎮 Premium Gaming Collection
+          </span>
+          
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Premium Casino Games</span>
+            <span class="block text-white mt-2">Find Your Perfect Match</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Explore our vast collection of slots, table games, live casino, and jackpots from world-class providers
+          </p>
+          
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+            <div class="card-glass p-4">
+              <div class="text-2xl font-display font-black text-primary-500">{games.length}</div>
+              <div class="text-sm text-gray-400">Total Games</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-2xl font-display font-black text-primary-500">{games.filter(g => g.jackpot && g.jackpot > 0).length}</div>
+              <div class="text-sm text-gray-400">Jackpot Games</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-2xl font-display font-black text-primary-500">{games.filter(g => g.new).length}</div>
+              <div class="text-sm text-gray-400">New This Month</div>
+            </div>
+            <div class="card-glass p-4">
+              <div class="text-2xl font-display font-black text-primary-500">{games.filter(g => g.hot).length}</div>
+              <div class="text-sm text-gray-400">Trending Now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto mb-8">
+          <GameSearch 
+            client:load
+            placeholder="Search games, providers, or features..."
+            className="w-full"
+          />
+        </div>
+
+        <!-- Filters -->
+        <div class="mb-8">
+          <GameFilters 
+            client:load
+            className="w-full"
+          />
+        </div>
+
+        <!-- Loading State -->
+        <div id="games-loading" class="hidden text-center py-12">
+          <div id="loading-spinner-container"></div>
+        </div>
+
+        <!-- Games Grid -->
+        <div id="games-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
+          <!-- Games will be loaded here by React -->
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button 
+            id="load-more-btn" 
+            class="btn-primary text-lg px-12 py-4 group relative overflow-hidden"
+          >
+            <span class="relative z-10 flex items-center">
+              Load More Games
+              <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m0 0l7-7m-7 7h18"></path>
+              </svg>
+            </span>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+          </button>
+        </div>
+
+        <!-- No Results -->
+        <div id="no-results" class="hidden text-center py-16">
+          <div class="max-w-md mx-auto">
+            <div class="text-6xl mb-4">🎮</div>
+            <h3 class="text-2xl font-display font-bold text-white mb-2">No Games Found</h3>
+            <p class="text-gray-400 mb-6">
+              Try adjusting your filters or search terms to find more games
+            </p>
+            <button 
+              id="reset-filters-btn"
+              class="btn-outline"
+            >
+              Reset All Filters
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Detail Modal Container -->
+    <div id="game-detail-modal-container"></div>
+  </main></Layout>
+
+<script>
+  // Initialize React components and game functionality
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Dynamically import React components
+    const { default: GameSearch } = await import('../components/GameSearch');
+    const { default: GameFilters } = await import('../components/GameFilters');
+    const { default: GameDetailModal } = await import('../components/GameDetailModal');
+    const { default: LoadingSpinner } = await import('../components/LoadingSpinner');
+    const { createElement } = await import('react');
+    const { createRoot } = await import('react-dom/client');
+    const { games } = await import('../data/games');
+
+    let currentGames = [...games];
+    let displayedGames = [];
+    let currentPage = 1;
+    const gamesPerPage = 12;
+    let selectedGame = null;
+    let isModalOpen = false;
+
+    // Initialize Game Search
+    const searchContainer = document.getElementById('games-search-container');
+    if (searchContainer) {
+      const searchRoot = createRoot(searchContainer);
+      searchRoot.render(
+        createElement(GameSearch, {
+          placeholder: "Search games, providers, or features...",
+          className: "w-full",
+          onSearchResults: (results) => {
+            currentGames = results.length > 0 ? results : games;
+            currentPage = 1;
+            renderGames();
+          }
+        })
+      );
+    }
+
+    // Initialize Game Filters
+    const filtersContainer = document.getElementById('games-filters-container');
+    if (filtersContainer) {
+      const filtersRoot = createRoot(filtersContainer);
+      filtersRoot.render(
+        createElement(GameFilters, {
+          onFilterChange: (filteredGames) => {
+            currentGames = filteredGames;
+            currentPage = 1;
+            renderGames();
+          },
+          className: "w-full"
+        })
+      );
+    }
+
+    // Initialize Loading Spinner
+    const loadingContainer = document.getElementById('loading-spinner-container');
+    if (loadingContainer) {
+      const loadingRoot = createRoot(loadingContainer);
+      loadingRoot.render(
+        createElement(LoadingSpinner, {
+          size: 'lg',
+          text: 'Loading games...'
+        })
+      );
+    }
+
+    // Initialize Game Detail Modal
+    const modalContainer = document.getElementById('game-detail-modal-container');
+    let modalRoot;
+    if (modalContainer) {
+      modalRoot = createRoot(modalContainer);
+    }
+
+    // Render games function
+    const renderGames = () => {
+      const gamesGrid = document.getElementById('games-grid-container');
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      const noResults = document.getElementById('no-results');
+      
+      if (!gamesGrid) return;
+
+      // Show/hide no results
+      if (currentGames.length === 0) {
+        gamesGrid.innerHTML = '';
+        noResults?.classList.remove('hidden');
+        loadMoreBtn?.classList.add('hidden');
+        return;
+      } else {
+        noResults?.classList.add('hidden');
+      }
+
+      // Calculate games to display
+      const startIndex = 0;
+      const endIndex = currentPage * gamesPerPage;
+      displayedGames = currentGames.slice(startIndex, endIndex);
+
+      // Show loading
+      const loading = document.getElementById('games-loading');
+      loading?.classList.remove('hidden');
+      gamesGrid.style.opacity = '0.5';
+
+      // Simulate loading delay
+      setTimeout(() => {
+        // Clear grid
+        gamesGrid.innerHTML = '';
+
+        // Render games
+        displayedGames.forEach((game, index) => {
+          const gameCard = createGameCard(game, index);
+          gamesGrid.appendChild(gameCard);
+        });
+
+        // Show/hide load more button
+        if (endIndex >= currentGames.length) {
+          loadMoreBtn?.classList.add('hidden');
+        } else {
+          loadMoreBtn?.classList.remove('hidden');
+        }
+
+        // Hide loading
+        loading?.classList.add('hidden');
+        gamesGrid.style.opacity = '1';
+
+        // Add stagger animation
+        const cards = gamesGrid.querySelectorAll('.game-card');
+        cards.forEach((card, index) => {
+          card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s both`;
+        });
+      }, 500);
+    };
+
+    // Create game card function
+    const createGameCard = (game, index) => {
+      const card = document.createElement('div');
+      card.className = 'game-card card-glass group hover:scale-105 transition-all duration-300 overflow-hidden cursor-pointer';
+      
+      const formatPlayerCount = (count) => {
+        if (count >= 1000000) return `${(count / 1000000).toFixed(1)}M`;
+        if (count >= 1000) return `${(count / 1000).toFixed(1)}K`;
+        return count.toString();
+      };
+
+      const formatJackpot = (amount) => {
+        if (amount >= 1000000) return `$${(amount / 1000000).toFixed(1)}M`;
+        if (amount >= 1000) return `$${(amount / 1000).toFixed(0)}K`;
+        return `$${amount}`;
+      };
+
+      card.innerHTML = `
+        <div class="relative overflow-hidden aspect-video">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500/30 via-secondary-500/30 to-accent-pink/30"></div>
+          <img 
+            src="${game.image}" 
+            alt="${game.title}"
+            class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 z-10"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 via-secondary-500/20 to-transparent z-20"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/70 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-300 z-20"></div>
+          
+          ${game.hot ? `
+            <div class="absolute top-4 left-4 z-30 bg-gradient-to-r from-accent-red to-orange-600 text-white text-xs font-bold px-4 py-2 rounded-full animate-pulse shadow-lg backdrop-blur-sm">
+              🔥 HOT
+            </div>
+          ` : ''}
+          
+          ${game.new ? `
+            <div class="absolute top-4 ${game.hot ? 'left-4' : 'left-4'} z-30 bg-gradient-to-r from-accent-green to-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg backdrop-blur-sm" ${game.hot ? 'style="top: 3.5rem;"' : ''}>
+              ✨ NEW
+            </div>
+          ` : ''}
+          
+          ${game.jackpot && game.jackpot > 0 ? `
+            <div class="absolute top-4 right-4 z-30">
+              <div class="bg-gradient-to-r from-primary-500 to-yellow-500 text-white text-xs font-bold px-4 py-2 rounded-full glow-box shadow-lg animate-float backdrop-blur-sm">
+                💰 ${formatJackpot(game.jackpot)}
+              </div>
+            </div>
+          ` : ''}
+          
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30">
+            <div class="flex space-x-3">
+              <button 
+                class="game-detail-btn bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700 text-white rounded-full p-6 transform scale-0 group-hover:scale-100 transition-transform duration-300 shadow-2xl backdrop-blur-sm"
+                data-game-id="${game.id}"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </button>
+              
+              <button class="bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white rounded-full p-6 transform scale-0 group-hover:scale-100 transition-transform duration-300 shadow-2xl backdrop-blur-sm" style="transition-delay: 0.1s;">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 space-y-4">
+          <div class="flex items-center justify-between text-xs">
+            <span class="px-3 py-1 bg-white/5 rounded-full text-gray-400 border border-white/10">
+              ${game.provider}
+            </span>
+            <span class="px-3 py-1 bg-accent-green/10 rounded-full text-accent-green font-semibold border border-accent-green/30">
+              RTP ${game.rtp}%
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-display font-bold text-white mb-1 group-hover:text-primary-500 transition-colors">
+              ${game.title}
+            </h3>
+            <p class="text-sm text-gray-400 font-medium">${game.subcategory || game.category}</p>
+          </div>
+
+          <div class="flex items-center justify-between text-sm pt-2 border-t border-white/10">
+            <div class="flex items-center space-x-1">
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              <span class="text-white font-bold">${game.rating}</span>
+              <span class="text-gray-400">/5</span>
+            </div>
+            <div class="flex items-center space-x-1 text-gray-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+              <span class="font-semibold text-white">${formatPlayerCount(game.players)}</span>
+              <span class="text-xs">playing</span>
+            </div>
+          </div>
+
+          <button class="w-full bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-bold py-3 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary-500/50 relative overflow-hidden group/btn">
+            <span class="relative z-10">Play Now</span>
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+          </button>
+
+          <button 
+            class="game-info-btn w-full mt-2 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white font-semibold py-2 rounded-lg transition-all duration-300 border border-white/10 hover:border-primary-500/50 text-sm"
+            data-game-id="${game.id}"
+          >
+            View Details
+          </button>
+        </div>
+      `;
+
+      // Add event listeners
+      const detailBtns = card.querySelectorAll('.game-detail-btn, .game-info-btn');
+      detailBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const gameId = btn.getAttribute('data-game-id');
+          const game = games.find(g => g.id === gameId);
+          if (game && modalRoot) {
+            selectedGame = game;
+            isModalOpen = true;
+            modalRoot.render(
+              createElement(GameDetailModal, {
+                game: selectedGame,
+                isOpen: isModalOpen,
+                onClose: () => {
+                  isModalOpen = false;
+                  modalRoot.render(
+                    createElement(GameDetailModal, {
+                      game: null,
+                      isOpen: false,
+                      onClose: () => {}
+                    })
+                  );
+                }
+              })
+            );
+          }
+        });
+      });
+
+      return card;
+    };
+
+    // Load more functionality
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    loadMoreBtn?.addEventListener('click', () => {
+      currentPage++;
+      renderGames();
+    });
+
+    // Reset filters functionality
+    const resetFiltersBtn = document.getElementById('reset-filters-btn');
+    resetFiltersBtn?.addEventListener('click', () => {
+      // This would trigger the filter reset
+      window.location.reload();
+    });
+
+    // Initial render
+    renderGames();
+  });
+</script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+const tournaments = [
+  {
+    id: 1,
+    name: 'Grand Slots Championship',
+    prizePool: '$500,000',
+    participants: 8547,
+    endsIn: '2d 14h',
+    status: 'active',
+    progress: 65,
+    type: 'Slots',
+    entryFee: '$50',
+    topPrize: '$100,000'
+  },
+  {
+    id: 2,
+    name: 'Elite Blackjack Masters',
+    prizePool: '$250,000',
+    participants: 3523,
+    endsIn: '5d 8h',
+    status: 'active',
+    progress: 42,
+    type: 'Table Games',
+    entryFee: '$100',
+    topPrize: '$50,000'
+  },
+  {
+    id: 3,
+    name: 'VIP Roulette Royale',
+    prizePool: '$350,000',
+    participants: 6156,
+    endsIn: '1d 3h',
+    status: 'ending-soon',
+    progress: 89,
+    type: 'Live Casino',
+    entryFee: '$75',
+    topPrize: '$75,000'
+  },
+  {
+    id: 4,
+    name: 'Mega Poker Tournament',
+    prizePool: '$1,000,000',
+    participants: 12847,
+    endsIn: '7d 18h',
+    status: 'active',
+    progress: 28,
+    type: 'Poker',
+    entryFee: '$200',
+    topPrize: '$250,000'
+  }
+];
+---
+
+<section id="tournaments" class="section-padding relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-dark-950 via-primary-900/5 to-dark-950"></div>
+  
+  <div class="container mx-auto relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block text-primary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-primary-500/10 rounded-full border border-primary-500/30">
+        🏆 Elite Competitions
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-black mb-6">
+        <span class="text-gradient">Premium</span> Tournaments
+      </h2>
+      <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+        Compete against the best players worldwide for massive prize pools and exclusive VIP rewards
+      </p>
+    </div>
+
+    <!-- Tournaments List -->
+    <div class="space-y-6 max-w-6xl mx-auto">
+      {tournaments.map(tournament => (
+        <div class="card-glass p-6 md:p-8 hover:scale-[1.02] transition-all duration-300 relative overflow-hidden group">
+          <!-- Background decoration -->
+          <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-full blur-3xl"></div>
+          
+          {tournament.status === 'ending-soon' && (
+            <div class="absolute top-0 right-0 bg-gradient-to-l from-accent-red via-accent-red to-transparent px-8 py-2 text-sm font-bold text-white animate-pulse z-10">
+              ⚡ ENDING SOON
+            </div>
+          )}
+          
+          <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+            <!-- Tournament Icon & Info -->
+            <div class="flex-1 space-y-4">
+              <div class="flex items-start gap-4">
+                <!-- Large Icon with Real Image -->
+                <div class="flex-shrink-0 w-24 h-24 rounded-2xl overflow-hidden shadow-lg group-hover:scale-110 transition-transform relative">
+                  <!-- Fallback gradient -->
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-secondary-500"></div>
+                  
+                  <img 
+                    src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?w=200&h=200&fit=crop&q=80"
+                    alt={tournament.type}
+                    class="absolute inset-0 w-full h-full object-cover z-10"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary-500/60 to-secondary-500/60 z-20"></div>
+                  <div class="absolute inset-0 flex items-center justify-center text-4xl z-30">
+                    {tournament.type === 'Slots' ? '🎰' : tournament.type === 'Table Games' ? '🃏' : tournament.type === 'Live Casino' ? '🎥' : '♠️'}
+                  </div>
+                </div>
+                
+                <div class="flex-1">
+                  <div class="flex items-center space-x-3 mb-2">
+                    <h3 class="text-2xl md:text-3xl font-display font-black text-white group-hover:text-primary-500 transition-colors">
+                      {tournament.name}
+                    </h3>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <span class="px-4 py-1.5 bg-gradient-to-r from-primary-500/20 to-primary-600/20 rounded-full text-primary-400 text-xs font-bold border border-primary-500/30 shadow-lg">
+                      {tournament.type}
+                    </span>
+                    <span class="px-4 py-1.5 bg-gradient-to-r from-white/5 to-white/10 rounded-full text-gray-300 text-xs font-semibold border border-white/10">
+                      Entry: {tournament.entryFee}
+                    </span>
+                    <span class="px-4 py-1.5 bg-gradient-to-r from-accent-green/20 to-emerald-600/20 rounded-full text-accent-green text-xs font-bold border border-accent-green/30 shadow-lg">
+                      🏆 1st Prize: {tournament.topPrize}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stats Grid -->
+              <div class="grid grid-cols-3 gap-6 pt-4">
+                <div class="space-y-1 text-center lg:text-left">
+                  <p class="text-gray-400 text-xs uppercase tracking-wider font-semibold">Total Prize Pool</p>
+                  <p class="text-primary-500 font-display font-black text-2xl md:text-3xl">{tournament.prizePool}</p>
+                </div>
+                <div class="space-y-1 text-center lg:text-left">
+                  <p class="text-gray-400 text-xs uppercase tracking-wider font-semibold">Participants</p>
+                  <p class="text-white font-display font-black text-2xl md:text-3xl">{tournament.participants.toLocaleString()}</p>
+                </div>
+                <div class="space-y-1 text-center lg:text-left">
+                  <p class="text-gray-400 text-xs uppercase tracking-wider font-semibold">Time Remaining</p>
+                  <p class="text-white font-display font-black text-2xl md:text-3xl">{tournament.endsIn}</p>
+                </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="space-y-2 pt-2">
+                <div class="flex justify-between text-sm">
+                  <span class="text-gray-400 font-semibold">Tournament Progress</span>
+                  <span class="text-white font-bold">{tournament.progress}% Complete</span>
+                </div>
+                <div class="w-full bg-white/10 rounded-full h-3 overflow-hidden border border-white/20 shadow-inner">
+                  <div 
+                    class="bg-gradient-to-r from-primary-500 via-secondary-500 to-primary-500 h-full rounded-full transition-all duration-500 relative overflow-hidden shadow-lg"
+                    style={`width: ${tournament.progress}%`}
+                  >
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Join Button -->
+            <div class="lg:w-56 space-y-3">
+              <button class="w-full btn-primary py-4 text-lg whitespace-nowrap relative overflow-hidden group/btn shadow-xl">
+                <span class="relative z-10 flex items-center justify-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                  </svg>
+                  Join Tournament
+                </span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
+              </button>
+              <button class="w-full text-gray-400 hover:text-white transition-colors text-sm font-semibold flex items-center justify-center space-x-2 group/link py-2 hover:bg-white/5 rounded-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span>View Leaderboard</span>
+                <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- View All -->
+    <div class="text-center mt-12">
+      <button class="btn-outline text-lg px-12 py-4 group">
+        <span class="flex items-center">
+          View All Tournaments
+          <svg class="inline-block w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,681 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const categories = [
+  {
+    id: 1,
+    name: 'Getting Started',
+    icon: '🚀',
+    description: 'New to CasinoPro? Start here',
+    articleCount: 12,
+    color: 'from-primary-500 to-yellow-600'
+  },
+  {
+    id: 2,
+    name: 'Account & Security',
+    icon: '🔒',
+    description: 'Manage your account safely',
+    articleCount: 15,
+    color: 'from-secondary-500 to-purple-600'
+  },
+  {
+    id: 3,
+    name: 'Deposits & Withdrawals',
+    icon: '💳',
+    description: 'Payment methods and transactions',
+    articleCount: 18,
+    color: 'from-accent-green to-emerald-600'
+  },
+  {
+    id: 4,
+    name: 'Games & Features',
+    icon: '🎮',
+    description: 'Learn about our games',
+    articleCount: 25,
+    color: 'from-accent-blue to-blue-600'
+  },
+  {
+    id: 5,
+    name: 'Bonuses & Promotions',
+    icon: '🎁',
+    description: 'Understand bonus terms',
+    articleCount: 20,
+    color: 'from-accent-pink to-accent-red'
+  },
+  {
+    id: 6,
+    name: 'Responsible Gaming',
+    icon: '🛡️',
+    description: 'Play safely and responsibly',
+    articleCount: 10,
+    color: 'from-orange-500 to-red-600'
+  }
+];
+
+const popularArticles = [
+  {
+    id: 1,
+    title: 'How to create an account?',
+    category: 'Getting Started',
+    views: '15.2K',
+    helpful: 245
+  },
+  {
+    id: 2,
+    title: 'How to make a deposit?',
+    category: 'Deposits & Withdrawals',
+    views: '12.8K',
+    helpful: 198
+  },
+  {
+    id: 3,
+    title: 'How to claim welcome bonus?',
+    category: 'Bonuses & Promotions',
+    views: '11.5K',
+    helpful: 187
+  },
+  {
+    id: 4,
+    title: 'How to verify my account?',
+    category: 'Account & Security',
+    views: '10.3K',
+    helpful: 165
+  },
+  {
+    id: 5,
+    title: 'What are wagering requirements?',
+    category: 'Bonuses & Promotions',
+    views: '9.7K',
+    helpful: 152
+  },
+  {
+    id: 6,
+    title: 'How long do withdrawals take?',
+    category: 'Deposits & Withdrawals',
+    views: '8.9K',
+    helpful: 143
+  }
+];
+
+const faqs = [
+  {
+    question: 'Is CasinoPro licensed and regulated?',
+    answer: 'Yes, CasinoPro is fully licensed and regulated by the Malta Gaming Authority (MGA) and the UK Gambling Commission. We operate under strict regulatory standards to ensure fair play and player protection.'
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept a wide range of payment methods including Visa, Mastercard, PayPal, Skrill, Neteller, bank transfers, and cryptocurrencies (Bitcoin, Ethereum). All transactions are secured with SSL encryption.'
+  },
+  {
+    question: 'How do I withdraw my winnings?',
+    answer: 'To withdraw, go to the Cashier section, select Withdrawal, choose your preferred method, and enter the amount. Withdrawals are processed within 24-48 hours after account verification is complete.'
+  },
+  {
+    question: 'Are the games fair?',
+    answer: 'Absolutely! All our games use certified Random Number Generators (RNG) and are regularly audited by independent testing agencies like eCOGRA and iTech Labs to ensure fairness and randomness.'
+  },
+  {
+    question: 'Can I play on mobile devices?',
+    answer: 'Yes! Our platform is fully optimized for mobile devices. You can play all games on your smartphone or tablet through your mobile browser without downloading any app.'
+  },
+  {
+    question: 'What is the minimum deposit amount?',
+    answer: 'The minimum deposit amount is $10 for most payment methods. Some methods may have different minimums, which will be displayed during the deposit process.'
+  },
+  {
+    question: 'How do I set deposit limits?',
+    answer: 'You can set daily, weekly, or monthly deposit limits in your account settings under Responsible Gaming. These limits help you manage your gambling budget effectively.'
+  },
+  {
+    question: 'What should I do if I forgot my password?',
+    answer: 'Click on "Forgot Password" on the login page, enter your registered email address, and we\'ll send you a password reset link. Follow the instructions in the email to create a new password.'
+  }
+];
+
+const contactMethods = [
+  {
+    method: 'Live Chat',
+    icon: '💬',
+    availability: '24/7',
+    responseTime: 'Instant',
+    description: 'Chat with our support team in real-time',
+    color: 'from-primary-500 to-yellow-600'
+  },
+  {
+    method: 'Email Support',
+    icon: '📧',
+    availability: '24/7',
+    responseTime: 'Within 2 hours',
+    description: 'support@casinopro.com',
+    color: 'from-secondary-500 to-purple-600'
+  },
+  {
+    method: 'Phone Support',
+    icon: '📞',
+    availability: '24/7',
+    responseTime: 'Immediate',
+    description: '+1 (800) 123-4567',
+    color: 'from-accent-green to-emerald-600'
+  },
+  {
+    method: 'WhatsApp',
+    icon: '💚',
+    availability: '24/7',
+    responseTime: 'Within 5 minutes',
+    description: 'Message us on WhatsApp',
+    color: 'from-accent-blue to-blue-600'
+  }
+];
+
+const supportStats = [
+  { label: 'Average Response Time', value: '< 2 min', icon: '⚡' },
+  { label: 'Customer Satisfaction', value: '98.5%', icon: '⭐' },
+  { label: 'Support Tickets Resolved', value: '50K+', icon: '✅' },
+  { label: 'Languages Supported', value: '15+', icon: '🌍' }
+];
+
+const videoTutorials = [
+  {
+    title: 'How to Get Started',
+    duration: '3:45',
+    views: '25K',
+    thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=250&fit=crop&q=80',
+    category: 'Getting Started'
+  },
+  {
+    title: 'Making Your First Deposit',
+    duration: '2:30',
+    views: '18K',
+    thumbnail: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop&q=80',
+    category: 'Payments'
+  },
+  {
+    title: 'Understanding Bonuses',
+    duration: '4:15',
+    views: '22K',
+    thumbnail: 'https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=400&h=250&fit=crop&q=80',
+    category: 'Bonuses'
+  },
+  {
+    title: 'Account Verification Guide',
+    duration: '3:00',
+    views: '15K',
+    thumbnail: 'https://images.unsplash.com/photo-1633265486064-086b219458ec?w=400&h=250&fit=crop&q=80',
+    category: 'Security'
+  }
+];
+
+const trustIndicators = [
+  {
+    name: 'Malta Gaming Authority',
+    logo: '🏛️',
+    description: 'Licensed & Regulated'
+  },
+  {
+    name: 'UK Gambling Commission',
+    logo: '🇬🇧',
+    description: 'Authorized Operator'
+  },
+  {
+    name: 'eCOGRA Certified',
+    logo: '✓',
+    description: 'Fair Gaming'
+  },
+  {
+    name: 'SSL Encrypted',
+    logo: '🔒',
+    description: 'Secure Transactions'
+  },
+  {
+    name: 'Responsible Gaming',
+    logo: '🛡️',
+    description: 'Player Protection'
+  },
+  {
+    name: '24/7 Support',
+    logo: '💬',
+    description: 'Always Available'
+  }
+];
+---
+
+<Layout title="Help Center - CasinoPro | 24/7 Support">  
+  <main class="min-h-screen pt-20">
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+      <!-- Background -->
+      <div class="absolute inset-0">
+        <img 
+          src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1920&h=600&fit=crop&q=80"
+          alt="Help Center Background"
+          class="absolute inset-0 w-full h-full object-cover opacity-10"
+        />
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-dark-950 via-dark-900 to-secondary-900/20"></div>
+      
+      <!-- Animated circles -->
+      <div class="absolute top-20 left-10 w-72 h-72 bg-secondary-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-20 right-10 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+      
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center space-y-6">
+          <span class="inline-block text-secondary-500 font-bold text-sm uppercase tracking-widest mb-4 px-6 py-2 bg-secondary-500/10 rounded-full border border-secondary-500/30">
+            💬 24/7 Support
+          </span>
+          
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-tight">
+            <span class="text-gradient glow-text">Help Center</span>
+            <span class="block text-white mt-2">How Can We Help?</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Find answers to your questions or contact our support team anytime
+          </p>
+          
+          <!-- Search Bar -->
+          <div class="max-w-2xl mx-auto pt-8">
+            <div class="relative">
+              <input 
+                type="text" 
+                placeholder="Search for help articles, FAQs, guides..."
+                class="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-5 pl-14 text-white placeholder-gray-400 focus:outline-none focus:border-secondary-500 transition-colors text-lg"
+              />
+              <svg class="w-6 h-6 text-gray-400 absolute left-5 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Stats -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {supportStats.map(stat => (
+            <div class="card-glass p-6 text-center space-y-2 hover:scale-105 transition-transform">
+              <div class="text-4xl mb-2">{stat.icon}</div>
+              <div class="text-3xl md:text-4xl font-display font-black text-gradient">{stat.value}</div>
+              <div class="text-sm text-gray-400">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            Browse by <span class="text-gradient">Category</span>
+          </h2>
+          <p class="text-gray-400">Find help articles organized by topic</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categories.map(category => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 group cursor-pointer">
+              <div class={`w-16 h-16 bg-gradient-to-br ${category.color} rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl group-hover:scale-110 transition-transform`}>
+                {category.icon}
+              </div>
+              <h3 class="text-xl font-display font-bold text-white mb-2 text-center group-hover:text-secondary-500 transition-colors">
+                {category.name}
+              </h3>
+              <p class="text-gray-400 text-sm text-center mb-4">{category.description}</p>
+              <div class="text-center">
+                <span class="text-secondary-500 font-semibold text-sm">{category.articleCount} articles</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Articles -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Popular</span> Articles
+          </h2>
+          <p class="text-gray-400">Most viewed help articles</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="card-glass overflow-hidden">
+            <div class="divide-y divide-white/10">
+              {popularArticles.map((article, index) => (
+                <div class="p-6 hover:bg-white/5 transition-colors cursor-pointer group">
+                  <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-lg flex items-center justify-center text-white font-display font-bold">
+                      {index + 1}
+                    </div>
+                    
+                    <div class="flex-1">
+                      <h3 class="text-lg font-bold text-white mb-2 group-hover:text-secondary-500 transition-colors">
+                        {article.title}
+                      </h3>
+                      <div class="flex items-center gap-4 text-sm text-gray-400">
+                        <span class="px-2 py-1 bg-white/5 rounded-full text-xs">{article.category}</span>
+                        <div class="flex items-center gap-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                          </svg>
+                          <span>{article.views} views</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                          <svg class="w-4 h-4 text-accent-green" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"/>
+                          </svg>
+                          <span>{article.helpful} helpful</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-secondary-500 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Frequently</span> Asked Questions
+          </h2>
+          <p class="text-gray-400">Quick answers to common questions</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto space-y-4">
+          {faqs.map((faq, index) => (
+            <div class="card-glass overflow-hidden">
+              <details class="group">
+                <summary class="p-6 cursor-pointer list-none flex items-center justify-between hover:bg-white/5 transition-colors">
+                  <h3 class="text-lg font-bold text-white pr-4 group-open:text-secondary-500 transition-colors">
+                    {faq.question}
+                  </h3>
+                  <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </summary>
+                <div class="px-6 pb-6 pt-2 border-t border-white/10">
+                  <p class="text-gray-400 leading-relaxed">{faq.answer}</p>
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Tutorials -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Video</span> Tutorials
+          </h2>
+          <p class="text-gray-400">Watch step-by-step guides</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {videoTutorials.map(video => (
+            <div class="card-glass overflow-hidden hover:scale-105 transition-all duration-300 group cursor-pointer">
+              <div class="relative">
+                <img 
+                  src={video.thumbnail}
+                  alt={video.title}
+                  class="w-full h-40 object-cover"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/50 to-transparent"></div>
+                
+                <!-- Play Button -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-16 h-16 bg-primary-500/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+                
+                <!-- Duration Badge -->
+                <div class="absolute bottom-2 right-2 bg-dark-950/90 px-2 py-1 rounded text-xs text-white font-semibold">
+                  {video.duration}
+                </div>
+              </div>
+              
+              <div class="p-4 space-y-2">
+                <span class="text-xs text-secondary-500 font-semibold">{video.category}</span>
+                <h3 class="text-white font-bold group-hover:text-primary-500 transition-colors">
+                  {video.title}
+                </h3>
+                <div class="flex items-center text-sm text-gray-400">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                  {video.views} views
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Methods -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Contact</span> Support
+          </h2>
+          <p class="text-gray-400">Our team is here to help 24/7</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {contactMethods.map(method => (
+            <div class="card-glass p-6 hover:scale-105 transition-all duration-300 text-center space-y-4 cursor-pointer group">
+              <div class={`w-16 h-16 bg-gradient-to-br ${method.color} rounded-2xl flex items-center justify-center mx-auto text-3xl group-hover:scale-110 transition-transform`}>
+                {method.icon}
+              </div>
+              <h3 class="text-xl font-display font-bold text-white">{method.method}</h3>
+              <div class="space-y-2 text-sm">
+                <div class="flex items-center justify-center space-x-2 text-gray-400">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span>{method.availability}</span>
+                </div>
+                <div class="text-accent-green font-semibold">
+                  {method.responseTime}
+                </div>
+                <p class="text-gray-400 text-xs">{method.description}</p>
+              </div>
+              <button class="w-full bg-white/10 hover:bg-white/20 text-white font-semibold py-2 rounded-lg transition-colors border border-white/20">
+                Contact Now
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Quick</span> Links
+          </h2>
+          <p class="text-gray-400">Helpful resources and guides</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-yellow-600 rounded-lg flex items-center justify-center text-2xl">
+                📖
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-primary-500 transition-colors">Game Rules</h3>
+                <p class="text-gray-400 text-sm">Learn how to play</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-secondary-500 to-purple-600 rounded-lg flex items-center justify-center text-2xl">
+                📋
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-secondary-500 transition-colors">Terms & Conditions</h3>
+                <p class="text-gray-400 text-sm">Read our terms</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-accent-green to-emerald-600 rounded-lg flex items-center justify-center text-2xl">
+                🔐
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-accent-green transition-colors">Privacy Policy</h3>
+                <p class="text-gray-400 text-sm">Your data security</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-accent-blue to-blue-600 rounded-lg flex items-center justify-center text-2xl">
+                💳
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-accent-blue transition-colors">Payment Methods</h3>
+                <p class="text-gray-400 text-sm">Deposit & withdraw</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-accent-pink to-accent-red rounded-lg flex items-center justify-center text-2xl">
+                🛡️
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-accent-pink transition-colors">Responsible Gaming</h3>
+                <p class="text-gray-400 text-sm">Play safely</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+
+          <a href="#" class="card-glass p-6 hover:scale-105 transition-all duration-300 group">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-2xl">
+                ⚖️
+              </div>
+              <div class="flex-1">
+                <h3 class="text-white font-bold group-hover:text-orange-500 transition-colors">Dispute Resolution</h3>
+                <p class="text-gray-400 text-sm">File a complaint</p>
+              </div>
+              <svg class="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust & Security -->
+    <section class="section-padding">
+      <div class="container mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-black text-white mb-4">
+            <span class="text-gradient">Trust</span> & Security
+          </h2>
+          <p class="text-gray-400">Your safety is our priority</p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          {trustIndicators.map(indicator => (
+            <div class="card-glass p-6 text-center space-y-3 hover:scale-105 transition-all duration-300">
+              <div class="text-4xl mb-2">{indicator.logo}</div>
+              <h3 class="text-sm font-bold text-white">{indicator.name}</h3>
+              <p class="text-xs text-gray-400">{indicator.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-padding bg-dark-900/50">
+      <div class="container mx-auto">
+        <div class="card-glass p-12 text-center space-y-6 relative overflow-hidden">
+          <!-- Background effects -->
+          <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 via-primary-500/10 to-transparent"></div>
+          <div class="absolute top-0 right-0 w-64 h-64 bg-secondary-500/20 rounded-full blur-3xl"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl"></div>
+          
+          <div class="relative z-10">
+            <div class="text-6xl mb-4">💬</div>
+            <h2 class="text-4xl md:text-5xl font-display font-black text-white mb-4">
+              Still Need <span class="text-gradient">Help</span>?
+            </h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Can't find what you're looking for? Our support team is available 24/7 to assist you
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <button class="btn-primary text-lg px-12 py-4">
+                Start Live Chat
+              </button>
+              <button class="border-2 border-white/20 text-white hover:bg-white/10 font-bold py-4 px-12 rounded-lg transition-all duration-300 text-lg">
+                Send Email
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main></Layout>
+
+<script>
+  // Search functionality
+  const searchInput = document.querySelector('input[type="text"]');
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    // Add search logic here
+    console.log('Searching for:', searchTerm);
+  });
+</script>

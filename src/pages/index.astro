@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import FeaturedGames from '../components/FeaturedGames.astro';
+import QuickLinks from '../components/QuickLinks.astro';
+import LiveCasino from '../components/LiveCasino.astro';
+import Promotions from '../components/Promotions.astro';
+import Tournaments from '../components/Tournaments.astro';
+---
+
+<Layout title="CasinoPro - Premium Online Casino | Slots, Live Dealers & Jackpots">
+  <main>
+    <Hero />
+    <FeaturedGames />
+    <QuickLinks />
+    <LiveCasino />
+    <Promotions />
+    <Tournaments />
+  </main>
+  
+  <!-- Game Detail Modal Container -->
+  <div id="game-modal-container"></div>
+</Layout>
+
+<script>
+  // Initialize React components after page load
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Dynamically import React components
+    const { default: GameSearch } = await import('../components/GameSearch');
+    const { default: LiveActivity } = await import('../components/LiveActivity');
+    const { default: GameModalsHandler } = await import('../components/GameModalsHandler');
+    const { createElement } = await import('react');
+    const { createRoot } = await import('react-dom/client');
+
+    // Initialize Game Search in Hero
+    const heroSearchContainer = document.getElementById('hero-search-container');
+    if (heroSearchContainer) {
+      const searchRoot = createRoot(heroSearchContainer);
+      searchRoot.render(
+        createElement(GameSearch, {
+          placeholder: "Search games, providers, or features...",
+          className: "w-full",
+          onGameSelect: (game) => {
+            console.log('Selected game:', game);
+            // Could navigate to game detail page
+          }
+        })
+      );
+    }
+
+    // Initialize Live Activity in Hero
+    const heroLiveActivity = document.getElementById('hero-live-activity');
+    if (heroLiveActivity) {
+      const activityRoot = createRoot(heroLiveActivity);
+      activityRoot.render(
+        createElement(LiveActivity, {
+          maxActivities: 3,
+          intervalMs: 6000,
+          className: "w-full"
+        })
+      );
+    }
+
+    // Initialize Game Modals Handler (Detail + Demo)
+    const gameModalContainer = document.getElementById('game-modal-container');
+    if (gameModalContainer) {
+      const modalRoot = createRoot(gameModalContainer);
+      modalRoot.render(createElement(GameModalsHandler));
+    }
+  });
+</script>

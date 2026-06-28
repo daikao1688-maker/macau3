@@ -1,0 +1,49 @@
+/* Game Card Layout Fix - Ensures all buttons are aligned */
+
+/* Make all game cards use flexbox with full height */
+.game-card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* Image container should not grow */
+.game-card > div:first-child {
+  flex-shrink: 0 !important;
+}
+
+/* Content area should grow and use flexbox */
+.game-card > div:last-child {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+}
+
+/* Title should have consistent height with line clamp */
+.game-card h3 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  min-height: 3.5rem !important;
+}
+
+/* Category should have line clamp */
+.game-card h3 + p {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+/* Button container should be at the bottom */
+.game-card > div:last-child > button:first-of-type {
+  margin-top: auto !important;
+}
+
+/* Grid containers should stretch items */
+#games-grid,
+#games-grid-container,
+.games-grid {
+  align-items: stretch !important;
+}
