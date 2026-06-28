@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+import cloudflare from '@astrojs/cloudflare';
+
 const site = process.env.ASTRO_SITE || 'https://macau3.zhuanqian388.workers.dev';
 const base = process.env.ASTRO_BASE ?? '/';
 
@@ -10,8 +12,11 @@ const base = process.env.ASTRO_BASE ?? '/';
 export default defineConfig({
   site,
   base,
+
   integrations: [
     react(),
     sitemap()
-  ]
+  ],
+
+  adapter: cloudflare()
 });
