@@ -12,10 +12,13 @@
     "build": "npm run cms:build && astro build",
     "build:cloudflare": "npm run cms:build && ASTRO_SITE=https://macau3.zhuanqian388.workers.dev ASTRO_BASE=/ astro build",
     "build:github": "npm run cms:build && ASTRO_SITE=https://daikao1688-maker.github.io ASTRO_BASE=/macau3 astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "preview": "npm run build && wrangler dev",
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.0.1",
     "@astrojs/react": "^6.0.0",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.0.3",
@@ -32,7 +35,8 @@
     "autoprefixer": "^10.5.2",
     "postcss": "^8.5.15",
     "tinacms": "^3.9.3",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "wrangler": "^4.105.0"
   },
   "overrides": {
     "linkify-it": "^5.0.1",
